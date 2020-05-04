@@ -24,7 +24,7 @@ class Ftp:
         """ Enables FTP. """
         # Generating payload.
         ftp_data = {
-            "FTP_FTP": "0",
+            "FTP_FTP": "1",
         }
 
         # Uploading time server configuration.
@@ -45,7 +45,7 @@ class Ftp:
         """ Sets the port for use by FTP. """
         # Generating payload.
         ftp_data = {
-            "FTP_FTP": "0",
+            "FTP_FTP": "1",
             "FTP_PORT_FTP": str(port),
         }
 
