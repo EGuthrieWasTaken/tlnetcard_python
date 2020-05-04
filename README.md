@@ -1,7 +1,6 @@
 # tlnetcard_python [![Build Status](https://travis-ci.com/EGuthrieWasTaken/tlnetcard_python.svg?token=LUrGqUz1JQxq9JLRjGmk&branch=master)](https://travis-ci.com/EGuthrieWasTaken/tlnetcard_python) ![PyPI](https://img.shields.io/pypi/v/tlnetcard-python) ![PyPI - License](https://img.shields.io/pypi/l/tlnetcard-python)
 
-Welcome to tlnetcard_python! tlnetcard_python is a Python 3 API for the TLNET Supervisor web interface which is used with Tripp Lite's [TLNETCARD](https://www.tripplite.com/support/TLNETCARD), and aims to provide similar functionality in a scriptable format.  
-This API makes frequent use of the [requests_html](https://requests-html.kennethreitz.org/) module, and I strongly recommend you use it or its parent module [requests](https://requests.readthedocs.io/en/master/) in any projects which involve making HTML requests in Python.
+Welcome to tlnetcard_python! tlnetcard_python is a Python 3 API for the TLNET Supervisor web interface which is used with Tripp Lite's [TLNETCARD](https://www.tripplite.com/support/TLNETCARD), and aims to provide similar functionality in a scriptable format. This API makes frequent use of the [requests_html](https://requests-html.kennethreitz.org/) module, and I strongly recommend you use it or its parent module [requests](https://requests.readthedocs.io/en/master/) in any projects which involve making HTML requests in Python.
 
 ## Installation ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tlnetcard-python) ![PyPI - Format](https://img.shields.io/pypi/format/tlnetcard-python) ![PyPI - Downloads](https://img.shields.io/pypi/dw/tlnetcard-python)
 
