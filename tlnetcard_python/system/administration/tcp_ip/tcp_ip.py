@@ -27,11 +27,11 @@ class TcpIp:
         """ GETs the IPv4 search domain. """
     def get_subnet_mask(self):
         """ GETs the IPv4 subnet mask. """
-    def set_dns_ip(self, ip, protocol="IPv4"):
+    def set_dns_ip(self, ip_addr, protocol="IPv4"):
         """ Sets the DNS IP for the provided protocol. """
-    def set_gateway_ip(self, ip, protocol="IPv4"):
+    def set_gateway_ip(self, ip_addr, protocol="IPv4"):
         """ Sets the Gateway IP for the provided protocol. """
-    def set_ip_addr(self, ip, protocol="IPv4"):
+    def set_ip_addr(self, ip_addr, protocol="IPv4"):
         """ Sets the IP address for the provided protocol. """
     def set_prefix_len(self, length):
         """ Sets the IPv6 prefix length. """

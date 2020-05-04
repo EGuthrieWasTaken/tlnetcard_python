@@ -13,9 +13,9 @@
 |    ```get_prefix_len(protocol="IPv4")```    |          GETs the IPv6 prefix length.          |
 |          ```get_search_domain()```          |          GETs the IPv4 search domain.          |
 |           ```get_subnet_mask()```           |           GETs the IPv4 subnet mask.           |
-|    ```set_dns_ip(ip, protocol="IPv4")```    |   Sets the DNS IP for the provided protocol.   |
-|  ```set_gateway_ip(ip, protocol="IPv4")```  | Sets the Gateway IP for the provided protocol. |
-|    ```set_ip_addr(ip, protocol="IPv4")```   | Sets the IP address for the provided protocol. |
+|    ```set_dns_ip(ip_addr, protocol="IPv4")```    |   Sets the DNS IP for the provided protocol.   |
+|  ```set_gateway_ip(ip_addr, protocol="IPv4")```  | Sets the Gateway IP for the provided protocol. |
+|    ```set_ip_addr(ip_addr, protocol="IPv4")```   | Sets the IP address for the provided protocol. |
 |         ```set_prefix_len(length)```        |          Sets the IPv6 prefix length.          |
 |       ```set_search_domain(domain)```       |          Sets the IPv4 search domain.          |
 | ```set_subnet_mask(mask="255.255.255.0")``` |           Sets the IPv4 subnet mask.           |
@@ -258,7 +258,7 @@ subnet_mask = card_ip.get_subnet_mask()
 card.logout()
 ```
 
-## set_dns_ip(ip, protocol="IPv4")
+## set_dns_ip(ip_addr, protocol="IPv4")
 
 Sets the DNS IP address. When a DNS IP address is set using this function, DHCP is automatically disabled.  
 Example:
@@ -281,7 +281,7 @@ card_ip.set_dns_ip("1.1.1.1")
 card.logout()
 ```
 
-## set_gateway_ip(ip, protocol="IPv4")
+## set_gateway_ip(ip_addr, protocol="IPv4")
 
 Sets the Gateway IP address. When a gateway IP address is set using this function, DHCP is automatically disabled.  
 Example:
@@ -304,7 +304,7 @@ card_ip.set_gateway_ip("10.0.0.1")
 card.logout()
 ```
 
-## set_ip_addr(ip, protocol="IPv4")
+## set_ip_addr(ip_addr, protocol="IPv4")
 
 Sets the card's IP address. When an IP address is set using this function, DHCP is automatically disabled.  
 Example:
