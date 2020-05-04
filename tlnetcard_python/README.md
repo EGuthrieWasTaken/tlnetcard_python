@@ -24,7 +24,7 @@
 | ```ssl```                  | Boolean |    No    |    ```True```    | Determines whether or not the TLNET Supervisor at the host address has an SSL certificate i.e. does it use HTTPS. When set to ```True```, HTTPS will be used. |
 | ```reject_invalid_certs``` | Boolean |    No    |    ```True```    | Determines whether or not an invalid (i.e. a self-signed) SSL certificate will be rejected. When set to ```True```, invalid certificates will be rejected.    |
 
-Initializes the ```Login``` object. A ```Login``` object is required by all classes in this repository.  
+Initializes the Login object. A Login object is required by all classes in this repository.  
 Example:
 
 ```python
