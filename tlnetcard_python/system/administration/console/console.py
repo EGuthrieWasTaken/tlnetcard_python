@@ -103,7 +103,7 @@ class Console:
         if not isfile(key):
             print("Specified key file does not exist!")
             return -1
-        
+
         # Generating payload.
         console_data = {
             "CON_PUB": key
@@ -118,7 +118,7 @@ class Console:
         if not isfile(key):
             print("Specified key file does not exist!")
             return -1
-        
+
         # Generating payload.
         console_data = {
             "CON_DSA": key
@@ -133,7 +133,7 @@ class Console:
         if not isfile(key):
             print("Specified key file does not exist!")
             return -1
-        
+
         # Generating payload.
         console_data = {
             "CON_RSA": key
