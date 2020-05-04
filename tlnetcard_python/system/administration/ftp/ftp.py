@@ -36,11 +36,11 @@ class Ftp:
         resp = self._login_object.get_session().get(self._get_url)
 
         # Parsing response for primary server.
-        addr = resp.html.find("FTP_PORT_FTP")
-        start_index = str(addr).find("value=") + 7
-        end_index = str(addr).find("'", start_index)
+        addr = resp.text.find("NAME=\"FTP_PORT_FTP\"")
+        start_index = str(resp.text).find("VALUE=", addr) + 7
+        end_index = str(resp.text).find("\"", start_index)
 
-        return addr[start_index:end_index]
+        return resp.text[start_index:end_index]
     def set_ftp_port(self, port):
         """ Sets the port for use by FTP. """
         # Generating payload.
