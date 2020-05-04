@@ -25,22 +25,273 @@ Initializes the Console object. If ```login_object``` is a valid Login object, t
 
 ## disable_ssh()
 
+Disables SSH.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Disable SSH.
+card_console = Console(card)
+card_console.disable_ssh()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## disable_telnet()
+
+Disables Telnet.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Disable Telnet.
+card_console = Console(card)
+card_console.disable_telnet()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## enable_ssh()
 
+Enables SSH.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Enable SSH.
+card_console = Console(card)
+card_console.enable_ssh()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## enable_telnet()
+
+Enables Telnet.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Enable Telnet.
+card_console = Console(card)
+card_console.enable_telnet()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## get_ssh_port()
 
+GETs the SSH port.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get SSH port.
+card_console = Console(card)
+ssh_port = card_console.get_ssh_port()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## get_telnet_port()
+
+GETs the Telnet port.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get Telnet port.
+card_console = Console(card)
+telnet_port = card_console.get_telnet_port()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## set_ssh_port(port=22)
 
+|    Name    |   Type  | Required | Default Value |        Description       |
+|:----------:|:-------:|:--------:|:-------------:|:------------------------:|
+| ```port``` | Integer |    No    |    ```22```   | The SSH port to be used. |
+
+Sets the SSH port. When the SSH port is set using this function, SSH is automatically enabled.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set SSH port.
+card_console = Console(card)
+card_console.set_ssh_port(2222)
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## set_telnet_port(port=23)
+
+|    Name    |   Type  | Required | Default Value |         Description         |
+|:----------:|:-------:|:--------:|:-------------:|:---------------------------:|
+| ```port``` | Integer |    No    |    ```23```   | The Telnet port to be used. |
+
+Sets the Telnet port. When the Telnet port is set using this function, Telnet is automatically enabled.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set Telnet port.
+card_console = Console(card)
+card_console.set_telnet_port(2323)
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## upload_auth_public_key(key)
 
+|    Name   |  Type  | Required | Default Value |                  Description                  |
+|:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
+| ```key``` | String |    Yes   |      N/A      | The qualified name of the key file to upload. |
+
+Uploads the provided public authentication key. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Upload public authentication key.
+card_console = Console(card)
+card_console.upload_auth_public_key("/path/to/key/file")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## upload_dsa_host_key(key)
 
+|    Name   |  Type  | Required | Default Value |                  Description                  |
+|:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
+| ```key``` | String |    Yes   |      N/A      | The qualified name of the key file to upload. |
+
+Uploads the provided DSA host key. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Upload DSA host key.
+card_console = Console(card)
+card_console.upload_dsa_host_key("/path/to/key/file")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## upload_rsa_host_key(key)
+
+|    Name   |  Type  | Required | Default Value |                  Description                  |
+|:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
+| ```key``` | String |    Yes   |      N/A      | The qualified name of the key file to upload. |
+
+Uploads the provided RSA host key. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Console
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Upload RSA host key.
+card_console = Console(card)
+card_console.upload_rsa_host_key("/path/to/key/file")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
