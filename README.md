@@ -64,7 +64,7 @@ batch_config.upload_system_configuration("/home/sampleUser/sys_config.txt")
 card.logout()
 ```
 
-Note that this process could be placed into a loop to configure multiple systems. Additionally, using the [set_host()](https://github.com/EGuthrieWasTaken/tlnetcard_python/tree/master/tlnetcard_python#sethosthost-passwd) method allows for the same login object to be used with multiple hosts. The password will still need to be provided for each host change unless the ```save_passwd``` flag was set to ```True``` when the object was initialized. See example below:
+Note that this process could be placed into a loop to configure multiple systems. Additionally, using the [set_host()](https://github.com/EGuthrieWasTaken/tlnetcard_python/tree/master/tlnetcard_python#set_hosthost-passwd) method allows for the same login object to be used with multiple hosts. The password will still need to be provided for each host change unless the ```save_passwd``` flag was set to ```True``` when the object was initialized. See example below:
 
 ```python
 from tlnetcard_python import Login
