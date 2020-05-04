@@ -19,7 +19,7 @@ setuptools.setup(
     version=version,
     author="Ethan Guthrie",
     author_email="guthrieec@cofc.edu",
-    description="A Python 3 API for Tripp Lite's TLNETCard.",
+    description="A Python 3 API for Tripp Lite's TLNETCARD.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/EGuthrieWasTaken/tlnetcard_python",
