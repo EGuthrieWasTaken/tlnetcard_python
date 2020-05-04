@@ -146,7 +146,7 @@ card.logout()
       * [TCP/IP](/tlnetcard_python/system/administration/tcp_ip)
       * [Web](/tlnetcard_python/system/administration/web)
       * [Console](/tlnetcard_python/system/administration/console)
-      * [FTP](/tlnetcard_python/system/administration/ftp)
+      * FTP
       * [Time Server](/tlnetcard_python/system/administration/time_server)
       * [Syslog](/tlnetcard_python/system/administration/syslog)
       * [Batch Configuration](/tlnetcard_python/system/administration/batch_configuration)
