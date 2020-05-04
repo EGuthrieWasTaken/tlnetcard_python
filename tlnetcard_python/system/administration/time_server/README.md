@@ -98,7 +98,7 @@ card.logout()
 
 ## get_primary_server()
 
-GETs the primary time server and returns it. If no server is specified, this method will return an empty string.  
+GETs the primary time server and returns it. If no server is specified, this function will return an empty string.  
 Example:
 
 ```python
@@ -121,7 +121,7 @@ card.logout()
 
 ## get_secondary_server()
 
-GETs the primary time server and returns it. If no server is specified, this method will return an empty string.  
+GETs the primary time server and returns it. If no server is specified, this function will return an empty string.  
 Example:
 
 ```python

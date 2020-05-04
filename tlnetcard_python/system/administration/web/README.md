@@ -25,7 +25,7 @@ Initializes the Web object. If ```login_object``` is a valid Login object, then 
 
 ## disable_http()
 
-Disables HTTP. Be careful using this method as it may disrupt this API.  
+Disables HTTP. Be careful using this function as it may disrupt this API.  
 Example:
 
 ```python
@@ -48,7 +48,7 @@ card.logout()
 
 ## disable_https()
 
-Disables HTTPS. Be careful using this method as it may disrupt this API.  
+Disables HTTPS. Be careful using this function as it may disrupt this API.  
 Example:
 
 ```python
@@ -190,7 +190,7 @@ card.logout()
 |:----------:|:-------:|:--------:|:-------------:|:-------------------------:|
 | ```port``` | Integer |    No    |    ```80```   | The HTTP port to be used. |
 
-Sets the HTTP port. When the HTTP port is set using this function, HTTP is automatically enabled. Be careful using this method as it may disrupt this API.  
+Sets the HTTP port. When the HTTP port is set using this function, HTTP is automatically enabled. Be careful using this function as it may disrupt this API.  
 Example:
 
 ```python
@@ -217,7 +217,7 @@ card.logout()
 |:----------:|:-------:|:--------:|:-------------:|:-------------------------:|
 | ```port``` | Integer |    No    |   ```443```   | The HTTP port to be used. |
 
-Sets the HTTPS port. When the HTTPS port is set using this function, HTTP is automatically enabled. Be careful using this method as it may disrupt this API.  
+Sets the HTTPS port. When the HTTPS port is set using this function, HTTP is automatically enabled. Be careful using this function as it may disrupt this API.  
 Example:
 
 ```python

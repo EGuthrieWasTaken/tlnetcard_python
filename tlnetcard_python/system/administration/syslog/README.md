@@ -48,7 +48,7 @@ card.logout()
 
 ## clear_servers()
 
-Removes all servers from the syslog server list. This method returns nothing. It can be useful when servers need to be completely added from scratch and you don't want to get the current servers names.  
+Removes all servers from the syslog server list. This function returns nothing. It can be useful when servers need to be completely added from scratch and you don't want to get the current servers names.  
 Example:
 
 ```python
