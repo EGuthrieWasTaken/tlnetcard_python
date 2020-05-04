@@ -41,7 +41,7 @@ class Ftp:
         end_index = str(resp.text).find("\"", start_index)
 
         return resp.text[start_index:end_index]
-    def set_ftp_port(self, port):
+    def set_ftp_port(self, port=21):
         """ Sets the port for use by FTP. """
         # Generating payload.
         ftp_data = {
