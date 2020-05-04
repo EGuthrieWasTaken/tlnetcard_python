@@ -19,7 +19,7 @@ Initializes the Upgrade object. If ```login_object``` is a valid Login object, t
 |------------|--------|----------|------------------------------|----------------------------------------------------------|
 | ```path``` | String | No       | ```"ups-tl-01_12_05c.bin"``` | The upgrade ```.bin``` file, downloaded from Tripp Lite. |
 
-Uploads the specified SNMP Device Firmware. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, no value will be returned. Please note that the cards may not accept configuration files that do not use the  ```.bin``` file extension. Also, after upgrade files are uploaded, the card will become unresponsive for ~1 minute. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
+Uploads the specified SNMP Device Firmware. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned. Please note that the cards may not accept configuration files that do not use the  ```.bin``` file extension. Also, after upgrade files are uploaded, the card will become unresponsive for ~1 minute. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
 ```python

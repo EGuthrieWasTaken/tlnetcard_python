@@ -76,7 +76,7 @@ card.logout()
 |:----------:|:------:|----------|------------------------------------------------------------------------------------|------------------------------------------------|
 | ```path``` | String | No       | ```"snmp_config.ini"``` | The qualified name of the file to upload.      |
 
-Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, no value will be returned. Please note that the cards may not accept configuration files that do not use the ```.ini``` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
+Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned. Please note that the cards may not accept configuration files that do not use the ```.ini``` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
 ```python
@@ -107,7 +107,7 @@ card.logout()
 |:----------:|:------:|----------|------------------------------------------------------------------------------------|------------------------------------------------|
 | ```path``` | String | No       | ```"system_config.ini"``` | The qualified name of the file to upload.    |
 
-Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, no value will be returned. Please note that the cards may not accept configuration files that do not use the ```.ini``` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
+Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned. Please note that the cards may not accept configuration files that do not use the ```.ini``` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
 ```python
