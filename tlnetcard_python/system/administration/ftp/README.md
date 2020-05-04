@@ -6,7 +6,7 @@
 |      ```disable_ftp()```     |         Disables FTP.         |
 |      ```enable_ftp()```      |          Enables FTP.         |
 |     ```get_ftp_port()```     | GETs the port in use for FTP. |
-|   ```set_ftp_port(port)```   | Sets the port for use by FTP. |
+|   ```set_ftp_port(port=21)```   | Sets the port for use by FTP. |
 
 ## \_\_init__(login_object)
 
