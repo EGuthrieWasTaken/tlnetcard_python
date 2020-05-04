@@ -260,7 +260,7 @@ card.logout()
 
 ## set_dns_ip(ip, protocol="IPv4")
 
-Sets the DNS IP address.  
+Sets the DNS IP address. When a DNS IP address is set using this function, DHCP is automatically disabled.  
 Example:
 
 ```python
@@ -283,7 +283,7 @@ card.logout()
 
 ## set_gateway_ip(ip, protocol="IPv4")
 
-Sets the Gateway IP address.  
+Sets the Gateway IP address. When a gateway IP address is set using this function, DHCP is automatically disabled.  
 Example:
 
 ```python
@@ -329,7 +329,7 @@ card.logout()
 
 ## set_prefix_len(length)
 
-Sets the IPv6 prefix length.  
+Sets the IPv6 prefix length. When the prefix length is set using this function, DHCP is automatically disabled.  
 Example:
 
 ```python
@@ -352,7 +352,7 @@ card.logout()
 
 ## set_search_domain(domain)
 
-Sets the IPv4 search domain.  
+Sets the IPv4 search domain. When a search domain is set using this function, DHCP is automatically disabled.  
 Example:
 
 ```python
@@ -375,7 +375,7 @@ card.logout()
 
 ## set_subnet_mask(mask="255.255.255.0")
 
-Sets the IPv4 subnet mask.  
+Sets the IPv4 subnet mask. When a subnet mask is set using this function, DHCP is automatically disabled.  
 Example:
 
 ```python
