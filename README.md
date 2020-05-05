@@ -4,7 +4,7 @@ Welcome to tlnetcard_python! tlnetcard_python is a Python 3 API for the TLNET Su
 
 ## Installation ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tlnetcard-python) ![PyPI - Format](https://img.shields.io/pypi/format/tlnetcard-python) ![PyPI - Downloads](https://img.shields.io/pypi/dw/tlnetcard-python)
 
-This package is installed using pip. If you do not have pip installed on your system, you can install it by downloading [get-pip.py](https://bootstrap.pypa.io/get-pip.py) and running that python file (Windows/MacOS/Linux/BSD), or you can run the following command in terminal (Linux/BSD):
+This package is installed using pip. If you do not have pip installed on your system, you can install it by downloading [get-pip.py](https://pip.pypa.io/en/stable/installing/) and running that python file (Windows/MacOS/Linux/BSD), or you can run the following command in terminal (Linux/BSD):
 
 ```bash
 sudo apt install python3-pip
@@ -16,7 +16,7 @@ If you're using brew for MacOS, you can install pip (along with the rest of Pyth
 brew install python3
 ```
 
-**Note: The creator of this software does not recommend the installation of python or pip using brew, and instead recommends that pip be installed using [get-pip.py](https://bootstrap.pypa.io/get-pip.py), or that Python 3.4+ be installed from [python.org](https://www.python.org/downloads/) which include pip by default.**
+**Note: The creator of this software does not recommend the installation of python or pip using brew, and instead recommends that pip be installed using [get-pip.py](https://pip.pypa.io/en/stable/installing/), or that Python 3.6+ be installed using the installation candidates found on [python.org](https://www.python.org/downloads/), which include pip by default.**
 
 ### Using Pip to install from PyPi
 
