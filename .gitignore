@@ -4,6 +4,9 @@
 # VSCode
 .vscode
 
+# Version number file
+version.txt
+
 # PyPi build script.
 pypi-build.sh
 
