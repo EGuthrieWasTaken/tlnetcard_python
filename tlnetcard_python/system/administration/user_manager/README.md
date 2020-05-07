@@ -1,10 +1,91 @@
 # [user_manager.py](user_manager.py)
 
+|                                                                                                                                       Function Header                                                                                                                                      |              Quick Description              |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------:|
+|                                                                                                                                ```__init__(login_object)```                                                                                                                                |     Initializes the UserManager object.     |
+|                                                                                                                                   ```disable_radius()```                                                                                                                                   |       Disables RADIUS authentication.       |
+|                                                                                                                                    ```enable_radius()```                                                                                                                                   |        Enables RADIUS authentication.       |
+|                                                                                                                         ```get_permissions(user="Administrator")```                                                                                                                        | GETs the permissions for the provided user. |
+|                                                                                                                                   ```get_server_info()```                                                                                                                                  |  GETs information about the RADIUS server.  |
+|                                                                                                                                      ```get_user()```                                                                                                                                      |  GETs information about the provided user.  |
+| ```set_permissions(user="Administrator", login_user=False, framed_user=False, callback_login=False, callback_framed=False, outbound=False, administrative=False, nas_prompt=False, authenticate_only=False, callback_nas_prompt=False, call_check=False, callback_administrative=False)``` |   Sets permissions for the provided user.   |
+|                                                                                                                         ```set_server_info(server, secret, port)```                                                                                                                        |   Sets information for the RADIUS server.   |
+|                                                                                                          ```set_user(username, passwd, wan_access=False, user="Administrator")```                                                                                                          |   Sets information for the provided user.   |
+
 ## disable_radius()
+
+Disables RADIUS authentication.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Disable RADIUS.
+card_user_manager = UserManager(card)
+card_user_manager.disable_radius()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## enable_radius()
 
+Enables RADIUS authentication. RADIUS will be enabled automatically when server info is set using [set_server_info()](#set_server_infoserver-secret-port), so there is no need to use these two functions together.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Enable RADIUS.
+card_user_manager = UserManager(card)
+card_user_manager.enable_radius()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## get_permissions(user="Administrator")
+
+GETs permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user permissions will be returned.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Enable RADIUS.
+card_user_manager = UserManager(card)
+admin_permissions = card_user_manager.get_permissions()
+print(admin_permissions["Administrative"])
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+Which may print, for example:
+```python
+True
+```
 
 ## get_server_info()
 
