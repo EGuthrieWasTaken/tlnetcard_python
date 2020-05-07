@@ -166,7 +166,7 @@ class UserManager:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=user_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-
+        return 0
     def set_server_info(self, server, secret, port):
         """ Sets information for the user management server. """
         # Generating payload.
