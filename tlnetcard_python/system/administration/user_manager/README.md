@@ -60,7 +60,7 @@ card.logout()
 
 ## get_permissions(user="Administrator")
 
-GETs permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user permissions will be returned.  
+GETs permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user permissions will be returned. The dictionary keys are as follows: ```Login User```, ```Framed User```, ```Callback Login```, ```Callback Framed```, ```Outbound```, ```Administrative```, ```NAS Prompt```, ```Authenticate Only```, ```Callback NAS Prompt```, ```Call Check```, and ```Callback Administrative``` where each key contains a boolean for whether or not the permission is granted for that user type.  
 Example:
 
 ```python
@@ -70,7 +70,7 @@ from tlnetcard_python.system.administration import UserManager
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Enable RADIUS.
+# Get administrative permissions.
 card_user_manager = UserManager(card)
 admin_permissions = card_user_manager.get_permissions()
 print(admin_permissions["Administrative"])
@@ -83,19 +83,150 @@ card.logout()
 ```
 
 Which may print, for example:
+
 ```python
 True
 ```
 
 ## get_server_info()
 
+GETs information about the RADIUS server and returns it in a dictionary. The dictionary keys are as follows:  
+
+* ```IP```: The IP of the RADIUS server.
+* ```Secret```: The secret string for the RADIUS server.
+* ```Port```: The port RADIUS is using.
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get RADIUS server information.
+card_user_manager = UserManager(card)
+radius_server = card_user_manager.get_server_info()
+print(radius_server["IP"])
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+Which may print, for example:
+
+```python
+"10.0.0.200"
+```
+
 ## get_user(user="Administrator")
+
+GETs information about the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user information will be returned. The dictionary keys are as follows:  
+
+* ```Type```: The type of user (this will be identical to the ```user``` parameter).
+* ```Name```: The user's name.
+* ```Password```: The user's password.
+* ```WAN Access```: Whether the user can be accessed from outside of the LAN.
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get user information.
+card_user_manager = UserManager(card)
+user_info = card_user_manager.get_user()
+print(user_info["Name"])
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+Which may print, for example:
+
+```python
+"10.0.0.200"
+```
 
 ## set_permissions(user="Administrator", login_user=False, framed_user=False, callback_login=False, callback_framed=False, outbound=False, administrative=False, nas_prompt=False, authenticate_only=False, callback_nas_prompt=False, call_check=False, callback_administrative=False)
 
+Sets the permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Setting user permissions.
+card_user_manager = UserManager(card)
+card_user_manager.set_permissions(user="Read Only", callback_nas_prompt=True, outbound=True)
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## set_server_info(server, secret, port)
 
-## set_user(user="Administrator", user, passwd, wan_access=False)
+Sets information for the RADIUS server.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Setting user permissions.
+card_user_manager = UserManager(card)
+card_user_manager.set_server_info("10.0.0.200", "Av43udHEk3uh2278eDss", 3333)
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+## set_user(username, passwd, wan_access=False, user="Administrator")
+
+Sets information for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import UserManager
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Setting user information.
+card_user_manager = UserManager(card)
+card_user_manager.set_server_info("manager", "imthecaptain", user="Device Manager")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## Documentation Tree
 
