@@ -3,6 +3,9 @@
 # 04/06/2020
 """ Allows user and permission settings to be configured. """
 
+# Required internal class.
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
+
 class UserManager:
     """ Class for the UserManager object. """
     def __init__(self, login_object):
@@ -10,6 +13,7 @@ class UserManager:
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_user.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_user"
+        self._batch_object = BatchConfiguration(self._login_object)
     def disable_radius(self):
         """ Disables RADIUS authentication. """
         # Generating payload.
@@ -40,23 +44,33 @@ class UserManager:
         user_permissions = {}
         # Setting user type string.
         if user == "Administrator":
-            user_type = "RTA"
+            user_type = "RADIUS Admin User"
         elif user == "Device Manager":
-            user_type = "RTD"
+            user_type = "RADIUS Device User"
         elif user == "Read Only User":
-            user_type = "RTU"
+            user_type = "RADIUS User User"
         else:
             return -1
 
-        # GETing User Manager page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system configuration and writing lines to list.
+        self._batch_object.download_system_configuration("system_config.ini")
+        with open("system_config.ini", "r") as sys_config_file:
+            sys_config = sys_config_file.readlines()
 
-        # Parsing response for permissions.
+        # Parsing list for permissions code.
+        for line in sys_config:
+            if line.find(user_type) != -1:
+                permission_code = int(line.rstrip('\n').split("=")[1])
+                break
+
+        # Converting permissions code to binary string.
+        permission_code_bin = format(permission_code, '011b')
+        # Reversing binary.
+        permission_code_bin = permission_code_bin[::-1]
+
+        # Parsing binary to create dictionary.
         for i in range(0, len(permission_types)):
-            addr = resp.text.find("NAME=\"USR_" + user_type + "_" + str(i + 1) + "\"")
-            start_index = str(resp.text).find("VALUE=", addr) + 7
-            end_index = str(resp.text).find("\"", start_index)
-            user_permissions[permission_types[i]] = bool(int(resp.text[start_index:end_index]))
+            user_permissions[permission_types[i]] = bool(int(permission_code_bin[i]))
 
         return user_permissions
     def get_server_info(self):
@@ -140,32 +154,47 @@ class UserManager:
         """ Sets permissions for the provided user. """
         # Setting user type string.
         if user == "Administrator":
-            user_type = "RTA"
+            user_type = "RADIUS Admin User"
         elif user == "Device Manager":
-            user_type = "RTD"
+            user_type = "RADIUS Device User"
         elif user == "Read Only User":
-            user_type = "RTU"
+            user_type = "RADIUS User User"
         else:
             return -1
 
-        # Generating payload.
-        user_data = {
-            "USR_" + user_type + "_1": str(int(login_user)),
-            "USR_" + user_type + "_2": str(int(framed_user)),
-            "USR_" + user_type + "_3": str(int(callback_login)),
-            "USR_" + user_type + "_4": str(int(callback_framed)),
-            "USR_" + user_type + "_5": str(int(outbound)),
-            "USR_" + user_type + "_6": str(int(administrative)),
-            "USR_" + user_type + "_7": str(int(nas_prompt)),
-            "USR_" + user_type + "_8": str(int(authenticate_only)),
-            "USR_" + user_type + "_9": str(int(callback_nas_prompt)),
-            "USR_" + user_type + "_10": str(int(call_check)),
-            "USR_" + user_type + "_11": str(int(callback_administrative))
-        }
+        # Generating binary permissions string.
+        permission_code_bin = ""
+        permission_code_bin += str(int(login_user))
+        permission_code_bin += str(int(framed_user))
+        permission_code_bin += str(int(callback_login))
+        permission_code_bin += str(int(callback_framed))
+        permission_code_bin += str(int(outbound))
+        permission_code_bin += str(int(administrative))
+        permission_code_bin += str(int(nas_prompt))
+        permission_code_bin += str(int(authenticate_only))
+        permission_code_bin += str(int(callback_nas_prompt))
+        permission_code_bin += str(int(call_check))
+        permission_code_bin += str(int(callback_administrative))
 
-        # Uploading console configuration.
-        self._login_object.get_session().post(self._post_url, data=user_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+        # Converting binary string to integer.
+        permission_code = int(permission_code_bin, 2)
+
+        # GETing system configuration and writing lines to list.
+        self._batch_object.download_system_configuration("system_config.ini")
+        with open("system_config.ini", "r") as sys_config_file:
+            sys_config = sys_config_file.readlines()
+
+        # Parsing list and adding permissions code.
+        updated_sys_config = []
+        for line in sys_config:
+            if line.find(user_type) != -1:
+                updated_sys_config.append(user_type + " Type=" + str(permission_code))
+            else:
+                updated_sys_config.append(line)
+
+        # Uploading updated batch configuration file.
+        self._batch_object.upload_system_configuration()
+
         return 0
     def set_server_info(self, server, secret, port):
         """ Sets information for the RADIUS server. """
