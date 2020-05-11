@@ -64,6 +64,8 @@ class UserManager:
 
         # Converting permissions code to binary string.
         permission_code_bin = format(permission_code, '011b')
+        # Reversing binary.
+        permission_code_bin = permission_code_bin[::-1]
 
         # Parsing binary to create dictionary.
         for i in range(0, len(permission_types)):
