@@ -59,7 +59,7 @@ class UserManager:
 
         # Parsing list for permissions code.
         for line in sys_config:
-            if str(line).find(user_type != -1):
+            if line.find(user_type) != -1:
                 permission_code = int(line.rstrip('\n').split("=")[1])
 
         # Converting permissions code to binary string.
