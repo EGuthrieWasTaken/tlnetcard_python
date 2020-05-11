@@ -4,7 +4,7 @@
 """ Allows user and permission settings to be configured. """
 
 # Required internal class.
-from tlnetcard_python.System.Administration import BatchConfiguration
+from tlnetcard_python.system.administration import BatchConfiguration
 
 class UserManager:
     """ Class for the UserManager object. """
