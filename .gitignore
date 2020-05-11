@@ -13,6 +13,9 @@ pypi-build.sh
 # bfg cleaner.
 bfg-1.13.0.jar
 
+# To do file.
+TODO.txt
+
 ### Linux ###
 *~
 
