@@ -6,4 +6,4 @@ python:
 install:
   - pip3 install -r build_requirements.txt
 script:
-  - pytest test.py && pylint tlnetcard_python --disable=too-many-instance-attributes,too-many-arguments,consider-using-enumerate,too-few-public-methods
+  - pytest test.py && pylint tlnetcard_python --disable=too-many-instance-attributes,too-many-arguments,consider-using-enumerate,too-few-public-methods,too-many-locals
