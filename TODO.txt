@@ -1,3 +1,0 @@
-TODO: Remove too-few-public-methods from .travis.yml
-TODO: Add links to function headers.
-
