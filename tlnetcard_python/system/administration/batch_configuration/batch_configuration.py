@@ -32,8 +32,7 @@ class BatchConfiguration:
         # Submitting download request and writing to file.
         verify = self._login_object.get_reject_invalid_certs()
         with open(path, "w") as out_file:
-            out_file.write(self._login_object.get_session().post(self._post_url,
-                                                                 data=download_data,
+            out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
                                                                  verify=verify).text)
     def download_system_configuration(self, path=None):
         """ Downloads the system configuration and saves it to the specified file. """
@@ -53,8 +52,7 @@ class BatchConfiguration:
         # Submitting download request and writing to file.
         verify = self._login_object.get_reject_invalid_certs()
         with open(path, "w") as out_file:
-            out_file.write(self._login_object.get_session().post(self._post_url,
-                                                                 data=download_data,
+            out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
                                                                  verify=verify).text)
     def upload_snmp_configuration(self, path="snmp_config.ini"):
         """ Uploads the specified SNMP configuration file. """
@@ -65,7 +63,7 @@ class BatchConfiguration:
 
         # Creating upload payload.
         upload_data = {
-            'UL_F_SNMP': open(path, 'rb'),
+            'UL_F_SNMP': (path.split("/")[-1], open(path, 'rb')),
             'UL_SNMP': 'Upload'
         }
 
@@ -85,7 +83,7 @@ class BatchConfiguration:
 
         # Creating upload payload.
         upload_data = {
-            'UL_F_SNMP': open(path, 'rb'),
+            'UL_F_SNMP': (path.split("/")[-1], open(path, 'rb')),
             'UL_SNMP': 'Upload'
         }
 
