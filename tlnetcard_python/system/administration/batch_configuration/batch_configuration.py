@@ -4,7 +4,7 @@
 """ Allows batch configurations for SNMP or system settings to be uploaded or downloaded. """
 
 # Standard library.
-from os.path import isfile
+from os.path import isfile, realpath
 from pathlib import Path
 from platform import system
 
@@ -65,7 +65,7 @@ class BatchConfiguration:
 
         # Creating upload payload.
         upload_data = {
-            'UL_F_SNMP': path,
+            'UL_F_SNMP': realpath(path),
             'UL_SNMP': 'Upload'
         }
 
@@ -85,7 +85,7 @@ class BatchConfiguration:
 
         # Creating upload payload.
         upload_data = {
-            'UL_F_SYSTEM': path,
+            'UL_F_SYSTEM': realpath(path),
             'UL_SYSTEM': 'Upload'
         }
 
