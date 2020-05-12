@@ -65,7 +65,7 @@ class BatchConfiguration:
 
         # Creating upload payload.
         upload_data = {
-            'UL_F_SNMP': (path, open(path, 'rb'),
+            'UL_F_SNMP': (path, open(path, 'rb')),
             'UL_SNMP': 'Upload'
         }
 
