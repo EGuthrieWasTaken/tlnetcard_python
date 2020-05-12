@@ -4,6 +4,9 @@
 # VSCode
 .vscode
 
+# Plaything file.
+toy.py
+
 # Version number file
 version.txt
 
