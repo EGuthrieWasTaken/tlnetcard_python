@@ -175,6 +175,7 @@ class UserManager:
         permission_code_bin += str(int(callback_nas_prompt))
         permission_code_bin += str(int(call_check))
         permission_code_bin += str(int(callback_administrative))
+        permission_code_bin = permission_code_bin[::-1]
 
         # Converting binary string to integer.
         permission_code = int(permission_code_bin, 2)
@@ -188,9 +189,13 @@ class UserManager:
         updated_sys_config = []
         for line in sys_config:
             if line.find(user_type) != -1:
-                updated_sys_config.append(user_type + " Type=" + str(permission_code))
+                updated_sys_config.append(user_type + " Type=" + str(permission_code) + "\n")
             else:
                 updated_sys_config.append(line)
+
+        # Writing updated config to file.
+        with open("system_config.ini", "w") as sys_config_file:
+            sys_config_file.writelines(updated_sys_config)
 
         # Uploading updated batch configuration file.
         self._batch_object.upload_system_configuration()
