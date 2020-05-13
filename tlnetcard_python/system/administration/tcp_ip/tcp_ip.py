@@ -1,6 +1,6 @@
 # tcp_ip.py
 # Ethan Guthrie
-# DATE TBD
+# 05/04/2020
 """ Allows TCP/IP settings for IPv4/IPv6 to be configured. """
 
 class TcpIp:
