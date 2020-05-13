@@ -2,18 +2,18 @@
 
 |          Function Header          |                  Quick Description                  |
 |:---------------------------------:|:---------------------------------------------------:|
-|    ```__init__(login_object)```   |             Initializes the Web object.             |
-|        ```disable_http()```       |                Disables HTTP access.                |
-|       ```disable_https()```       |                Disables HTTPS access.               |
-|        ```enable_http()```        |                 Enables HTTP access.                |
-|        ```enable_https()```       |                Enables HTTPS access.                |
-|       ```get_http_port()```       |              GETs port in use for HTTP.             |
-|       ```get_https_port()```      |             GETs port in use for HTTPS.             |
-|      ```get_web_refresh()```      |        Gets the web refresh time in seconds.        |
-|    ```set_http_port(port=80)```   |              Sets port for use by HTTP.             |
-|   ```set_https_port(port=443)```  |             Sets port for use by HTTPS.             |
-| ```set_web_refresh(seconds=10)``` | Sets the web refresh time to ```seconds``` seconds. |
-|    ```upload_ssl_cert(path)```    |        Uploads the provided SSL certificate.        |
+|    [```__init__(login_object)```](#__init__login_object)   |             Initializes the Web object.             |
+|        [```disable_http()```](#disable_http)       |                Disables HTTP access.                |
+|       [```disable_https()```](#disable_https)       |                Disables HTTPS access.               |
+|        [```enable_http()```](#enable_http)        |                 Enables HTTP access.                |
+|        [```enable_https()```](#enable_https)       |                Enables HTTPS access.                |
+|       [```get_http_port()```](#get_http_port)       |              GETs port in use for HTTP.             |
+|       [```get_https_port()```](#get_https_port)      |             GETs port in use for HTTPS.             |
+|      [```get_web_refresh()```](#get_web_refresh)      |        Gets the web refresh time in seconds.        |
+|    [```set_http_port(port=80)```](#set_http_portport80)   |              Sets port for use by HTTP.             |
+|   [```set_https_port(port=443)```](#set_https_portport443)  |             Sets port for use by HTTPS.             |
+| [```set_web_refresh(seconds=10)```](#set_web_refreshseconds10) | Sets the web refresh time to ```seconds``` seconds. |
+|    [```upload_ssl_cert(path)```](#upload_ssl_certpath)    |        Uploads the provided SSL certificate.        |
 
 ## \_\_init__(login_object)
 

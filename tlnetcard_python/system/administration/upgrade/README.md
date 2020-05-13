@@ -2,8 +2,8 @@
 
 |                     Function Header                    |        Quick Description        |
 |:------------------------------------------------------:|:-------------------------------:|
-|              ```__init(login_object)__```              | Initializes the Upgrade object. |
-| ```upgrade_snmp_firmware(path="ups-tl-01_12_05c.bin")``` | Upgrades SNMP Device Firmware.  |
+|              [```__init(login_object)__```](#__init__login_object)              | Initializes the Upgrade object. |
+| [```upgrade_snmp_firmware(path="ups-tl-01_12_05c.bin")```](#upgradesnmpfirmwrepathups-tl-01_12_05cbin) | Upgrades SNMP Device Firmware.  |
 
 ## \_\_init__(login_object)
 

@@ -2,13 +2,13 @@
 
 |        Function Header       |                Quick Description                |
 |:----------------------------:|:-----------------------------------------------:|
-| ```__init__(login_object)``` |          Initializes the Syslog object.         |
-|    ```add_server(server)```   |              Adds a syslog server.              |
-|     ```clear_servers()```     |            Clears all syslog servers.           |
-|     ```disable_syslog()```    |             Disables syslog servers.            |
-|     ```enable_syslog()```     |             Enables syslog servers.             |
-|      ```get_servers()```      | GETs syslog servers and returns them in a list. |
-|  ```remove_server(server)```  |             Removes a syslog server.            |
+| [```__init__(login_object)```](#__init__login_object) |          Initializes the Syslog object.         |
+|    [```add_server(server)```](#add_serverserver)   |              Adds a syslog server.              |
+|     [```clear_servers()```](#clear_servers)     |            Clears all syslog servers.           |
+|     [```disable_syslog()```](#disable_syslog)    |             Disables syslog servers.            |
+|     [```enable_syslog()```](#enable_syslog)     |             Enables syslog servers.             |
+|      [```get_servers()```](#get_servers)      | GETs syslog servers and returns them in a list. |
+|  [```remove_server(server)```](#remove_serverserver)  |             Removes a syslog server.            |
 
 ## \_\_init__(login_object)
 

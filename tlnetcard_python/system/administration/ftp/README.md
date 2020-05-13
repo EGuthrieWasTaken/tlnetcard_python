@@ -2,11 +2,11 @@
 
 |        Function Header       |       Quick Description       |
 |:----------------------------:|:-----------------------------:|
-| ```__init__(login_object)``` |  Initializes the Ftp object.  |
-|      ```disable_ftp()```     |         Disables FTP.         |
-|      ```enable_ftp()```      |          Enables FTP.         |
-|     ```get_ftp_port()```     | GETs the port in use for FTP. |
-|   ```set_ftp_port(port=21)```   | Sets the port for use by FTP. |
+| [```__init__(login_object)```](#__init__login_object) |  Initializes the Ftp object.  |
+|      [```disable_ftp()```](#disable_ftp)     |         Disables FTP.         |
+|      [```enable_ftp()```](#enable_ftp)      |          Enables FTP.         |
+|     [```get_ftp_port()```](#get_ftp_port)     | GETs the port in use for FTP. |
+|   [```set_ftp_port(port=21)```](#set_ftp_portport)   | Sets the port for use by FTP. |
 
 ## \_\_init__(login_object)
 
