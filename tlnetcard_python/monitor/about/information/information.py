@@ -16,5 +16,5 @@ class Information:
 
         # Parsing response for firmware version.
         start_index = str(resp.text).find("Version : ") + 10
-        end_index = str(resp.text).find(" ", start_index)
+        end_index = str(resp.text).find("\n", start_index)
         return resp.text[start_index:end_index]
