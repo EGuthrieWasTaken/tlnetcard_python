@@ -4,6 +4,9 @@
 # VSCode
 .vscode
 
+# Class template.
+template.py
+
 # Plaything file.
 toy.py
 
