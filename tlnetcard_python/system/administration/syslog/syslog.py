@@ -3,9 +3,6 @@
 # 04/16/2020
 """ Allows syslog servers to be added or removed. """
 
-# Related third-party library.
-
-
 class Syslog:
     """ Class for the syslog object. """
     def __init__(self, login_object):
