@@ -1,9 +1,10 @@
 # [upgrade.py](upgrade.py)
 
-|                     Function Header                    |        Quick Description        |
-|:------------------------------------------------------:|:-------------------------------:|
-|              [```__init(login_object)__```](#__init__login_object)              | Initializes the Upgrade object. |
-| [```upgrade_snmp_firmware(path="ups-tl-01_12_05c.bin")```](#upgradesnmpfirmwrepathups-tl-01_12_05cbin) | Upgrades SNMP Device Firmware.  |
+|                                             Function Header                                            |          Quick Description         |
+|:------------------------------------------------------------------------------------------------------:|:----------------------------------:|
+|                          [```__init__(login_object)```](#__init__login_object)                         |   Initializes the Upgrade object.  |
+|                          [```get_firmware_version()```](#get_firmware_version)                         | GETs the current firmware version. |
+| [```upgrade_snmp_firmware(path="ups-tl-01_12_05c.bin")```](#upgradesnmpfirmwrepathups-tl-01_12_05cbin) |   Upgrades SNMP device firmware.   |
 
 ## \_\_init__(login_object)
 
