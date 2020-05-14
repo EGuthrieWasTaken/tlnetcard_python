@@ -63,12 +63,14 @@ class BatchConfiguration:
 
         # Creating upload payload.
         upload_data = {
-            'UL_F_SNMP': (path.split("/")[-1], open(path, 'rb')),
             'UL_SNMP': 'Upload'
+        }
+        upload_file = {
+            'UL_F_SNMP': (path.split("/")[-1], open(path, 'rb'), 'multipart/form-data'),
         }
 
         # Uploading SNMP configuration.
-        self._login_object.get_session().post(self._post_url, data=upload_data,
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")

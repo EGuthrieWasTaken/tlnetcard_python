@@ -5,6 +5,8 @@
 
 # Required internal class.
 from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
+# Standard library.
+from os import remove
 
 class UserManager:
     """ Class for the UserManager object. """
@@ -181,8 +183,8 @@ class UserManager:
         permission_code = int(permission_code_bin, 2)
 
         # GETing system configuration and writing lines to list.
-        self._batch_object.download_system_configuration("system_config.ini")
-        with open("system_config.ini", "r") as sys_config_file:
+        self._batch_object.download_system_configuration("system_config_temp.ini")
+        with open("system_config_temp.ini", "r") as sys_config_file:
             sys_config = sys_config_file.readlines()
 
         # Parsing list and adding permissions code.
@@ -194,11 +196,14 @@ class UserManager:
                 updated_sys_config.append(line)
 
         # Writing updated config to file.
-        with open("system_config.ini", "w") as sys_config_file:
+        with open("system_config_temp.ini", "w") as sys_config_file:
             sys_config_file.writelines(updated_sys_config)
 
         # Uploading updated batch configuration file.
-        self._batch_object.upload_system_configuration()
+        self._batch_object.upload_system_configuration("system_config_temp.ini")
+
+        # Cleaning up.
+        remove("system_config_temp.ini")
 
         return 0
     def set_server_info(self, server, secret, port):
