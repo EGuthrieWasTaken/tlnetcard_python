@@ -3,7 +3,7 @@
 # 05/14/2020
 """ Allows battery parameters to be read. """
 
-class Battery_Parameters:
+class BatteryParameters:
     """ Class for the Battery_Parameters object. """
     def __init__(self, login_object):
         """ Initializes the Battery_Parameters object. """
