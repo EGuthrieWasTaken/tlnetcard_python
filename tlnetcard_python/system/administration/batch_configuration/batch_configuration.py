@@ -82,14 +82,12 @@ class BatchConfiguration:
             return -1
 
         # Creating upload payload.
-        upload_data = {
-            #'UL_F_SYSTEM': (path.split("/")[-1], open(path, 'rb')),
-            'UL_F_SYSTEM': path,
-            'UL_SYSTEM': 'Upload'
+        upload_file = {
+            'UL_F_SYSTEM': (path.split("/")[-1], open(path, 'rb'), 'multipart/form-data'),
         }
 
         # Uploading system configuration.
-        self._login_object.get_session().post(self._post_url, data=upload_data,
+        self._login_object.get_session().post(self._post_url, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
