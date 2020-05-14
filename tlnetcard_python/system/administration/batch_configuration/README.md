@@ -2,7 +2,7 @@
 
 |                      Function Header                      |                            Quick Description                           |
 |:---------------------------------------------------------:|:----------------------------------------------------------------------:|
-|                [```__init(login_object)__```](#__init__login_object)               |               Initializes the BatchConfiguration object.              |
+|                [```__init__(login_object)```](#__init__login_object)               |               Initializes the BatchConfiguration object.              |
 |         [```download_snmp_configuration(path=None)```](#download_snmp_configurationpathnone)        |  Downloads the SNMP configuration and saves it to the specified file.  |
 |        [```download_system_configuration(path=None)```](#download_system_configurationpathnone)       | Downloads the system configuration and saves it to the specified file. |
 |   [```upload_snmp_configuration(path="snmp_config.ini")```](#upload_snmp_configurationpath)   |             Uploads the specified SNMP configuration file.             |
