@@ -3,10 +3,10 @@
 # 04/06/2020
 """ Allows user and permission settings to be configured. """
 
-# Required internal class.
-from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 # Standard library.
 from os import remove
+# Required internal class.
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class UserManager:
     """ Class for the UserManager object. """
