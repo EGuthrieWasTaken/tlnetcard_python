@@ -13,6 +13,29 @@
 
 Initializes the Upgrade object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
+## get_firmware_version()
+
+GETs the firmware version for the TLNETCARD. **Please note that this function is simply an alias to the function of the same name in [information.py](/tlnetcard_python/monitor/about/information) from /tlnetcard_python/monitor/about/information.**  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import Upgrade
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get firmware version.
+card_upgrade = Upgrade(card)
+firmware_version = card_upgrade.get_firmware_version()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## upgradeSNMPFirmwre(path="ups-tl-01_12_05c.bin")
 
 | Name       | Type   | Required | Default Value                | Description                                              |
