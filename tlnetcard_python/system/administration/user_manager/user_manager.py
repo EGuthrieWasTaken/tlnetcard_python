@@ -55,8 +55,8 @@ class UserManager:
             return -1
 
         # GETing system configuration and writing lines to list.
-        self._batch_object.download_system_configuration("system_config.ini")
-        with open("system_config.ini", "r") as sys_config_file:
+        self._batch_object.download_system_configuration("system_config_temp.ini")
+        with open("system_config_temp.ini", "r") as sys_config_file:
             sys_config = sys_config_file.readlines()
 
         # Parsing list for permissions code.
@@ -73,6 +73,9 @@ class UserManager:
         # Parsing binary to create dictionary.
         for i in range(0, len(permission_types)):
             user_permissions[permission_types[i]] = bool(int(permission_code_bin[i]))
+
+        # Cleaning up.
+        remove("system_config_temp.ini")
 
         return user_permissions
     def get_server_info(self):
