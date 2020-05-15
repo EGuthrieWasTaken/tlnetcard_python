@@ -7,8 +7,8 @@
 # Class template.
 template.py
 
-# Plaything file.
-toy.py
+# Plaything files.
+toy*
 
 # Version number file
 version.txt
