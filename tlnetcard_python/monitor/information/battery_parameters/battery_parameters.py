@@ -56,10 +56,10 @@ class BatteryParameters:
 
             # Generating out payload.
             out = {
-                'Battery Capacity': int(battery_measurements['Battery Capacity']),
-                'Voltage': float(int(battery_measurements['Voltage'])/10),
+                'Battery Capacity (%)': int(battery_measurements['Battery Capacity']),
+                'Voltage (V)': float(int(battery_measurements['Voltage'])/10),
                 'Temperature (°C)': int(battery_measurements['Temperature']),
-                'Remaining Time': format(int(battery_measurements['Remaining Hours']), '02d') + ':' + format(int(battery_measurements['Remaining Minutes']), '02d')
+                'Remaining Time (HH:MM)': format(int(battery_measurements['Remaining Hours']), '02d') + ':' + format(int(battery_measurements['Remaining Minutes']), '02d')
             }
             return out
         else:
