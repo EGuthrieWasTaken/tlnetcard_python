@@ -3,10 +3,10 @@
 |                         Function Header                         |                          Quick Description                         |
 |:---------------------------------------------------------------:|:------------------------------------------------------------------:|
 |      [```__init__(login_object)```](#__init__login_object)      |              Initializes the BatteryParameters object.             |
-|        [```get_battery_status()```](#get_battery_status)        |                  GETs battery status information.                  |
-|   [```get_battery_measurements```](#get_battery_measurements)   | GETs information about battery capacity, temperature, and voltage. |
-| [```get_last_replacement_date()```](#get_last_replacement_date) |           GETs the last date the UPS battery was changed.          |
-| [```get_next_replacement_date()```](#get_next_replacement_date) |        GETs the next date the UPS battery should be changed.       |
+|        [```get_battery_status()```](#get_battery_status)        |                  Gets battery status information.                  |
+|   [```get_battery_measurements```](#get_battery_measurements)   | Gets information about battery capacity, temperature, and voltage. |
+| [```get_last_replacement_date()```](#get_last_replacement_date) |           Gets the last date the UPS battery was changed.          |
+| [```get_next_replacement_date()```](#get_next_replacement_date) |        Gets the next date the UPS battery should be changed.       |
 
 ## \_\_init__(login_object)
 
