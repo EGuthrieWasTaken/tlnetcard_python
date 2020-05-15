@@ -52,7 +52,7 @@ class BatteryParameters:
                                         error_index and var_binds[int(error_index) - 1][0] or '?'))
                     return -1
                 else:
-                    battery_measurements[i] = var_binds[0].split()[-1]
+                    battery_measurements[i] = str(var_binds[0]).split("=")[-1]
 
             # Generating out payload.
             out = {
