@@ -55,11 +55,13 @@ class BatteryParameters:
                     battery_measurements[i] = str(var_binds[0]).split("=")[-1]
 
             # Generating out payload.
+            hour = int(battery_measurements['Remaining Hours'])
+            mins = int(battery_measurements['Remaining Minutes'])
             out = {
                 'Battery Capacity (%)': int(battery_measurements['Battery Capacity']),
                 'Voltage (V)': float(int(battery_measurements['Voltage'])/10),
                 'Temperature (°C)': int(battery_measurements['Temperature']),
-                'Remaining Time (HH:MM)': format(int(battery_measurements['Remaining Hours']), '02d') + ':' + format(int(battery_measurements['Remaining Minutes']), '02d')
+                'Remaining Time (HH:MM)': '{hour:02d}:{mins:02d}'.format(hour=hour, mins=mins)
             }
             return out
         else:
