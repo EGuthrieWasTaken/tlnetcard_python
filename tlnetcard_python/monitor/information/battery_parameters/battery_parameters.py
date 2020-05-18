@@ -74,7 +74,7 @@ class BatteryParameters:
             browser.set_page_load_timeout(10)
             browser.implicitly_wait(10)
             # Getting card login page.
-            browser.get(self.login_object.get_base_url())
+            browser.get(self._login_object.get_base_url())
             # Adding cookies from requests session to "login".
             requests_cookies = self._login_object.get_session().cookies.get_dict()
             for cookie in requests_cookies:
