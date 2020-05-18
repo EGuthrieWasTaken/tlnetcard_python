@@ -2,13 +2,13 @@
 # Ethan Guthrie
 # 05/14/2020
 """ Allows battery parameters to be read. """
-
+# Standard library.
+from time import sleep
 # Related third-party library.
 from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from time import sleep
 
 class BatteryParameters:
     """ Class for the Battery_Parameters object. """
@@ -19,7 +19,7 @@ class BatteryParameters:
     def get_battery_status(self):
         """ Gets battery status information. """
     def get_battery_measurements(self, snmp=True, snmp_user=None,
-                                 snmp_auth_key=None, snmp_priv_key=None):
+                                 snmp_auth_key=None, snmp_priv_key=None, timeout=10):
         """ Gets information about battery capacity, temperature, and voltage. """
         if snmp:
             # SNMP will be used to get the value. This is the preferred method.
@@ -81,9 +81,10 @@ class BatteryParameters:
                                     'value': requests_cookies[cookie]})
             # Getting webpage again now that cookies are installed.
             browser.get(self._get_url)
-            
+
             # Getting out values.
             out = {}
+            counter = 0.0
             while True:
                 out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
                 out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
@@ -91,7 +92,12 @@ class BatteryParameters:
                 out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
                 if '' not in [out[i] for i in out]:
                     break
+                elif counter > timeout:
+                    print("Some/all values could not be retreived for the card at " + self._login_object.get_base_url() + "!")
+                    break
                 sleep(0.5)
+                counter += 0.5
+
             return out
     def get_last_replacement_date(self):
         """ Gets the last date the UPS battery was changed. """
