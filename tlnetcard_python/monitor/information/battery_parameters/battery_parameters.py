@@ -86,9 +86,9 @@ class BatteryParameters:
             out = {}
             counter = 0.0
             while True:
-                out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
-                out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
-                out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
+                out['Battery Capacity (%)'] = int(browser.find_element_by_id("UPS_BATTLEVEL").text)
+                out['Voltage (V)'] = float(browser.find_element_by_id("UPS_BATTVOLT").text)
+                out['Temperature (°C)'] = int(browser.find_element_by_id("UPS_TEMP").text)
                 out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
                 if '' not in [out[i] for i in out]:
                     break
