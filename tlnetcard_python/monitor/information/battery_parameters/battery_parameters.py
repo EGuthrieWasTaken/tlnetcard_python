@@ -8,9 +8,7 @@ from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import WebDriverWait
+from time import sleep
 
 class BatteryParameters:
     """ Class for the Battery_Parameters object. """
@@ -86,11 +84,14 @@ class BatteryParameters:
             
             # Getting out values.
             out = {}
-            out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
-            out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
-            out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
-            out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
-
+            while True:
+                out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
+                out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
+                out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
+                out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
+                if '' not in [out[i] for i in out]:
+                    break
+                sleep(0.5)
             return out
     def get_last_replacement_date(self):
         """ Gets the last date the UPS battery was changed. """
