@@ -84,14 +84,18 @@ class BatteryParameters:
             
             # Getting out values.
             out = {}
-            out['Battery Capacity (%)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_BATTLEVEL")))
-            out['Voltage (V)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_BATTVOLT")))
-            out['Temperature (°C)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_TEMP")))
-            out['Remaining Time (HH:MM)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_BATTREMAIN")))
-            #out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
-            #out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
-            #out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
-            #out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
+            batt_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_BATTLEVEL"))
+            volt_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_BATTVOLT"))
+            temp_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_TEMP"))
+            time_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_BATTREMAIN"))
+            WebDriverWait(browser, 10).until(batt_prsnt)
+            WebDriverWait(browser, 10).until(volt_prsnt)
+            WebDriverWait(browser, 10).until(temp_prsnt)
+            WebDriverWait(browser, 10).until(time_prsnt)
+            out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
+            out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
+            out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
+            out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
 
             return out
     def get_last_replacement_date(self):
