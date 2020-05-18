@@ -6,7 +6,8 @@
 # Related third-party library.
 from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
-#from selenium import webdriver
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 class BatteryParameters:
     """ Class for the Battery_Parameters object. """
@@ -14,7 +15,6 @@ class BatteryParameters:
         """ Initializes the Battery_Parameters object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_battery.asp"
-        # Selenium webdriver is required to scrape information from this page.
     def get_battery_status(self):
         """ Gets battery status information. """
     def get_battery_measurements(self, snmp=True, snmp_user=None,
@@ -66,7 +66,30 @@ class BatteryParameters:
             return out
         else:
             # Selenium will be used to scrape the value. This method is much slower than using SNMP.
-            return 0
+            # Configuring Selenium to run headless (i.e. without a GUI).
+            browser_options = Options()
+            browser_options.add_argument("--headless")
+            browser = webdriver.Chrome(options=browser_options)
+            # Configuring browser timeouts.
+            browser.set_page_load_timeout(10)
+            browser.implicitly_wait(10)
+            # Getting card login page.
+            browser.get(self.login_object.get_base_url())
+            # Adding cookies from requests session to "login".
+            requests_cookies = self._login_object.get_session().cookies.get_dict()
+            for cookie in requests_cookies:
+                browser.add_cookie(cookie)
+            # Getting webpage again now that cookies are installed.
+            browser.get(self._get_url)
+            
+            # Getting out values.
+            out = {}
+            out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
+            out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
+            out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
+            out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
+
+            return out
     def get_last_replacement_date(self):
         """ Gets the last date the UPS battery was changed. """
     def get_next_replacement_date(self):
