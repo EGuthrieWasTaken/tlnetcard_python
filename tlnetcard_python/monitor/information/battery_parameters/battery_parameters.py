@@ -78,20 +78,14 @@ class BatteryParameters:
             # Adding cookies from requests session to "login".
             requests_cookies = self._login_object.get_session().cookies.get_dict()
             for cookie in requests_cookies:
-                browser.add_cookie({'name': cookie, 'domain': self._login_object.get_host(), 'value': requests_cookies[cookie]})
+                browser.add_cookie({'name': cookie,
+                                    'domain': self._login_object.get_host(),
+                                    'value': requests_cookies[cookie]})
             # Getting webpage again now that cookies are installed.
             browser.get(self._get_url)
             
             # Getting out values.
             out = {}
-            batt_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_BATTLEVEL"))
-            volt_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_BATTVOLT"))
-            temp_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_TEMP"))
-            time_prsnt = expected_conditions.presence_of_element_located((By.ID, "UPS_BATTREMAIN"))
-            WebDriverWait(browser, 10).until(batt_prsnt)
-            WebDriverWait(browser, 10).until(volt_prsnt)
-            WebDriverWait(browser, 10).until(temp_prsnt)
-            WebDriverWait(browser, 10).until(time_prsnt)
             out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
             out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
             out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
