@@ -8,6 +8,7 @@ from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
 
 class BatteryParameters:
     """ Class for the Battery_Parameters object. """
@@ -70,9 +71,6 @@ class BatteryParameters:
             browser_options = Options()
             browser_options.add_argument("--headless")
             browser = webdriver.Chrome(options=browser_options)
-            # Configuring browser timeouts.
-            browser.set_page_load_timeout(10)
-            browser.implicitly_wait(10)
             # Getting card login page.
             browser.get(self._login_object.get_base_url())
             # Adding cookies from requests session to "login".
@@ -84,10 +82,14 @@ class BatteryParameters:
             
             # Getting out values.
             out = {}
-            out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
-            out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
-            out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
-            out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
+            out['Battery Capacity (%)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_BATTLEVEL").text != "")
+            out['Voltage (V)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_BATTVOLT").text != "")
+            out['Temperature (°C)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_TEMP").text != "")
+            out['Remaining Time (HH:MM)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_BATTREMAIN").text != "")
+            #out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
+            #out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
+            #out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
+            #out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
 
             return out
     def get_last_replacement_date(self):
