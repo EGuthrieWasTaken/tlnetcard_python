@@ -85,18 +85,18 @@ class BatteryParameters:
             # Getting out values.
             out = {}
             counter = 0.0
-            while True:
+            while timeout > counter:
                 out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
                 out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
                 out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
                 out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
                 if '' not in [out[i] for i in out]:
                     break
-                elif counter > timeout:
-                    print("Some/all values could not be retreived for the card at " + self._login_object.get_base_url() + "!")
-                    break
                 sleep(0.5)
                 counter += 0.5
+            if counter >= timeout:
+                print("Some/all values may not have been retreived for the card at "
+                      + self._login_object.get_base_url() + "!")
             # Adjusting data types.
             out['Battery Capacity (%)'] = int(out['Battery Capacity (%)'])
             out['Voltage (V)'] = float(out['Voltage (V)'])
