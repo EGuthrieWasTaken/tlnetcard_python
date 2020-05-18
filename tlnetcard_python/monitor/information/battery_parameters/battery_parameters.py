@@ -2,13 +2,8 @@
 # Ethan Guthrie
 # 05/14/2020
 """ Allows battery parameters to be read. """
-# Standard library.
-from time import sleep
-# Related third-party library.
-from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
-from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+# Required internal functions.
+from tlnetcard_python.monitor.information.information import get_with_snmp, scrape_with_selenium
 
 class BatteryParameters:
     """ Class for the Battery_Parameters object. """
@@ -23,7 +18,6 @@ class BatteryParameters:
         """ Gets information about battery capacity, temperature, and voltage. """
         if snmp:
             # SNMP will be used to get the value. This is the preferred method.
-            # Generating SNMP value-->key dictionary.
             snmp_dict = {
                 'Battery Capacity': 'iso.3.6.1.2.1.33.1.2.4',
                 'Voltage': 'iso.3.6.1.2.1.33.1.2.5', # In decivolts (i.e. divide this value by 10).
@@ -31,76 +25,45 @@ class BatteryParameters:
                 'Remaining Minutes': 'iso.3.6.1.2.1.33.1.2.3',
                 'Remaining Hours': 'iso.3.6.1.2.1.33.1.2.2'
             }
-            # Initializing output dictionary.
-            battery_measurements = {}
 
-            # Iterating through dictionary to get values.
-            for i in snmp_dict:
-                error_indication, error_status, error_index, var_binds = next(
-                    getCmd(SnmpEngine(),
-                           UsmUserData(snmp_user, authKey=snmp_auth_key, privKey=snmp_priv_key),
-                           UdpTransportTarget((self._login_object.get_host(), 161),
-                                              timeout=0.5, retries=1),
-                           ContextData(),
-                           ObjectType(ObjectIdentity(snmp_dict[i])))
-                )
+            # Getting values.
+            batt_cap, volts, temp, rem_mins, rem_hrs = get_with_snmp([snmp_dict[i]
+                                                                      for i in snmp_dict],
+                                                                     self._login_object.get_host(),
+                                                                     snmp_user,
+                                                                     snmp_auth_key,
+                                                                     snmp_priv_key,
+                                                                     timeout)
 
-                if error_indication:
-                    print(error_indication)
-                    return -1
-                elif error_status:
-                    print('%s at %s' % (error_status.prettyPrint(),
-                                        error_index and var_binds[int(error_index) - 1][0] or '?'))
-                    return -1
-                else:
-                    battery_measurements[i] = str(var_binds[0]).split("=")[-1]
-
-            # Generating out payload.
-            hour = int(battery_measurements['Remaining Hours'])
-            mins = int(battery_measurements['Remaining Minutes'])
+            # Generating out dictionary.
+            hour = int(rem_hrs)
+            mins = int(rem_mins)
             out = {
-                'Battery Capacity (%)': int(battery_measurements['Battery Capacity']),
-                'Voltage (V)': float(int(battery_measurements['Voltage'])/10),
-                'Temperature (°C)': int(battery_measurements['Temperature']),
+                'Battery Capacity (%)': int(batt_cap),
+                'Voltage (V)': float(int(volts)/10),
+                'Temperature (°C)': int(temp),
                 'Remaining Time (HH:MM)': '{hour:02d}:{mins:02d}'.format(hour=hour, mins=mins)
             }
             return out
         else:
             # Selenium will be used to scrape the value. This method is much slower than using SNMP.
-            # Configuring Selenium to run headless (i.e. without a GUI).
-            browser_options = Options()
-            browser_options.add_argument("--headless")
-            browser = webdriver.Chrome(options=browser_options)
-            # Getting card login page.
-            browser.get(self._login_object.get_base_url())
-            # Adding cookies from requests session to "login".
-            requests_cookies = self._login_object.get_session().cookies.get_dict()
-            for cookie in requests_cookies:
-                browser.add_cookie({'name': cookie,
-                                    'domain': self._login_object.get_host(),
-                                    'value': requests_cookies[cookie]})
-            # Getting webpage again now that cookies are installed.
-            browser.get(self._get_url)
+            # Getting values.
+            batt_cap, volts, temp, time, = scrape_with_selenium(self._login_object.get_host(),
+                                                                self._login_object.get_session(),
+                                                                self._get_url,
+                                                                ["UPS_BATTLEVEL",
+                                                                 "UPS_BATTVOLT",
+                                                                 "UPS_TEMP",
+                                                                 "UPS_BATTREMAIN"],
+                                                                timeout)
 
-            # Getting out values.
-            out = {}
-            counter = 0.0
-            while timeout > counter:
-                out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
-                out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
-                out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
-                out['Remaining Time (HH:MM)'] = browser.find_element_by_id("UPS_BATTREMAIN").text
-                if '' not in [out[i] for i in out]:
-                    break
-                sleep(0.5)
-                counter += 0.5
-            if counter >= timeout:
-                print("Some/all values may not have been retreived for the card at "
-                      + self._login_object.get_base_url() + "!")
-            # Adjusting data types.
-            out['Battery Capacity (%)'] = int(out['Battery Capacity (%)'])
-            out['Voltage (V)'] = float(out['Voltage (V)'])
-            out['Temperature (°C)'] = int(out['Temperature (°C)'])
+            # Generating out dictionary.
+            out = {
+                'Battery Capacity (%)': int(batt_cap),
+                'Voltage (V)': float(volts),
+                'Temperature (°C)': int(temp),
+                'Remaining Time (HH:MM)': time
+            }
             return out
     def get_last_replacement_date(self):
         """ Gets the last date the UPS battery was changed. """

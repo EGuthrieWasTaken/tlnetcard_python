@@ -5,3 +5,6 @@ from tlnetcard_python.monitor.information.in_out_parameters import InOutParamete
 from tlnetcard_python.monitor.information.identification import Identification
 from tlnetcard_python.monitor.information.status_indication import StatusIndication
 from tlnetcard_python.monitor.information.shutdown_agent import ShutdownAgent
+
+# Functions which all classes share.
+from tlnetcard_python.monitor.information.information import *
