@@ -78,7 +78,7 @@ class BatteryParameters:
             # Adding cookies from requests session to "login".
             requests_cookies = self._login_object.get_session().cookies.get_dict()
             for cookie in requests_cookies:
-                browser.add_cookie(cookie)
+                browser.add_cookie({'name': cookie, 'domain': self._login_object.get_host(), 'value': requests_cookies[cookie]})
             # Getting webpage again now that cookies are installed.
             browser.get(self._get_url)
             
