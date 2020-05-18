@@ -8,6 +8,8 @@ from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 class BatteryParameters:
@@ -82,10 +84,10 @@ class BatteryParameters:
             
             # Getting out values.
             out = {}
-            out['Battery Capacity (%)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_BATTLEVEL").text != "")
-            out['Voltage (V)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_BATTVOLT").text != "")
-            out['Temperature (°C)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_TEMP").text != "")
-            out['Remaining Time (HH:MM)'] = WebDriverWait(browser, 10).until(browser.find_element_by_id("UPS_BATTREMAIN").text != "")
+            out['Battery Capacity (%)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_BATTLEVEL")))
+            out['Voltage (V)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_BATTVOLT")))
+            out['Temperature (°C)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_TEMP")))
+            out['Remaining Time (HH:MM)'] = WebDriverWait(browser, 10).until(expected_conditions.presence_of_element_located((By.ID, "UPS_BATTREMAIN")))
             #out['Battery Capacity (%)'] = browser.find_element_by_id("UPS_BATTLEVEL").text
             #out['Voltage (V)'] = browser.find_element_by_id("UPS_BATTVOLT").text
             #out['Temperature (°C)'] = browser.find_element_by_id("UPS_TEMP").text
