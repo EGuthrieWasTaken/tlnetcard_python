@@ -1,5 +1,13 @@
 # [battery_parameters.py](battery_parameters.py)
 
+|                         Function Header                         |                          Quick Description                         |
+|:---------------------------------------------------------------:|:------------------------------------------------------------------:|
+|      [```__init__(login_object)```](#__init__login_object)      |              Initializes the BatteryParameters object.             |
+|        [```get_battery_status()```](#get_battery_statussnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)        |                  Gets battery status information.                  |
+|   [```get_battery_measurements()```](#get_battery_measurementssnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)   | Gets information about battery capacity, temperature, and voltage. |
+| [```get_last_replacement_date()```](#get_last_replacement_datetimeout10) |           Gets the last date the UPS battery was changed.          |
+| [```get_next_replacement_date()```](#get_next_replacement_datetimeout10) |        Gets the next date the UPS battery should be changed.       |
+
 ## Important Notes
 
 ### Selenium
@@ -9,14 +17,6 @@ If you elect to use Selenium for any of the functions in this class (or use func
 ### Selenium vs. SNMP
 
 It is recommended that the SNMP-based approach be used in all areas where this is possible. Selenium should generally only be used where it is absolutely necessary (or if you enjoy suffering).
-
-|                         Function Header                         |                          Quick Description                         |
-|:---------------------------------------------------------------:|:------------------------------------------------------------------:|
-|      [```__init__(login_object)```](#__init__login_object)      |              Initializes the BatteryParameters object.             |
-|        [```get_battery_status()```](#get_battery_statussnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)        |                  Gets battery status information.                  |
-|   [```get_battery_measurements()```](#get_battery_measurementssnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)   | Gets information about battery capacity, temperature, and voltage. |
-| [```get_last_replacement_date()```](#get_last_replacement_datetimeout10) |           Gets the last date the UPS battery was changed.          |
-| [```get_next_replacement_date()```](#get_next_replacement_datetimeout10) |        Gets the next date the UPS battery should be changed.       |
 
 ## \_\_init__(login_object)
 
