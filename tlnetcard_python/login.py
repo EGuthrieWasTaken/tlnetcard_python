@@ -8,7 +8,7 @@ from getpass import getpass
 from hashlib import md5
 from warnings import filterwarnings
 # Related third-party library.
-from requests import HTMLSession
+from requests import Session
 from urllib3.exceptions import InsecureRequestWarning
 
 class Login:
@@ -64,7 +64,7 @@ class Login:
         login_post_url = self._base_url + '/delta/login'
 
         # Initializing session (to provide login persistence).
-        session = HTMLSession()
+        session = Session()
 
         # Getting login screen HTML (so that Challenge can be retrieved).
         login_screen = session.get(login_get_url, verify=self._reject_invalid_certs, timeout=0.5)
