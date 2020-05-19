@@ -16,7 +16,7 @@ If you elect to use Selenium for any of the functions in this class (or use func
 
 ### Selenium vs. SNMP
 
-It is recommended that the SNMP-based approach be used in all areas where this is possible. Selenium should generally only be used where it is absolutely necessary (or if you enjoy suffering).
+It is recommended that the SNMP-based approach be used in all areas where this is possible. Selenium should generally only be used where it is absolutely necessary (or if you enjoy suffering) as it generally suffers from greatly reduced speeds.
 
 ## \_\_init__(login_object)
 
