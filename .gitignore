@@ -10,9 +10,6 @@ template.py
 # Plaything files.
 toy*
 
-# Version number file
-version.txt
-
 # PyPi build script.
 pypi-build.sh
 
