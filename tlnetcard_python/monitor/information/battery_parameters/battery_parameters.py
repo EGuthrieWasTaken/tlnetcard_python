@@ -65,26 +65,21 @@ class BatteryParameters:
                 'Voltage': 'iso.3.6.1.2.1.33.1.2.5', # In decivolts (i.e. divide this value by 10).
                 'Temperature': 'iso.3.6.1.2.1.33.1.2.7',
                 'Remaining Minutes': 'iso.3.6.1.2.1.33.1.2.3',
-                'Remaining Hours': 'iso.3.6.1.2.1.33.1.2.2'
             }
 
             # Getting values.
-            batt_cap, volts, temp, rem_mins, rem_hrs = get_with_snmp([snmp_dict[i]
-                                                                      for i in snmp_dict],
-                                                                     self._login_object.get_host(),
-                                                                     snmp_user,
-                                                                     snmp_auth_key,
-                                                                     snmp_priv_key,
-                                                                     timeout)
+            batt_cap, volts, temp, rem_mins = get_with_snmp([snmp_dict[i] for i in snmp_dict],
+                                                            self._login_object.get_host(),
+                                                            snmp_user, snmp_auth_key,
+                                                            snmp_priv_key, timeout)
 
             # Generating out dictionary.
-            hour = int(rem_hrs)
             mins = int(rem_mins)
             out = {
                 'Battery Capacity (%)': int(batt_cap),
                 'Voltage (V)': float(int(volts)/10),
                 'Temperature (°C)': int(temp),
-                'Remaining Time (HH:MM)': '{hour:02d}:{mins:02d}'.format(hour=hour, mins=mins)
+                'Remaining Time (HH:MM)': '{hour:02d}:{mins:02d}'.format(hour=(mins - (mins % 60))/60, mins=mins % 60)
             }
         else:
             # Selenium will be used to scrape the value. This method is slower than using SNMP.
