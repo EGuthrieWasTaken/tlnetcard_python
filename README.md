@@ -28,9 +28,9 @@ pip3 install tlnetcard-python
 
 And that's it! Now you can go right ahead to the quick-start guide!
 
-### Using Pip to Install from Source
+### Installing from Source
 
-Installing this package from source is the only way to guarantee you're getting the latest, bleeding-edge code. If you're installing from source, I assume you already know the risks (stability is not guaranteed, stability is not guaranteed, etc.). Assuming you have git installed, installation from source can be accomplished easily (MacOS/Linux/BSD):
+Installing this package from source is the only way to guarantee you're getting the latest, bleeding-edge code. If you're installing from source, I assume you already know the risks (stability is not guaranteed, stability is *not* guaranteed, etc.). Assuming you have git installed, installation from source can be accomplished easily (MacOS/Linux/BSD):
 
 ```bash
 git clone https://github.com/EGuthrieWasTaken/tlnetcard_python.git
@@ -44,6 +44,7 @@ If, for whatever reason, you have your heart set on not installing git on your s
 pip3 install .
 ```
 
+Of course, there is no need to use pip to install. In lieu of ```pip3 install .``` for either of the above methods, you could substitute ```python setup.py install```.  
 And that's it! Now you can go right ahead to the quick-start guide!
 
 ## Quick-Start Guide
