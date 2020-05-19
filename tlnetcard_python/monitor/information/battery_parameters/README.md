@@ -1,12 +1,14 @@
 # [battery_parameters.py](battery_parameters.py)
 
+**Important Note: If you elect to use Selenium for any of the functions in this class (or use functions where Selenium is required), you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as your version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).**
+
 |                         Function Header                         |                          Quick Description                         |
 |:---------------------------------------------------------------:|:------------------------------------------------------------------:|
 |      [```__init__(login_object)```](#__init__login_object)      |              Initializes the BatteryParameters object.             |
-|        [```get_battery_status()```](#get_battery_status)        |                  Gets battery status information.                  |
-|   [```get_battery_measurements```](#get_battery_measurements)   | Gets information about battery capacity, temperature, and voltage. |
-| [```get_last_replacement_date()```](#get_last_replacement_date) |           Gets the last date the UPS battery was changed.          |
-| [```get_next_replacement_date()```](#get_next_replacement_date) |        Gets the next date the UPS battery should be changed.       |
+|        [```get_battery_status()```](#get_battery_statussnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)        |                  Gets battery status information.                  |
+|   [```get_battery_measurements()```](#get_battery_measurementssnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)   | Gets information about battery capacity, temperature, and voltage. |
+| [```get_last_replacement_date()```](#get_last_replacement_datetimeout10) |           Gets the last date the UPS battery was changed.          |
+| [```get_next_replacement_date()```](#get_next_replacement_datetimeout10) |        Gets the next date the UPS battery should be changed.       |
 
 ## \_\_init__(login_object)
 
@@ -16,13 +18,153 @@
 
 Initializes the BatteryParameters object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## get_battery_status()
+## get_battery_status(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)
 
-## get_battery_measurements()
+|         Name        |   Type  | Required | Default Value |                                                     Description                                                    |
+|:-------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------------------------------------------------:|
+|      ```snmp```     | Boolean |    No    |   ```True```  |       When this value is set to ```True```, SNMP is used to fetch values. When ```False```, Selenium is used.      |
+|   ```snmp_user```   |  String |    No    |   ```None```  |          An SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing.         |
+| ```snmp_auth_key``` |  String |    No    |   ```None```  | The auth key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
+| ```snmp_priv_key``` |  String |    No    |   ```None```  | The priv key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
+|    ```timeout```    |  Float  |    No    |    ```10```   |                    The time in seconds which either SNMP or Selenium should wait before failing.                   |
 
-## get_last_replacement_date()
+Gets battery status information and returns it in a dictionary. The dictionary keys are as follows:  
 
-## get_next_replacement_date()
+* ```Battery Status```: The status code for the battery. It will be one of ```Unknown```, ```Normal```, ```Low```, or ```Depleted```.
+* ```On Battery Time (s)```: The number of seconds that the UPS has been running on battery power.
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.monitor.information import BatteryParameters
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get battery status information.
+card_battery = BatteryParameters(card)
+batt_status = card_battery.get_battery_status(snmp=False)["Battery Status"]
+if batt_status != "Normal":
+    print("The battery status for the UPS at " + card.get_host() + " is " + batt_status.lower() + "!")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+Which may print, for example:
+
+```python
+"The battery status for the UPS at 10.0.0.100 is unknown!"
+```
+
+## get_battery_measurements(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)
+
+|         Name        |   Type  | Required | Default Value |                                                     Description                                                    |
+|:-------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------------------------------------------------:|
+|      ```snmp```     | Boolean |    No    |   ```True```  |       When this value is set to ```True```, SNMP is used to fetch values. When ```False```, Selenium is used.      |
+|   ```snmp_user```   |  String |    No    |   ```None```  |          An SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing.         |
+| ```snmp_auth_key``` |  String |    No    |   ```None```  | The auth key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
+| ```snmp_priv_key``` |  String |    No    |   ```None```  | The priv key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
+|    ```timeout```    |  Float  |    No    |    ```10```   |                    The time in seconds which either SNMP or Selenium should wait before failing.                   |
+
+Gets battery measurements and returns them in a dictionary. The dictionary keys are as follows:  
+
+* ```Battery Capacity (%)```: The current battery capacity expressed as a percentage.
+* ```Voltage (V)```: The current voltage of the battery in Volts.
+* ```Temperature (°C)```: The current temperature of the battery in Celcius.
+* ```Remaining Time (HH:MM)```: The time the UPS can run on battery power before power is depleted expressed in ```MM:HH``` format.
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.monitor.information import BatteryParameters
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get battery measurements.
+card_battery = BatteryParameters(card)
+batt_temp = card_battery.get_battery_measurements(snmp=False)["Temperature (°C)"]
+if batt_temp >= 50:
+    print("The battery temperature for the UPS at " + card.get_host() + " is " + batt_temp + "°C!")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+Which may print, for example:
+
+```python
+"The battery temperature for the UPS at 10.0.0.100 is 53°C!"
+```
+
+## get_last_replacement_date(timeout=10)
+
+|      Name     |  Type | Required | Default Value |                           Description                          |
+|:-------------:|:-----:|:--------:|:-------------:|:--------------------------------------------------------------:|
+| ```timeout``` | Float |    No    |    ```10```   | The time in seconds which Selenium should wait before failing. |
+
+Gets the date that the battery was last replaced and returns it as a string with the format ```MM/DD/YYYY```.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.monitor.information import BatteryParameters
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get last battery replacement date.
+card_battery = BatteryParameters(card)
+last_replacement = card_battery.get_last_replacement_date()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+## get_next_replacement_date(timeout=10)
+
+|      Name     |  Type | Required | Default Value |                           Description                          |
+|:-------------:|:-----:|:--------:|:-------------:|:--------------------------------------------------------------:|
+| ```timeout``` | Float |    No    |    ```10```   | The time in seconds which Selenium should wait before failing. |
+
+Gets the date that the battery is due to be replaced.  
+Example:
+
+```python
+from datetime import datetime
+from tlnetcard_python import Login
+from tlnetcard_python.monitor.information import BatteryParameters
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Get next battery replacement date.
+card_battery = BatteryParameters(card)
+next_replacement = datetime.strptime(card_battery.get_next_replacement_date(), "%m/%d/%Y")
+now = datetime.now()
+if now > next_replacement:
+    print("The battery for the UPS at " + card.get_host() + " was due to be replaced " + str(abs((now - next_replacement).days)) + " day(s) ago!")
+else:
+    print("The battery for the UPS at " + card.get_host() + " is due to be replaced in " + str(abs((now - next_replacement).days)) + " day(s).")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## Documentation Tree
 

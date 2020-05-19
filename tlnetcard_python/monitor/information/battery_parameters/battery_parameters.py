@@ -37,7 +37,7 @@ class BatteryParameters:
             # Generating out dictionary.
             out = {
                 'Battery Status': status_dict[int(batt_stat)],
-                'On Battery Time': int(batt_time)
+                'On Battery Time (s)': int(batt_time)
             }
         else:
             # Selenium will be used to scrape the value. This method is slower than using SNMP.
@@ -51,7 +51,7 @@ class BatteryParameters:
             # Generating out dictionary.
             out = {
                 'Battery Status': batt_stat,
-                'On Battery Time': int(batt_time)
+                'On Battery Time (s)': int(batt_time)
             }
         return out
     def get_battery_measurements(self, snmp=True, snmp_user=None,
