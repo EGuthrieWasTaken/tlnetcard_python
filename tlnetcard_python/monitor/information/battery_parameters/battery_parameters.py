@@ -110,9 +110,9 @@ class BatteryParameters:
         """ Gets the last date the UPS battery was changed. """
         # This value is not available with SNMP.
         return scrape_with_selenium(self._login_object.get_host(), self._login_object.get_session(),
-                                    self._get_url, ["UPS_BATTLAST"], timeout)
+                                    self._get_url, ["UPS_BATTLAST"], timeout)[0]
     def get_next_replacement_date(self, timeout=10):
         """ Gets the next date the UPS battery should be changed. """
         # This value is not available with SNMP.
         return scrape_with_selenium(self._login_object.get_host(), self._login_object.get_session(),
-                                    self._get_url, ["UPS_BATTNEXT"], timeout)
+                                    self._get_url, ["UPS_BATTNEXT"], timeout)[0]
