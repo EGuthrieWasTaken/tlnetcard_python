@@ -45,9 +45,9 @@ class BatteryParameters:
             batt_stat, batt_time = scrape_with_selenium(self._login_object.get_host(),
                                                         self._login_object.get_session(),
                                                         self._get_url,
-                                                        ["UPS_BATTSTS","UPS_ONBATTTIME"],
+                                                        ["UPS_BATTSTS", "UPS_ONBATTTIME"],
                                                         timeout)
-            
+
             # Generating out dictionary.
             out = {
                 'Battery Status': batt_stat,
