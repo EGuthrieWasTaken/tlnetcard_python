@@ -1,6 +1,6 @@
 # tlnetcard_python [![Build Status](https://travis-ci.com/EGuthrieWasTaken/tlnetcard_python.svg?token=LUrGqUz1JQxq9JLRjGmk&branch=master)](https://travis-ci.com/EGuthrieWasTaken/tlnetcard_python) ![PyPI](https://img.shields.io/pypi/v/tlnetcard-python) ![PyPI - License](https://img.shields.io/pypi/l/tlnetcard-python) ![PyPI - Status](https://img.shields.io/pypi/status/tlnetcard-python)
 
-Welcome to tlnetcard_python! tlnetcard_python is a Python 3 API for the TLNET Supervisor web interface which is used with Tripp Lite's [TLNETCARD](https://www.tripplite.com/support/TLNETCARD), and aims to provide similar functionality in a scriptable format. This API makes frequent use of the [requests_html](https://requests-html.kennethreitz.org/) module, and I strongly recommend you use it or its parent module [requests](https://requests.readthedocs.io/en/master/) in any projects which involve making HTML requests in Python. A second thank you goes to the people making the [selenium](https://www.selenium.dev/) module, of which this API makes intermittent use.
+Welcome to tlnetcard_python! tlnetcard_python is a Python 3 API for the TLNET Supervisor web interface which is used with Tripp Lite's [TLNETCARD](https://www.tripplite.com/support/TLNETCARD), and aims to provide similar functionality in a scriptable format. This API makes frequent use of the [requests](https://github.com/psf/requests) module, and I recommend it for use in any projects which involve making HTML requests in Python. A second thank you goes to the people behind the [selenium](https://github.com/SeleniumHQ/selenium) and [PySNMP](https://github.com/etingof/pysnmp) modules respectively, of which this API makes intermittent use.
 
 ## Installation [![Downloads](https://pepy.tech/badge/tlnetcard-python)](https://pepy.tech/project/tlnetcard-python) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tlnetcard-python) ![PyPI - Format](https://img.shields.io/pypi/format/tlnetcard-python)
 
@@ -16,7 +16,7 @@ If you're using brew for MacOS, you can install pip (along with the rest of Pyth
 brew install python3
 ```
 
-**Note: The creator of this software does not recommend the installation of python or pip using brew, and instead recommends that pip be installed using [get-pip.py](https://pip.pypa.io/en/stable/installing/), or that Python 3.6+ be installed using the installation candidates found on [python.org](https://www.python.org/downloads/), which include pip by default.**
+**Note: The creator of this software does not recommend the installation of python or pip using brew, and instead recommends that pip be installed using [get-pip.py](https://pip.pypa.io/en/stable/installing/), or that Python 3.5+ be installed using the installation candidates found on [python.org](https://www.python.org/downloads/), which include pip by default.**
 
 ### Using Pip to install from PyPi
 
