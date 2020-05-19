@@ -79,7 +79,7 @@ class BatteryParameters:
                 'Battery Capacity (%)': int(batt_cap),
                 'Voltage (V)': float(int(volts)/10),
                 'Temperature (°C)': int(temp),
-                'Remaining Time (HH:MM)': '{hour:02d}:{mins:02d}'.format(hour=(mins - (mins % 60))/60, mins=mins % 60)
+                'Remaining Time (HH:MM)': '{hour:02d}:{mins:02d}'.format(hour=int((mins - (mins % 60))/60), mins=mins % 60)
             }
         else:
             # Selenium will be used to scrape the value. This method is slower than using SNMP.
