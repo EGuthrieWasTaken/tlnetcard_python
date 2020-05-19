@@ -1,7 +1,12 @@
 # [battery_parameters.py](battery_parameters.py)
 
-### Important Notes
+## Important Notes
+
+### Selenium
+
 If you elect to use Selenium for any of the functions in this class (or use functions where Selenium is required), you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as your version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).
+
+### Selenium vs. SNMP
 
 It is recommended that the SNMP-based approach be used in all areas where this is possible. Selenium should generally only be used where it is absolutely necessary (or if you enjoy suffering).
 
