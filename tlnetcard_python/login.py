@@ -8,7 +8,7 @@ from getpass import getpass
 from hashlib import md5
 from warnings import filterwarnings
 # Related third-party library.
-from requests_html import HTMLSession
+from requests import HTMLSession
 from urllib3.exceptions import InsecureRequestWarning
 
 class Login:
