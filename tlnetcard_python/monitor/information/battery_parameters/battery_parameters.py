@@ -26,6 +26,19 @@ class BatteryParameters:
             batt_stat, batt_time = get_with_snmp([snmp_dict[i] for i in snmp_dict],
                                                  self._login_object.get_host(), snmp_user,
                                                  snmp_auth_key, snmp_priv_key, timeout)
+            # Battery status is actually returned as an integer whose values map as follows:
+            status_dict = {
+                1: 'Unknown',
+                2: 'Normal',
+                3: 'Low',
+                4: 'Depleted'
+            }
+
+            # Generating out dictionary.
+            out = {
+                'Battery Status': status_dict[int(batt_stat)],
+                'On Battery Time': int(batt_time)
+            }
         else:
             # Selenium will be used to scrape the value. This method is slower than using SNMP.
             # Getting values.
@@ -34,11 +47,12 @@ class BatteryParameters:
                                                         self._get_url,
                                                         ["UPS_BATTSTS","UPS_ONBATTTIME"],
                                                         timeout)
-        # Generating out dictionary.
-        out = {
-            'Battery Status': batt_stat,
-            'On Battery Time': int(batt_time)
-        }
+            
+            # Generating out dictionary.
+            out = {
+                'Battery Status': batt_stat,
+                'On Battery Time': int(batt_time)
+            }
         return out
     def get_battery_measurements(self, snmp=True, snmp_user=None,
                                  snmp_auth_key=None, snmp_priv_key=None, timeout=10):
