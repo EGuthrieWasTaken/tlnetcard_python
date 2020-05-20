@@ -12,7 +12,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Initialize class methods.
-def get_with_snmp(snmp_ids, host, snmp_user=None, snmp_auth_key=None,
+def get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None,
                   snmp_priv_key=None, timeout=10):
     """ Gets the provided SNMP values from their SNMP IDs. """
     out = []
@@ -36,22 +36,23 @@ def get_with_snmp(snmp_ids, host, snmp_user=None, snmp_auth_key=None,
         else:
             out.append(str(var_binds[0]).split("=")[-1])
     return out
-def scrape_with_selenium(host, session, url, element_ids, timeout=10):
+def scrape_with_selenium(host, element_ids, url, session=None, timeout=10):
     """ Scrapes the provided web elements by their ID from the provided webpage. """
     # Configuring Selenium to run headless (i.e. without a GUI).
     browser_options = Options()
     browser_options.add_argument("--headless")
     browser = webdriver.Chrome(options=browser_options)
-    # Getting card login page.
+    # Getting url.
     browser.get(url)
-    # Adding cookies from requests session to "login".
-    requests_cookies = session.cookies.get_dict()
-    for cookie in requests_cookies:
-        browser.add_cookie({'name': cookie,
-                            'domain': host,
-                            'value': requests_cookies[cookie]})
-    # Getting webpage again now that cookies are installed.
-    browser.get(url)
+    if session is not None:
+        # Adding cookies from requests session.
+        requests_cookies = session.cookies.get_dict()
+        for cookie in requests_cookies:
+            browser.add_cookie({'name': cookie,
+                                'domain': host,
+                                'value': requests_cookies[cookie]})
+        # Getting webpage again now that cookies are installed.
+        browser.get(url)
 
     # Getting out dictionary.
     out = {}

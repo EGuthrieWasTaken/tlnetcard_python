@@ -23,8 +23,8 @@ class BatteryParameters:
             }
 
             # Getting values.
-            batt_stat, batt_time = get_with_snmp([snmp_dict[i] for i in snmp_dict],
-                                                 self._login_object.get_host(), snmp_user,
+            batt_stat, batt_time = get_with_snmp(self._login_object.get_host(),
+                                                 [snmp_dict[i] for i in snmp_dict], snmp_user,
                                                  snmp_auth_key, snmp_priv_key, timeout)
             # Battery status is actually returned as an integer whose values map as follows:
             status_dict = {
@@ -43,10 +43,9 @@ class BatteryParameters:
             # Selenium will be used to scrape the value. This method is slower than using SNMP.
             # Getting values.
             batt_stat, batt_time = scrape_with_selenium(self._login_object.get_host(),
-                                                        self._login_object.get_session(),
-                                                        self._get_url,
                                                         ["UPS_BATTSTS", "UPS_ONBATTTIME"],
-                                                        timeout)
+                                                        self._get_url,
+                                                        self._login_object.get_session(), timeout)
 
             # Generating out dictionary.
             out = {
@@ -68,8 +67,8 @@ class BatteryParameters:
             }
 
             # Getting values.
-            batt_cap, volts, temp, rem_mins = get_with_snmp([snmp_dict[i] for i in snmp_dict],
-                                                            self._login_object.get_host(),
+            batt_cap, volts, temp, rem_mins = get_with_snmp(self._login_object.get_host(),
+                                                            [snmp_dict[i] for i in snmp_dict],
                                                             snmp_user, snmp_auth_key,
                                                             snmp_priv_key, timeout)
 
@@ -87,12 +86,12 @@ class BatteryParameters:
             # Selenium will be used to scrape the value. This method is slower than using SNMP.
             # Getting values.
             batt_cap, volts, temp, time, = scrape_with_selenium(self._login_object.get_host(),
-                                                                self._login_object.get_session(),
-                                                                self._get_url,
                                                                 ["UPS_BATTLEVEL",
                                                                  "UPS_BATTVOLT",
                                                                  "UPS_TEMP",
                                                                  "UPS_BATTREMAIN"],
+                                                                self._get_url,
+                                                                self._login_object.get_session(),
                                                                 timeout)
 
             # Generating out dictionary.
@@ -106,10 +105,10 @@ class BatteryParameters:
     def get_last_replacement_date(self, timeout=10):
         """ Gets the last date the UPS battery was changed. """
         # This value is not available with SNMP.
-        return scrape_with_selenium(self._login_object.get_host(), self._login_object.get_session(),
-                                    self._get_url, ["UPS_BATTLAST"], timeout)[0]
+        return scrape_with_selenium(self._login_object.get_host(), ["UPS_BATTLAST"],
+                                    self._get_url, self._login_object.get_session(), timeout)[0]
     def get_next_replacement_date(self, timeout=10):
         """ Gets the next date the UPS battery should be changed. """
         # This value is not available with SNMP.
-        return scrape_with_selenium(self._login_object.get_host(), self._login_object.get_session(),
-                                    self._get_url, ["UPS_BATTNEXT"], timeout)[0]
+        return scrape_with_selenium(self._login_object.get_host(), ["UPS_BATTNEXT"],
+                                    self._get_url, self._login_object.get_session(), timeout)[0]
