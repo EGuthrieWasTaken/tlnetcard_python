@@ -68,6 +68,10 @@ card.logout()
 
 ## get_permissions(user="Administrator")
 
+|    Name    |  Type  | Required |     Default Value     |            Description           |
+|:----------:|:------:|:--------:|:---------------------:|:--------------------------------:|
+| ```user``` | String |    No    | ```"Administrator"``` | The user to get permissions for. |
+
 GETs permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user permissions will be returned. The dictionary keys are as follows: ```Login User```, ```Framed User```, ```Callback Login```, ```Callback Framed```, ```Outbound```, ```Administrative```, ```NAS Prompt```, ```Authenticate Only```, ```Callback NAS Prompt```, ```Call Check```, and ```Callback Administrative``` where each key contains a boolean for whether or not the permission is granted for that user type.  
 Example:
 
@@ -133,6 +137,10 @@ Which may print, for example:
 
 ## get_user(user="Administrator")
 
+|    Name    |  Type  | Required |     Default Value     |            Description           |
+|:----------:|:------:|:--------:|:---------------------:|:--------------------------------:|
+| ```user``` | String |    No    | ```"Administrator"``` | The user to get information for. |
+
 GETs information about the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user information will be returned. The dictionary keys are as follows:  
 
 * ```Type```: The type of user (this will be identical to the ```user``` parameter).
@@ -169,6 +177,21 @@ Which may print, for example:
 
 ## set_permissions(user="Administrator", login_user=False, framed_user=False, callback_login=False, callback_framed=False, outbound=False, administrative=False, nas_prompt=False, authenticate_only=False, callback_nas_prompt=False, call_check=False, callback_administrative=False)
 
+|              Name             |   Type  | Required |     Default Value     |                               Description                              |
+|:-----------------------------:|:-------:|:--------:|:---------------------:|:----------------------------------------------------------------------:|
+|           ```user```          |  String |    No    | ```"Administrator"``` |                    The user to set permissions for.                    |
+|        ```login_user```       | Boolean |    No    |      ```False```      |        Whether the user should have ```login_user``` permission.       |
+|       ```framed_user```       | Boolean |    No    |      ```False```      |       Whether the user should have ```framed_user``` permission.       |
+|      ```callback_login```     | Boolean |    No    |      ```False```      |      Whether the user should have ```callback_login``` permission.     |
+|     ```callback_framed```     | Boolean |    No    |      ```False```      |     Whether the user should have ```callback_framed``` permission.     |
+|         ```outbound```        | Boolean |    No    |      ```False```      |         Whether the user should have ```outbound``` permission.        |
+|      ```administrative```     | Boolean |    No    |      ```False```      |      Whether the user should have ```administrative``` permission.     |
+|        ```nas_prompt```       | Boolean |    No    |      ```False```      |        Whether the user should have ```nas_prompt``` permission.       |
+|    ```authenticate_only```    | Boolean |    No    |      ```False```      |    Whether the user should have ```authenticate_only``` permission.    |
+|   ```callback_nas_prompt```   | Boolean |    No    |      ```False```      |   Whether the user should have ```callback_nas_prompt``` permission.   |
+|        ```call_check```       | Boolean |    No    |      ```False```      |        Whether the user should have ```call_check``` permission.       |
+| ```callback_administrative``` | Boolean |    No    |      ```False```      | Whether the user should have ```callback_administrative``` permission. |
+
 Sets the permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
 Example:
 
@@ -190,7 +213,13 @@ card_user_manager.set_permissions(user="Read Only", callback_nas_prompt=True, ou
 card.logout()
 ```
 
-## set_server_info(server, secret, port)
+## set_server_info(server, secret, port=1812)
+
+|     Name     |   Type  | Required | Default Value |              Description             |
+|:------------:|:-------:|:--------:|:-------------:|:------------------------------------:|
+| ```server``` |  String |    Yes   |      N/A      | The IP address of the RADIUS server. |
+| ```secret``` |  String |    Yes   |      N/A      |  The RADIUS server's secret string.  |
+|  ```port```  | Integer |    No    |   ```1812```  | The port the RADIUS server is using. |
 
 Sets information for the RADIUS server.  
 Example:
@@ -214,6 +243,12 @@ card.logout()
 ```
 
 ## set_user(username, passwd, wan_access=False, user="Administrator")
+
+|       Name       |   Type  | Required |     Default Value     |                          Description                         |
+|:----------------:|:-------:|:--------:|:---------------------:|:------------------------------------------------------------:|
+|  ```username```  |  String |    Yes   |          N/A          |            The intended username for the account.            |
+| ```wan_access``` | Boolean |    No    |      ```False```      |    Whether the account should be accessible from the WAN.    |
+|    ```user```    |  String |    No    | ```"Administrator"``` | The type of user (from which permissions will be inherited). |
 
 Sets information for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
 Example:
