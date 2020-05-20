@@ -6,8 +6,8 @@ The functions in this file are not part of a class, and can be used independentl
 
 |                                                                                           Function Header                                                                                          |                             Quick Description                            |
 |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|
-| [```get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)```](#get_with_snmpsnmp_ids-host-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10) |            Gets the provided SNMP values from their SNMP IDs.            |
-|                               [```scrape_with_selenium(host, element_ids, url, session=None timeout=10)```](#scrape_with_seleniumhost-session-url-element_ids-timeout10)                               | Scrapes the provided web elements by their ID from the provided webpage. |
+| [```get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)```](#get_with_snmphost-snmp_ids-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10) |            Gets the provided SNMP values from their SNMP IDs.            |
+|                               [```scrape_with_selenium(host, element_ids, url, session=None timeout=10)```](#scrape_with_seleniumhost-element_ids-url-sessionnone-timeout10)                               | Scrapes the provided web elements by their ID from the provided webpage. |
 
 ## get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)
 
