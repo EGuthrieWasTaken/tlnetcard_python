@@ -44,7 +44,7 @@ If, for whatever reason, you have your heart set on not installing git on your s
 pip3 install .
 ```
 
-Of course, there is no need to use pip to install. In lieu of ```pip3 install .``` for either of the above methods, you could substitute ```python setup.py install```.  
+Of course, there is no need to use pip to install. In lieu of ```pip3 install .``` for either of the above methods, you could substitute ```python3 setup.py install```.  
 And that's it! Now you can go right ahead to the quick-start guide!
 
 ## Quick-Start Guide
