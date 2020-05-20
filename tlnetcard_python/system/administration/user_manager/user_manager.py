@@ -209,7 +209,7 @@ class UserManager:
         remove("system_config_temp.ini")
 
         return 0
-    def set_server_info(self, server, secret, port):
+    def set_server_info(self, server, secret, port=1812):
         """ Sets information for the RADIUS server. """
         # Generating payload.
         user_data = {
