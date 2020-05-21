@@ -103,7 +103,31 @@ class TcpIp:
         return out
     def get_ipv6_info(self):
         """ GETs info on how IPv6 is configured. """
-        
+        # Generating dictionary of items to search for and initializing out dictionary.
+        pretty = {
+            "V6 DHCP": "DHCP Status",
+            "V6 IP": "IP Address",
+            "V6 Gateway": "Gateway IP",
+            "V6 DNS": "DNS IP",
+        }
+        out = {}
+
+        # GETing system configuration and writing lines to list.
+        self._batch_object.download_system_configuration("system_config_temp.ini")
+        with open("system_config_temp.ini", "r") as sys_config_file:
+            sys_config = sys_config_file.readlines()
+
+        # Parsing list for required values.
+        for line in sys_config:
+            format_line = line.split("=")
+            if format_line[0] in pretty:
+                out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
+        out["Prefix Length"] = int(out["IP Address"].split("/")[1])
+        out["IP Address"] = out["IP Address"].split("/")[0]
+
+        # Cleaning up.
+        remove("system_config_temp.ini")
+        return out
     def get_system_info(self):
         """ GETs info on the system and its location. """
     def set_ipv4_info(self):
