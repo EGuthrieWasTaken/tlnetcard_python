@@ -86,13 +86,13 @@ class TcpIp:
         # Parsing response for value.
         for name in element_names:
             addr = str(resp.text).upper().find("NAME=\"" + name + "\"")
-            start_index = str(resp.text).find("VALUE=", addr) + 7
-            end_index = str(resp.text).find("\"", start_index)
+            start_index = str(resp.text).upper().find("VALUE=", addr) + 7
+            end_index = str(resp.text).upper().find("\"", start_index)
             info.append(resp.text[start_index:end_index])
 
         # Generating out dictionary.
         out = {
-            "DHCP Client": info[0],
+            "DHCP Enabled": info[0],
             "IP Address": info[1],
             "Subnet Mask": info[2],
             "Gateway IP": info[3],
