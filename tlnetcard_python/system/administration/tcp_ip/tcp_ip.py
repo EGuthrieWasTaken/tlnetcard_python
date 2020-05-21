@@ -130,6 +130,28 @@ class TcpIp:
         return out
     def get_system_info(self):
         """ GETs info on the system and its location. """
+        # Generating dictionary of items to search for and initializing out dictionary.
+        pretty = {
+            "Name": "Host Name",
+            "Contact": "System Contact",
+            "Location": "System Location"
+        }
+        out = {}
+
+        # GETing system configuration and writing lines to list.
+        self._batch_object.download_system_configuration("system_config_temp.ini")
+        with open("system_config_temp.ini", "r") as sys_config_file:
+            sys_config = sys_config_file.readlines()
+
+        # Parsing list for required values.
+        for line in sys_config:
+            format_line = line.split("=")
+            if format_line[0] in pretty:
+                out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
+
+        # Cleaning up.
+        remove("system_config_temp.ini")
+        return out
     def set_ipv4_info(self):
         """ Sets info on how IPv4 is configured. """
     def set_ipv6_info(self):
