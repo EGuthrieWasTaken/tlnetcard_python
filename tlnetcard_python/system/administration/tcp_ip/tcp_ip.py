@@ -20,24 +20,25 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def disable_dhcp(self, protocol="IPv4"):
-        """ Disables DHCP for the provided protocol. """
-        # Checking protocol and generating payload.
-        if protocol.find("4") != -1:
-            ip_data = {
-                "SYS_DHCP": "0"
-            }
-        elif protocol.find("6") != -1:
-            ip_data = {
-                "SYS_V6DHCP": "0"
-            }
-        else:
-            return -1
+    def disable_ipv4_dhcp(self):
+        """ Disables DHCP for IPv4. """
+        # Generating payload.
+        ip_data = {
+            "SYS_DHCP": "0"
+        }
 
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-        return 0
+    def disable_ipv6_dhcp(self):
+        """ Disables DHCP for IPv6. """
+        ip_data = {
+            "SYS_V6DHCP": "0"
+        }
+
+        # Uploading TCP/IP configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
     def enable_autonetogiation(self):
         """ Enables link speed negotiation. """
         # Generating payload.
@@ -48,198 +49,73 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_dhcp(self, protocol="IPv4"):
-        """ Enables DHCP for the provided protocol. """
-        # Checking protocol and generating payload.
-        if protocol.find("4") != -1:
-            ip_data = {
-                "SYS_DHCP": "1"
-            }
-        elif protocol.find("6") != -1:
-            ip_data = {
-                "SYS_V6DHCP": "1"
-            }
-        else:
-            return -1
-
-        # Uploading TCP/IP configuration.
-        self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
-        return 0
-    def get_dns_ip(self, protocol="IPv4"):
-        """ GETs the DNS IP for the provided protocol. """
-        # Checking protocol.
-        if protocol.find("4") != -1:
-            name = "SYS_DNS"
-        elif protocol.find("6") != -1:
-            name = "SYS_V6DNS"
-        else:
-            return -1
-
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Parsing response for DNS address.
-        addr = resp.text.find("NAME=\"" + name + "\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-        return resp.text[start_index:end_index]
-    def get_gateway_ip(self, protocol="IPv4"):
-        """ GETs the Gateway IP for the provided protocol. """
-        # Checking protocol.
-        if protocol.find("4") != -1:
-            name = "SYS_GATE"
-        elif protocol.find("6") != -1:
-            name = "SYS_V6GT"
-        else:
-            return -1
-
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Parsing response for gateway IP address.
-        addr = resp.text.find("NAME=\"" + name + "\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-        return resp.text[start_index:end_index]
-    def get_ip_addr(self, protocol="IPv4"):
-        """ GETs the IP address for the provided protocol. """
-        # Checking protocol.
-        if protocol.find("4") != -1:
-            name = "SYS_IP"
-        elif protocol.find("6") != -1:
-            name = "SYS_V6IP"
-        else:
-            return -1
-
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Parsing response for IP address.
-        addr = resp.text.find("NAME=\"" + name + "\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-        return resp.text[start_index:end_index]
-    def get_prefix_len(self):
-        """ GETs the IPv6 prefix length. """
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Parsing response for IPv6 prefix length.
-        addr = resp.text.find("NAME=\"SYS_V6LEN\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-        return resp.text[start_index:end_index]
-    def get_search_domain(self):
-        """ GETs the IPv4 search domain. """
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Parsing response for IPv6 prefix length.
-        addr = resp.text.find("NAME=\"SYS_DOMAIN\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-        return resp.text[start_index:end_index]
-    def get_subnet_mask(self):
-        """ GETs the IPv4 subnet mask. """
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Parsing response for IPv6 prefix length.
-        addr = resp.text.find("NAME=\"SYS_MASK\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-        return resp.text[start_index:end_index]
-    def set_dns_ip(self, ip_addr, protocol="IPv4"):
-        """ Sets the DNS IP for the provided protocol. """
-        # Checking protocol and generating payload.
-        if protocol.find("4") != -1:
-            ip_data = {
-                "SYS_DHCP": "0",
-                "SYS_DNS": str(ip_addr)
-            }
-        elif protocol.find("6") != -1:
-            ip_data = {
-                "SYS_V6DHCP": "0",
-                "SYS_V6DNS": str(ip_addr)
-            }
-        else:
-            return -1
-
-        # Uploading TCP/IP configuration.
-        self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
-        return 0
-    def set_gateway_ip(self, ip_addr, protocol="IPv4"):
-        """ Sets the Gateway IP for the provided protocol. """
-        # Checking protocol and generating payload.
-        if protocol.find("4") != -1:
-            ip_data = {
-                "SYS_DHCP": "0",
-                "SYS_GATE": str(ip_addr)
-            }
-        elif protocol.find("6") != -1:
-            ip_data = {
-                "SYS_V6DHCP": "0",
-                "SYS_V6GW": str(ip_addr)
-            }
-        else:
-            return -1
-
-        # Uploading TCP/IP configuration.
-        self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
-        return 0
-    def set_ip_addr(self, ip_addr, protocol="IPv4"):
-        """ Sets the IP address for the provided protocol. """
-        # Checking protocol and generating payload.
-        if protocol.find("4") != -1:
-            ip_data = {
-                "SYS_DHCP": "0",
-                "SYS_IP": str(ip_addr)
-            }
-        elif protocol.find("6") != -1:
-            ip_data = {
-                "SYS_V6DHCP": "0",
-                "SYS_V6IP": str(ip_addr)
-            }
-        else:
-            return -1
-
-        # Uploading TCP/IP configuration.
-        self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
-        return 0
-    def set_prefix_len(self, length):
-        """ Sets the IPv6 prefix length. """
+    def enable_ipv4_dhcp(self):
+        """ Enables DHCP for IPv4. """
         # Generating payload.
         ip_data = {
-            "SYS_V6DHCP": "0",
-            "SYS_V6LEN": str(length)
+            "SYS_DHCP": "1"
         }
 
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_search_domain(self, domain):
-        """ Sets the IPv4 search domain. """
-        # Generating payload.
+    def enable_ipv6_dhcp(self):
+        """ Enables DHCP for IPv6. """
         ip_data = {
-            "SYS_DHCP": "0",
-            "SYS_DOMAIN": str(domain)
+            "SYS_V6DHCP": "1"
         }
 
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_subnet_mask(self, mask):
-        """ Sets the IPv4 subnet mask. """
-        # Generating payload.
-        ip_data = {
-            "SYS_DHCP": "0",
-            "SYS_MASK": str(mask)
-        }
+    def get_ipv4_info(self):
+        """ GETs info on how IPv4 is configured. """
+        # GETing TCP/IP page.
+        resp = self._login_object.get_session().get(self._get_url)
 
-        # Uploading TCP/IP configuration.
-        self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+        # Initializing list to get values.
+        element_names = ["SYS_IP", "SYS_MASK", "SYS_GATE", "SYS_DNS", "SYS_DOMAIN"]
+
+        # Checking if DHCP in enabled for IPv4.
+        addr = resp.text.find("NAME=\"SYS_DHCP\"")
+        if resp.text.find(">") > resp.text.find("CHECKED=\"\""):
+            info = [True]
+        else:
+            info = [False]
+
+        # Parsing response for value.
+        for name in element_names:
+            addr = resp.text.find("NAME=\"" + name + "\"")
+            start_index = str(resp.text).find("VALUE=", addr) + 7
+            end_index = str(resp.text).find("\"", start_index)
+            info.append(resp.text[start_index:end_index])
+
+        # Generating out dictionary.
+        out = {
+            "DHCP Client": info[0],
+            "IP Address": info[1],
+            "Subnet Mask": info[2],
+            "Gateway IP": info[3],
+            "DNS IP": info[4],
+            "Search Domain": info[5]
+        }
+        return out
+    def get_ipv6_info(self):
+        """ GETs info on how IPv6 is configured. """
+
+    def get_system_info(self):
+        """ GETs info on the system and its location. """
+    def set_ipv4_info(self):
+        """ Sets info on how IPv4 is configured. """
+    def set_ipv6_info(self):
+        """ Sets info on how IPv6 is configured. """
+    def set_system_info(self):
+        """ Sets info on the system and its location. """
+    def use_10m_link_speed(self):
+        """ Sets the link speed to 10M. """
+    def use_100m_link_speed(self):
+        """ Sets the link speed to 100M. """
+    def use_full_duplex(self):
+        """ Sets the duplex for the link speed to full. """
+    def use_half_duplex(self):
+        """ Sets the duplex for the link speed to half. """
