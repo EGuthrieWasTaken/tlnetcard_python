@@ -74,18 +74,24 @@ class TcpIp:
         resp = self._login_object.get_session().get(self._get_url)
 
         # Initializing list to get values.
-        element_names = ["SYS_IP", "SYS_MASK", "SYS_GATE", "SYS_DNS", "SYS_DOMAIN"]
+        element_names = ["SYS_MASK", "SYS_GATE", "SYS_DNS", "SYS_DOMAIN"]
 
         # Checking if DHCP in enabled for IPv4.
-        dhcp_addr = str(resp.text).upper().find("name=\"SYS_DHCP\"")
-        if str(resp.text).upper().find(">", dhcp_addr) > str(resp.text).upper().find("CHECKED", dhcp_addr):
+        addr = str(resp.text).upper().find("name=\"SYS_DHCP\"")
+        if str(resp.text).upper().find(">", addr) > str(resp.text).upper().find("CHECKED", addr):
             info = [True]
         else:
             info = [False]
 
-        # Parsing response for value.
+        # Parsing response for IP address.
+        addr = str(resp.text).upper().find("NAME=\"SYS_IP\"")
+        start_index = str(resp.text).upper().find("VALUE=", addr) + 7
+        end_index = str(resp.text).upper().find("\"", start_index)
+        info.append(resp.text[start_index:end_index])
+
+        # Parsing response for other values.
         for name in element_names:
-            addr = str(resp.text).upper().find(name, dhcp_addr)
+            addr = str(resp.text).upper().find("NAME=" + name)
             start_index = str(resp.text).upper().find("VALUE=", addr) + 7
             end_index = str(resp.text).upper().find("\"", start_index)
             info.append(resp.text[start_index:end_index])
