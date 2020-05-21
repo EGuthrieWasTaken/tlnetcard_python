@@ -77,15 +77,15 @@ class TcpIp:
         element_names = ["SYS_IP", "SYS_MASK", "SYS_GATE", "SYS_DNS", "SYS_DOMAIN"]
 
         # Checking if DHCP in enabled for IPv4.
-        addr = resp.text.find("NAME=\"SYS_DHCP\"")
-        if resp.text.find(">") > resp.text.find("CHECKED=\"\""):
+        addr = str(resp.text).upper().find("NAME=\"SYS_DHCP\"")
+        if str(resp.text).upper().find(">") > str(resp.text).upper().find("CHECKED"):
             info = [True]
         else:
             info = [False]
 
         # Parsing response for value.
         for name in element_names:
-            addr = resp.text.find("NAME=\"" + name + "\"")
+            addr = str(resp.text).upper().find("NAME=\"" + name + "\"")
             start_index = str(resp.text).find("VALUE=", addr) + 7
             end_index = str(resp.text).find("\"", start_index)
             info.append(resp.text[start_index:end_index])
