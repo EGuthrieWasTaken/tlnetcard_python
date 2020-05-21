@@ -96,7 +96,7 @@ class TcpIp:
         for line in sys_config:
             format_line = line.split("=")
             if format_line[0] in items:
-                out[pretty[format_line[0]]] = format_line[1]
+                out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
                 
         # Cleaning up.
         remove("system_config_temp.ini")
