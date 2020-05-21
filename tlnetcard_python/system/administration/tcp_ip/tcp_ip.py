@@ -15,6 +15,7 @@ class TcpIp:
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_ipconfig.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_ipconfig"
+        self._batch_object = BatchConfiguration(self._login_object)
     def disable_autonegotiation(self):
         """ Disables link speed autonegotiation. """
         # Generating payload.
