@@ -27,17 +27,17 @@ class Login:
             self._passwd = passwd
         else:
             self._passwd = ""
-        # Generating base URL.
-        if ssl and self._host != "":
-            self._base_url = 'https://' + self._host
-        else:
-            self._base_url = 'http://' + self._host
         # Executing login if a host was specified.
         if self._host != "":
             self.perform_login(passwd)
     def get_base_url(self):
         """ Returns the base URL for TLNET Supervisor. """
-        return self._base_url
+        # Generating base URL.
+        if self._ssl and self._host != "":
+            base_url = 'https://' + self._host
+        else:
+            base_url = 'http://' + self._host
+        return base_url
     def get_host(self):
         """ Returns the host. """
         return self._host
@@ -60,8 +60,8 @@ class Login:
             filterwarnings("ignore", category=InsecureRequestWarning)
 
         # Setting login URLs for future use.
-        login_get_url = self._base_url + '/home.asp'
-        login_post_url = self._base_url + '/delta/login'
+        login_get_url = self.get_base_url() + '/home.asp'
+        login_post_url = self.get_base_url() + '/delta/login'
 
         # Initializing session (to provide login persistence).
         session = Session()
@@ -107,11 +107,7 @@ class Login:
             self.logout()
         # Saving host value.
         self._host = host
-        # Setting base_url value.
-        if self._ssl:
-            self._base_url = 'https://' + self._host
-        else:
-            self._base_url = 'http://' + self._host
+
         # Checking if password was provided or if password was saved, and then logging in.
         if passwd != "":
             self.perform_login(passwd)
