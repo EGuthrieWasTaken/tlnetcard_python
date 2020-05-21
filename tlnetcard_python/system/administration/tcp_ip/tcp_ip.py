@@ -85,7 +85,7 @@ class TcpIp:
 
         # Parsing response for value.
         for name in element_names:
-            addr = str(resp.text).upper().find(name)
+            addr = str(resp.text).upper().find(name, dhcp_addr)
             start_index = str(resp.text).upper().find("VALUE=", addr) + 7
             end_index = str(resp.text).upper().find("\"", start_index)
             info.append(resp.text[start_index:end_index])
