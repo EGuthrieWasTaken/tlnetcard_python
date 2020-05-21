@@ -97,7 +97,7 @@ class TcpIp:
             format_line = line.split("=")
             if format_line[0] in pretty:
                 out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
-                
+
         # Cleaning up.
         remove("system_config_temp.ini")
         return out
@@ -152,17 +152,84 @@ class TcpIp:
         # Cleaning up.
         remove("system_config_temp.ini")
         return out
-    def set_ipv4_info(self):
+    def set_ipv4_info(self, ip_addr, mask, gateway, dns_ip, domain):
         """ Sets info on how IPv4 is configured. """
-    def set_ipv6_info(self):
+        # Generating payload.
+        ip_data = {
+            "SYS_DHCP": "0",
+            "SYS_IP": ip_addr,
+            "SYS_MASK": mask,
+            "SYS_GATE": gateway,
+            "SYS_DNS": dns_ip,
+            "SYS_DOMAIN": domain
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
+    def set_ipv6_info(self, ip_addr, prefix_len, gateway, dns_ip):
         """ Sets info on how IPv6 is configured. """
-    def set_system_info(self):
+        # Generating payload.
+        ip_data = {
+            "SYS_V6DHCP": "0",
+            "SYS_V6IP": ip_addr,
+            "SYS_V6LEN": prefix_len,
+            "SYS_V6GW": gateway,
+            "SYS_V6DNS": dns_ip,
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
+    def set_system_info(self, name="TLNET", contact="", location=""):
         """ Sets info on the system and its location. """
+        # Generating payload.
+        ip_data = {
+            "SYS_NAM": name,
+            "SYS_CON": contact,
+            "SYS_LOC": location,
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
     def use_10m_link_speed(self):
         """ Sets the link speed to 10M. """
+        # Generating payload.
+        ip_data = {
+            "SYS_SPEED": "0"
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
     def use_100m_link_speed(self):
         """ Sets the link speed to 100M. """
+        # Generating payload.
+        ip_data = {
+            "SYS_SPEED": "1"
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
     def use_full_duplex(self):
         """ Sets the duplex for the link speed to full. """
+        # Generating payload.
+        ip_data = {
+            "SYS_DUPLEX": "1"
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
     def use_half_duplex(self):
         """ Sets the duplex for the link speed to half. """
+        # Generating payload.
+        ip_data = {
+            "SYS_DUPLEX": "0"
+        }
+
+        # Uploading web configuration.
+        self._login_object.get_session().post(self._post_url, data=ip_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
