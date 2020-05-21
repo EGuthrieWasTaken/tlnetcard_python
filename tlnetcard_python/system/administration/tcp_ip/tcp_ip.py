@@ -76,9 +76,9 @@ class TcpIp:
                                               verify=self._login_object.get_reject_invalid_certs())
     def get_ipv4_info(self):
         """ GETs info on how IPv4 is configured. """
-        # Generatign list of items to search for and initializing out dictionary.
-        items = ["IP", "Mask", "Gateway", "DNS IP", "Domain"]
+        # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
+            "Bootp": "DHCP Status",
             "IP": "IP Address",
             "Mask": "Subnet Mask",
             "Gateway": "Gateway IP",
@@ -95,7 +95,7 @@ class TcpIp:
         # Parsing list for required values.
         for line in sys_config:
             format_line = line.split("=")
-            if format_line[0] in items:
+            if format_line[0] in pretty:
                 out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
                 
         # Cleaning up.
@@ -103,7 +103,7 @@ class TcpIp:
         return out
     def get_ipv6_info(self):
         """ GETs info on how IPv6 is configured. """
-
+        
     def get_system_info(self):
         """ GETs info on the system and its location. """
     def set_ipv4_info(self):
