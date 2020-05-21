@@ -3,6 +3,11 @@
 # 05/04/2020
 """ Allows TCP/IP settings for IPv4/IPv6 to be configured. """
 
+# Standard library.
+from os import remove
+# Required internal class.
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
+
 class TcpIp:
     """ Class for the TcpIp object. """
     def __init__(self, login_object):
@@ -70,47 +75,30 @@ class TcpIp:
                                               verify=self._login_object.get_reject_invalid_certs())
     def get_ipv4_info(self):
         """ GETs info on how IPv4 is configured. """
-        # GETing TCP/IP page.
-        resp = self._login_object.get_session().get(self._get_url)
-
-        # Initializing list to get values.
-        element_names = ["SYS_MASK", "SYS_GATE", "SYS_DNS"]
-
-        # Checking if DHCP in enabled for IPv4.
-        addr = str(resp.text).upper().find("name=\"SYS_DHCP\"")
-        if str(resp.text).upper().find(">", addr) > str(resp.text).upper().find("CHECKED", addr):
-            info = [True]
-        else:
-            info = [False]
-
-        # Parsing response for IP address.
-        addr = str(resp.text).upper().find("NAME=\"SYS_IP\"")
-        start_index = str(resp.text).upper().find("VALUE=", addr) + 7
-        end_index = str(resp.text).upper().find("\"", start_index)
-        info.append(resp.text[start_index:end_index])
-
-        # Parsing response for some other values.
-        for name in element_names:
-            addr = str(resp.text).upper().find("NAME=" + name)
-            start_index = str(resp.text).upper().find("VALUE=", addr) + 7
-            end_index = str(resp.text).upper().find("\"", start_index)
-            info.append(resp.text[start_index:end_index])
-
-        # Parsing response for search domain.
-        addr = str(resp.text).upper().find("NAME=\"SYS_DOMAIN\"")
-        start_index = str(resp.text).upper().find("VALUE=", addr) + 7
-        end_index = str(resp.text).upper().find("\"", start_index)
-        info.append(resp.text[start_index:end_index])
-
-        # Generating out dictionary.
-        out = {
-            "DHCP Enabled": info[0],
-            "IP Address": info[1],
-            "Subnet Mask": info[2],
-            "Gateway IP": info[3],
-            "DNS IP": info[4],
-            "Search Domain": info[5]
+        # Generatign list of items to search for and initializing out dictionary.
+        items = ["IP", "Mask", "Gateway", "DNS IP", "Domain"]
+        pretty = {
+            "IP": "IP Address",
+            "Mask": "Subnet Mask",
+            "Gateway": "Gateway IP",
+            "DNS IP": "DNS IP",
+            "Domain": "Search Domain"
         }
+        out = {}
+
+        # GETing system configuration and writing lines to list.
+        self._batch_object.download_system_configuration("system_config_temp.ini")
+        with open("system_config_temp.ini", "r") as sys_config_file:
+            sys_config = sys_config_file.readlines()
+
+        # Parsing list for required values.
+        for line in sys_config:
+            format_line = line.split("=")
+            if format_line[0] in items:
+                out[pretty[format_line[0]]] = format_line[1]
+                
+        # Cleaning up.
+        remove("system_config_temp.ini")
         return out
     def get_ipv6_info(self):
         """ GETs info on how IPv6 is configured. """
