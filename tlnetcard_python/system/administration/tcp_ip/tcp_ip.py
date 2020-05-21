@@ -74,7 +74,7 @@ class TcpIp:
         resp = self._login_object.get_session().get(self._get_url)
 
         # Initializing list to get values.
-        element_names = ["SYS_MASK", "SYS_GATE", "SYS_DNS", "SYS_DOMAIN"]
+        element_names = ["SYS_MASK", "SYS_GATE", "SYS_DNS"]
 
         # Checking if DHCP in enabled for IPv4.
         addr = str(resp.text).upper().find("name=\"SYS_DHCP\"")
@@ -89,12 +89,18 @@ class TcpIp:
         end_index = str(resp.text).upper().find("\"", start_index)
         info.append(resp.text[start_index:end_index])
 
-        # Parsing response for other values.
+        # Parsing response for some other values.
         for name in element_names:
             addr = str(resp.text).upper().find("NAME=" + name)
             start_index = str(resp.text).upper().find("VALUE=", addr) + 7
             end_index = str(resp.text).upper().find("\"", start_index)
             info.append(resp.text[start_index:end_index])
+
+        # Parsing response for search domain.
+        addr = str(resp.text).upper().find("NAME=\"SYS_DOMAIN\"")
+        start_index = str(resp.text).upper().find("VALUE=", addr) + 7
+        end_index = str(resp.text).upper().find("\"", start_index)
+        info.append(resp.text[start_index:end_index])
 
         # Generating out dictionary.
         out = {
