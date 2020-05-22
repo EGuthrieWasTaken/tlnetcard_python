@@ -162,22 +162,22 @@ class UserManager:
         """ Sets permissions for the provided user. """
         # Generating required dictionaries.
         user_types = {
-            "Administrator": ['RADIUS Admin User', 'USR_RTA'],
-            "Device Manager": ['RADIUS Device User', 'USR_RTD'],
-            "Read Only User": ['RADIUS User User', 'USR_RTU']
+            "Administrator": ['RADIUS Admin User', 0],
+            "Device Manager": ['RADIUS Device User', 20],
+            "Read Only User": ['RADIUS User User', 40]
         }
         permissions = {
-            1: login_user,
-            2: framed_user,
-            3: callback_login,
-            4: callback_framed,
-            5: outbound,
-            6: administrative,
-            7: nas_prompt,
-            8: authenticate_only,
-            9: callback_nas_prompt,
-            10: call_check,
-            11: callback_administrative
+            0: login_user,
+            1: framed_user,
+            2: callback_login,
+            3: callback_framed,
+            4: outbound,
+            5: administrative,
+            6: nas_prompt,
+            7: authenticate_only,
+            8: callback_nas_prompt,
+            9: call_check,
+            10: callback_administrative
         }
 
         # Exiting if invalid user type was specified.
@@ -236,12 +236,12 @@ class UserManager:
             # Clicking boxes.
             for i in permissions:
                 if permissions[i]:
-                    browser.find_element_by_name(user_types[user][1] + "_" + str(i)).click()
-            
+                    browser.find_element_by_id(str(i + permissions[i][1])).click()
+
             # Clicking submit and closing browser.
-            browser.find_element_by_name("OK").click()
+            browser.find_element_by_id("@adm_console#11").click()
             browser.close()
-            
+
         return 0
     def set_server_info(self, server, secret, port=1812):
         """ Sets information for the RADIUS server. """
