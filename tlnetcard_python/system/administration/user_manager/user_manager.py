@@ -222,13 +222,15 @@ class UserManager:
             browser_options = Options()
             browser_options.add_argument("--headless")
             browser = webdriver.Chrome(options=browser_options)
+            # Getting webpage.
+            browser.get(self._get_url)
             # Adding cookies from requests session.
             requests_cookies = self._login_object.get_session().cookies.get_dict()
             for cookie in requests_cookies:
                 browser.add_cookie({'name': cookie,
                                     'domain': self._login_object.get_host(),
                                     'value': requests_cookies[cookie]})
-            # Getting webpage.
+            # Getting webpage now that cookies are installed.
             browser.get(self._get_url)
 
             # Clicking boxes.
