@@ -1,24 +1,24 @@
 # [tcp_ip.py](tcp_ip.py)
 
-|                                                                    Function Header                                                                    |             Quick Description             |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------:|
-|                                                 [```__init__(login_object)```](#__init__login_object)                                                 |       Initializes the TcpIp object.       |
-|                                              [```disable_autonegotiation()```](#disable_autonegotiation)                                              |    Disables link speed autonegotiation.   |
-|                                                    [```disable_ipv4_dhcp()```](#disable_ipv4_dhcp)                                                    |          Disables DHCP for IPv4.          |
-|                                                    [```disable_ipv6_dhcp()```](#disable_ipv6_dhcp)                                                    |          Disables DHCP for IPv6.          |
-|                                               [```enable_autonegotiation()```](#enable_autonegotiation)                                               |    Enables link speed autonegotiation.    |
-|                                                     [```enable_ipv4_dhcp()```](#enable_ipv4_dhcp)                                                     |           Enables DHCP for IPv4.          |
-|                                                     [```enable_ipv6_dhcp()```](#enable_ipv6_dhcp)                                                     |           Enables DHCP for IPv6.          |
-|                                                        [```get_ipv4_info()```](#get_ipv4_info)                                                        |    GETs info on how IPv4 is configured.   |
-|                                                        [```get_ipv6_info()```](#get_ipv6_info)                                                        |    GETs info on how IPv6 is configured.   |
-|                                                      [```get_system_info()```](#get_system_info)                                                      | GETs info on the system and its location. |
-| [```set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")```](#set_ipv4_infoip_addr-mask255.255.255.0-gateway-dns_ip-domain) |    Sets info on how IPv4 is configured.   |
-|              [```set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")```](#set_ipv6_infoip_addr-prefix_len64-gateway-dns_ip)              |    Sets info on how IPv4 is configured.   |
-|                       [```set_system_info(name="TLNET", contact="", location="")```](#set_system_infonametlnet-contact-location)                      | Sets info on the system and its location. |
-|                                                   [```use_10m_link_speed()```](#use_10m_link_speed)                                                   |        Sets the link speed to 10M.        |
-|                                                  [```use_100m_link_speed()```](#use_100m_link_speed)                                                  |        Sets the link speed to 100M.       |
-|                                                      [```use_full_duplex()```](#use_full_duplex)                                                      |   Sets the duplex for the link to full.   |
-|                                                      [```use_half_duplex()```](#use_half_duplex)                                                      |   Sets the duplex for the link to half.   |
+|                                                                   Function Header                                                                  |             Quick Description             |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------:|
+|                                                [```__init__(login_object)```](#__init__login_object)                                               |       Initializes the TcpIp object.       |
+|                                             [```disable_autonegotiation()```](#disable_autonegotiation)                                            |    Disables link speed autonegotiation.   |
+|                                                   [```disable_ipv4_dhcp()```](#disable_ipv4_dhcp)                                                  |          Disables DHCP for IPv4.          |
+|                                                   [```disable_ipv6_dhcp()```](#disable_ipv6_dhcp)                                                  |          Disables DHCP for IPv6.          |
+|                                              [```enable_autonegotiation()```](#enable_autonegotiation)                                             |    Enables link speed autonegotiation.    |
+|                                                    [```enable_ipv4_dhcp()```](#enable_ipv4_dhcp)                                                   |           Enables DHCP for IPv4.          |
+|                                                    [```enable_ipv6_dhcp()```](#enable_ipv6_dhcp)                                                   |           Enables DHCP for IPv6.          |
+|                                                       [```get_ipv4_info()```](#get_ipv4_info)                                                      |    GETs info on how IPv4 is configured.   |
+|                                                       [```get_ipv6_info()```](#get_ipv6_info)                                                      |    GETs info on how IPv6 is configured.   |
+|                                                     [```get_system_info()```](#get_system_info)                                                    | GETs info on the system and its location. |
+| [```set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")```](#set_ipv4_infoip_addr-mask2552552550-gateway-dns_ip-domain) |    Sets info on how IPv4 is configured.   |
+|             [```set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")```](#set_ipv6_infoip_addr-prefix_len64-gateway-dns_ip)            |    Sets info on how IPv4 is configured.   |
+|                     [```set_system_info(name="TLNET", contact="", location="")```](#set_system_infonametlnet-contact-location)                     | Sets info on the system and its location. |
+|                                                  [```use_10m_link_speed()```](#use_10m_link_speed)                                                 |        Sets the link speed to 10M.        |
+|                                                 [```use_100m_link_speed()```](#use_100m_link_speed)                                                |        Sets the link speed to 100M.       |
+|                                                     [```use_full_duplex()```](#use_full_duplex)                                                    |   Sets the duplex for the link to full.   |
+|                                                     [```use_half_duplex()```](#use_half_duplex)                                                    |   Sets the duplex for the link to half.   |
 
 ## \_\_init__(login_object)
 
