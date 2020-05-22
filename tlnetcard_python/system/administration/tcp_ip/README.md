@@ -1,24 +1,24 @@
 # [tcp_ip.py](tcp_ip.py)
 
-|               Function Header               |                Quick Description               |
-|:-------------------------------------------:|:----------------------------------------------:|
-|         [```__init__(login_object)```](#__init__login_object)        |          Initializes the TcpIp object.         |
-|       [```disable_autonegotiation()```](#disable_autonegotiation)       |      Disables link speed autonegotiation.      |
-|     [```disable_dhcp(protocol="IPv4")```](#disable_dhcpprotocolipv4)     |    Disables DHCP for the provided protocol.    |
-|        [```enable_autonegotiation()```](#enable_autonegotiation)       |       Enables link speed autonegotiation.      |
-|      [```enable_dhcp(protocol="IPv4")```](#enable_dhcpprotocolipv4)     |     Enables DHCP for the provided protocol.    |
-|      [```get_dns_ip(protocol="IPv4")```](#get_dns_ipprotocolipv4)      |   GETs the DNS IP for the provided protocol.   |
-|    [```get_gateway_ip(protocol="IPv4")```](#get_gateway_ipprotocolipv4)    | GETs the Gateway IP for the provided protocol. |
-|      [```get_ip_addr(protocol="IPv4")```](#get_ip_addrprotocolipv4)     | GETs the IP address for the provided protocol. |
-|    [```get_prefix_len(protocol="IPv4")```](#get_prefix_len)    |          GETs the IPv6 prefix length.          |
-|          [```get_search_domain()```](#get_search_domain)          |          GETs the IPv4 search domain.          |
-|           [```get_subnet_mask()```](#get_subnet_mask)           |           GETs the IPv4 subnet mask.           |
-|    [```set_dns_ip(ip_addr, protocol="IPv4")```](#set_dns_ipip_addr-protocolipv4)    |   Sets the DNS IP for the provided protocol.   |
-|  [```set_gateway_ip(ip_addr, protocol="IPv4")```](#set_gateway_ipip_addr-protocolipv4)  | Sets the Gateway IP for the provided protocol. |
-|    [```set_ip_addr(ip_addr, protocol="IPv4")```](#set_ip_addrip_addr-protocolipv4)   | Sets the IP address for the provided protocol. |
-|         [```set_prefix_len(length)```](#set_prefix_lenlength)        |          Sets the IPv6 prefix length.          |
-|       [```set_search_domain(domain)```](#set_search_domaindomain)       |          Sets the IPv4 search domain.          |
-| [```set_subnet_mask(mask="255.255.255.0")```](#set_subnet_maskmask2552552550) |           Sets the IPv4 subnet mask.           |
+|                                                                    Function Header                                                                    |             Quick Description             |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------:|
+|                                                 [```__init__(login_object)```](#__init__login_object)                                                 |       Initializes the TcpIp object.       |
+|                                              [```disable_autonegotiation()```](#disable_autonegotiation)                                              |    Disables link speed autonegotiation.   |
+|                                                    [```disable_ipv4_dhcp()```](#disable_ipv4_dhcp)                                                    |          Disables DHCP for IPv4.          |
+|                                                    [```disable_ipv6_dhcp()```](#disable_ipv6_dhcp)                                                    |          Disables DHCP for IPv6.          |
+|                                               [```enable_autonegotiation()```](#enable_autonegotiation)                                               |    Enables link speed autonegotiation.    |
+|                                                     [```enable_ipv4_dhcp()```](#enable_ipv4_dhcp)                                                     |           Enables DHCP for IPv4.          |
+|                                                     [```enable_ipv6_dhcp()```](#enable_ipv6_dhcp)                                                     |           Enables DHCP for IPv6.          |
+|                                                        [```get_ipv4_info()```](#get_ipv4_info)                                                        |    GETs info on how IPv4 is configured.   |
+|                                                        [```get_ipv6_info()```](#get_ipv6_info)                                                        |    GETs info on how IPv6 is configured.   |
+|                                                      [```get_system_info()```](#get_system_info)                                                      | GETs info on the system and its location. |
+| [```set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")```](#set_ipv4_infoip_addr-mask255.255.255.0-gateway-dns_ip-domain) |    Sets info on how IPv4 is configured.   |
+|              [```set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")```](#set_ipv6_infoip_addr-prefix_len64-gateway-dns_ip)              |    Sets info on how IPv4 is configured.   |
+|                       [```set_system_info(name="TLNET", contact="", location="")```](#set_system_infonametlnet-contact-location)                      | Sets info on the system and its location. |
+|                                                   [```use_10m_link_speed()```](#use_10m_link_speed)                                                   |        Sets the link speed to 10M.        |
+|                                                  [```use_100m_link_speed()```](#use_100m_link_speed)                                                  |        Sets the link speed to 100M.       |
+|                                                      [```use_full_duplex()```](#use_full_duplex)                                                      |   Sets the duplex for the link to full.   |
+|                                                      [```use_half_duplex()```](#use_half_duplex)                                                      |   Sets the duplex for the link to half.   |
 
 ## \_\_init__(login_object)
 
@@ -51,9 +51,9 @@ card_ip.disable_autonegotiation()
 card.logout()
 ```
 
-## disable_dhcp(protocol="IPv4")
+## disable_ipv4_dhcp()
 
-Disables DHCP for the provided protocol.  
+Disables DHCP for IPv4.  
 Example:
 
 ```python
@@ -63,9 +63,32 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Disable DHCP.
+# Disable DHCP for IPv4.
 card_ip = TcpIp(card)
-card_ip.disable_dhcp()
+card_ip.disable_ipv4_dhcp()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
+## disable_ipv6_dhcp()
+
+Disables DHCP for IPv6.  
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import TcpIp
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Disable DHCP for IPv6.
+card_ip = TcpIp(card)
+card_ip.disable_ipv6_dhcp()
 
 # Continue configuring card.
 ...
@@ -97,9 +120,9 @@ card_ip.enable_autonegotiation()
 card.logout()
 ```
 
-## enable_dhcp(protocol="IPv4)
+## enable_ipv4_dhcp()
 
-Enables DHCP.  
+Enables DHCP for IPv4.  
 Example:
 
 ```python
@@ -109,9 +132,9 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Enable DHCP.
+# Enable DHCP for IPv4.
 card_ip = TcpIp(card)
-card_ip.enable_dhcp()
+card_ip.enable_ipv4_dhcp()
 
 # Continue configuring card.
 ...
@@ -120,9 +143,9 @@ card_ip.enable_dhcp()
 card.logout()
 ```
 
-## get_dns_ip(protocol="IPv4")
+## enable_ipv6_dhcp()
 
-GETs the DNS IP address for the provided protocol.  
+Enables DHCP for IPv6.  
 Example:
 
 ```python
@@ -132,9 +155,9 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Get DNS IP.
+# Enable DHCP for IPv6.
 card_ip = TcpIp(card)
-dns_ip = card_ip.get_dns_ip()
+card_ip.enable_ipv6_dhcp()
 
 # Continue configuring card.
 ...
@@ -143,9 +166,17 @@ dns_ip = card_ip.get_dns_ip()
 card.logout()
 ```
 
-## get_gateway_ip(protocol="IPv4")
+## get_ipv4_info()
 
-GETs the Gateway IP address for the provided protocol.  
+GETs information on how IPv4 is configured and returns it in a dictionary. The dictionary keys are as follows:  
+
+* ```DHCP Status```: Displays 'Enable' if DHCP for IPv4 is enabled, and 'Disable' if not.
+* ```IP Address```: The IPv4 address of the card.
+* ```Subnet Mask```: The subnet mask for the network of the card.
+* ```Gateway IP```: The IPv4 address for the upstream router of the card.
+* ```DNS IP```: The IPv4 address for the primary DNS server of the card.
+* ```Search Domain```: The search domain of the card.
+
 Example:
 
 ```python
@@ -155,9 +186,10 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Get Gateway IP.
+# Get configuration information for IPv4.
 card_ip = TcpIp(card)
-gateway_ip = card_ip.get_gateway_ip()
+card_ipv4_info = card_ip.get_ipv4_info()
+print(card_ipv4_info["IP Address"])
 
 # Continue configuring card.
 ...
@@ -166,9 +198,22 @@ gateway_ip = card_ip.get_gateway_ip()
 card.logout()
 ```
 
-## get_ip_addr(protocol="IPv4")
+Which may print, for example:
 
-GETs the card's IP address for the provided protocol.  
+```python
+"10.0.0.100"
+```
+
+## get_ipv6_info()
+
+GETs information on how IPv6 is configured and returns it in a dictionary. The dictionary keys are as follows:  
+
+* ```DHCP Status```: Displays 'Enable' if DHCP for IPv46 is enabled, and 'Disable' if not.
+* ```IP Address```: The IPv6 address of the card.
+* ```Gateway IP```: The IPv6 address for the upstream router of the card.
+* ```DNS IP```: The IPv6 address for the primary DNS server of the card.
+* ```Prefix Length```: The prefix length for the IPv6 address of the card.
+
 Example:
 
 ```python
@@ -178,9 +223,10 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Get card IP.
+# Get configuration information for IPv6.
 card_ip = TcpIp(card)
-card_ip_addr = card_ip.get_ip_addr()
+card_ipv6_info = card_ip.get_ipv6_info()
+print(card_ipv6_info["Prefix Length"])
 
 # Continue configuring card.
 ...
@@ -189,32 +235,20 @@ card_ip_addr = card_ip.get_ip_addr()
 card.logout()
 ```
 
-## get_prefix_len()
-
-GETs the IPv6 prefix length.  
-Example:
+Which may print, for example:
 
 ```python
-from tlnetcard_python import Login
-from tlnetcard_python.system.administration import TcpIp
-
-# Initialize the login object.
-card = Login("sample_username", "sample_password", "company.ups", reject_invalid_certs=False)
-
-# Get prefix length.
-card_ip = TcpIp(card)
-prefix_length = card_ip.get_prefix_len()
-
-# Continue configuring card.
-...
-
-# Then logout the session.
-card.logout()
+64
 ```
 
-## get_search_domain()
+## get_system_info()
 
-GETs the IPv4 search domain.  
+GETs info on the system and its location and returns it in a dictionary. The dictionary keys are as follows:  
+
+* ```Host Name```: The host name of the system.
+* ```System Contact```: The system contact name.
+* ```System Location```: The location of the system.
+
 Example:
 
 ```python
@@ -224,9 +258,10 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Get IPv4 search domain.
+# Get network configuration information for card.
 card_ip = TcpIp(card)
-search_domain = card_ip.get_search_domain()
+card_net_info = card_ip.get_system_info()
+print(card_net_info["Host Name"])
 
 # Continue configuring card.
 ...
@@ -235,9 +270,16 @@ search_domain = card_ip.get_search_domain()
 card.logout()
 ```
 
-## get_subnet_mask()
+Which may print, for example:
 
-GETs the IPv4 subnet mask.  
+```python
+"TLNET"
+```
+
+## set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")
+
+Sets info on how IPv4 is configured. Using this function will automatically disable DHCP for IPv4. **Using this function will cause the card to disconnect if you change its IP (and are connected via IPv4), and you will have to re-login.**  
+
 Example:
 
 ```python
@@ -247,9 +289,9 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Get IPv4 subnet mask.
+# Set configuration information for IPv4.
 card_ip = TcpIp(card)
-subnet_mask = card_ip.get_subnet_mask()
+card_ip.set_ipv4_info("10.0.0.100", gateway="10.0.0.1", dns_ip="10.0.0.200", domain="ups.local")
 
 # Continue configuring card.
 ...
@@ -258,9 +300,10 @@ subnet_mask = card_ip.get_subnet_mask()
 card.logout()
 ```
 
-## set_dns_ip(ip_addr, protocol="IPv4")
+## set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")
 
-Sets the DNS IP address for the provided protocol. When a DNS IP address is set using this function, DHCP is automatically disabled for the provided protocol.  
+Sets info on how IPv6 is configured. Using this function will automatically disable DHCP for IPv6. **Using this function will cause the card to disconnect if you change its IP (and are connected via IPv6), and you will have to re-login.**  
+
 Example:
 
 ```python
@@ -270,9 +313,9 @@ from tlnetcard_python.system.administration import TcpIp
 # Initialize the login object.
 card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
 
-# Set DNS IP.
+# Set configuration information for IPv6.
 card_ip = TcpIp(card)
-card_ip.set_dns_ip("1.1.1.1")
+card_ip.set_ipv6_info("fe80::3022:abdc:ef01")
 
 # Continue configuring card.
 ...
@@ -281,120 +324,15 @@ card_ip.set_dns_ip("1.1.1.1")
 card.logout()
 ```
 
-## set_gateway_ip(ip_addr, protocol="IPv4")
+## set_system_info(name="TLNET", contact="", location="")
 
-Sets the Gateway IP address for the provided protocol. When a gateway IP address is set using this function, DHCP is automatically disabled for the provided protocol.  
-Example:
+## use_10m_link_speed()
 
-```python
-from tlnetcard_python import Login
-from tlnetcard_python.system.administration import TcpIp
+## use_100m_link_speed()
 
-# Initialize the login object.
-card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+## use_full_duplex()
 
-# Set Gateway IP.
-card_ip = TcpIp(card)
-card_ip.set_gateway_ip("10.0.0.1")
-
-# Continue configuring card.
-...
-
-# Then logout the session.
-card.logout()
-```
-
-## set_ip_addr(ip_addr, protocol="IPv4")
-
-Sets the card's IP address for the provided protocol. When an IP address is set using this function, DHCP is automatically disabled for the provided protocol.  
-Example:
-
-```python
-from tlnetcard_python import Login
-from tlnetcard_python.system.administration import TcpIp
-
-# Initialize the login object.
-card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
-
-# Set card IP.
-card_ip = TcpIp(card)
-card_ip.set_ip_addr("10.0.0.101")
-
-# Continue configuring card.
-...
-
-# Then logout the session.
-card.logout()
-```
-
-## set_prefix_len(length)
-
-Sets the IPv6 prefix length. When the prefix length is set using this function, DHCP is automatically disabled for IPv6.  
-Example:
-
-```python
-from tlnetcard_python import Login
-from tlnetcard_python.system.administration import TcpIp
-
-# Initialize the login object.
-card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
-
-# Set prefix length.
-card_ip = TcpIp(card)
-card_ip.set_prefix_len(68)
-
-# Continue configuring card.
-...
-
-# Then logout the session.
-card.logout()
-```
-
-## set_search_domain(domain)
-
-Sets the IPv4 search domain. When a search domain is set using this function, DHCP is automatically disabled for IPv4.  
-Example:
-
-```python
-from tlnetcard_python import Login
-from tlnetcard_python.system.administration import TcpIp
-
-# Initialize the login object.
-card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
-
-# Set search domain.
-card_ip = TcpIp(card)
-card_ip.set_search_domain("company.search.domain")
-
-# Continue configuring card.
-...
-
-# Then logout the session.
-card.logout()
-```
-
-## set_subnet_mask(mask="255.255.255.0")
-
-Sets the IPv4 subnet mask. When a subnet mask is set using this function, DHCP is automatically disabled for IPv4.  
-Example:
-
-```python
-from tlnetcard_python import Login
-from tlnetcard_python.system.administration import TcpIp
-
-# Initialize the login object.
-card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
-
-# Set subnet mask.
-card_ip = TcpIp(card)
-card_ip.set_dns_ip("255.255.255.128")
-
-# Continue configuring card.
-...
-
-# Then logout the session.
-card.logout()
-```
+## use_half_duplex()
 
 ## Documentation Tree
 

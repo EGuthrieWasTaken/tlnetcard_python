@@ -152,7 +152,7 @@ class TcpIp:
         # Cleaning up.
         remove("system_config_temp.ini")
         return out
-    def set_ipv4_info(self, ip_addr, mask, gateway, dns_ip, domain):
+    def set_ipv4_info(self, ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain=""):
         """ Sets info on how IPv4 is configured. """
         # Generating payload.
         ip_data = {
@@ -167,7 +167,7 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_ipv6_info(self, ip_addr, prefix_len, gateway, dns_ip):
+    def set_ipv6_info(self, ip_addr, prefix_len=64, gateway="::", dns_ip="::"):
         """ Sets info on how IPv6 is configured. """
         # Generating payload.
         ip_data = {
@@ -214,7 +214,7 @@ class TcpIp:
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
     def use_full_duplex(self):
-        """ Sets the duplex for the link speed to full. """
+        """ Sets the duplex for the link to full. """
         # Generating payload.
         ip_data = {
             "SYS_DUPLEX": "1"
@@ -224,7 +224,7 @@ class TcpIp:
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
     def use_half_duplex(self):
-        """ Sets the duplex for the link speed to half. """
+        """ Sets the duplex for the link to half. """
         # Generating payload.
         ip_data = {
             "SYS_DUPLEX": "0"
