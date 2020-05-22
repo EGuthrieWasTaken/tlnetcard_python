@@ -239,9 +239,11 @@ class UserManager:
 
             # Clicking boxes.
             for i in permissions:
-                if permissions[i] and not browser.find_element_by_id(str(i + user_types[user][1])).is_selected():
+                if (permissions[i] and
+                        not browser.find_element_by_id(str(i + user_types[user][1])).is_selected()):
                     browser.find_element_by_id(str(i + user_types[user][1])).click()
-                elif not permissions[i] and browser.find_element_by_id(str(i + user_types[user][1])).is_selected():
+                elif (not permissions[i] and
+                      browser.find_element_by_id(str(i + user_types[user][1])).is_selected()):
                     browser.find_element_by_id(str(i + user_types[user][1])).click()
 
             # Clicking submit and closing browser.
