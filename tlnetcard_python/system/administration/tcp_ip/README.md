@@ -326,13 +326,123 @@ card.logout()
 
 ## set_system_info(name="TLNET", contact="", location="")
 
+Sets info on the system and its location.  
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import TcpIp
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set network configuration information for card.
+card_ip = TcpIp(card)
+card_ip.set_system_info(name="MY-UPS-01", location="LEVEL-1")
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## use_10m_link_speed()
+
+Sets the link speed to 10M.  
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import TcpIp
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set link speed to 10M.
+card_ip = TcpIp(card)
+card_ip.use_10m_link_speed()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## use_100m_link_speed()
 
+Sets the link speed to 100M.  
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import TcpIp
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set link speed to 100M.
+card_ip = TcpIp(card)
+card_ip.use_100m_link_speed()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## use_full_duplex()
 
+Sets the link duplex to full.  
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import TcpIp
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set link duplex to full.
+card_ip = TcpIp(card)
+card_ip.use_full_duplex()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
+
 ## use_half_duplex()
+
+Sets the link duplex to half.  
+
+Example:
+
+```python
+from tlnetcard_python import Login
+from tlnetcard_python.system.administration import TcpIp
+
+# Initialize the login object.
+card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_certs=False)
+
+# Set link duplex to half.
+card_ip = TcpIp(card)
+card_ip.use_half_duplex()
+
+# Continue configuring card.
+...
+
+# Then logout the session.
+card.logout()
+```
 
 ## Documentation Tree
 
@@ -365,9 +475,9 @@ card.logout()
   * [System](/tlnetcard_python/system)
     * [Administration](/tlnetcard_python/system/administration)
       * [User Manager](/tlnetcard_python/system/administration/user_manager)
-      * [TCP/IP](/tlnetcard_python/system/administration/tcp_ip)
+      * TCP/IP
       * [Web](/tlnetcard_python/system/administration/web)
-      * Console
+      * [Console](/tlnetcard_python/system/administration/console)
       * [FTP](/tlnetcard_python/system/administration/ftp)
       * [Time Server](/tlnetcard_python/system/administration/time_server)
       * [Syslog](/tlnetcard_python/system/administration/syslog)
