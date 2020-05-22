@@ -5,6 +5,7 @@
 
 # Standard library.
 from os import remove
+from time import sleep
 # Related third-party library.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -233,10 +234,14 @@ class UserManager:
                                     'value': requests_cookies[cookie]})
             # Getting webpage now that cookies are installed.
             browser.get(self._get_url)
+            # A very brief sleeping period to let elements load.
+            sleep(0.5)
 
             # Clicking boxes.
             for i in permissions:
-                if permissions[i]:
+                if permissions[i] and not browser.find_element_by_id(str(i + user_types[user][1])).is_selected():
+                    browser.find_element_by_id(str(i + user_types[user][1])).click()
+                elif not permissions[i] and browser.find_element_by_id(str(i + user_types[user][1])).is_selected():
                     browser.find_element_by_id(str(i + user_types[user][1])).click()
 
             # Clicking submit and closing browser.
