@@ -5,11 +5,11 @@
 
 # Standard library.
 from os import remove
-# Required internal class.
-from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 # Related third-party library.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+# Required internal class.
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class UserManager:
     """ Class for the UserManager object. """
@@ -204,7 +204,8 @@ class UserManager:
             updated_sys_config = []
             for line in sys_config:
                 if line.find(user_types[user][0]) != -1:
-                    updated_sys_config.append(user_types[user][0] + " Type=" + str(permission_code) + "\n")
+                    updated_sys_config.append(user_types[user][0] + " Type="
+                                              + str(permission_code) + "\n")
                 else:
                     updated_sys_config.append(line)
 
