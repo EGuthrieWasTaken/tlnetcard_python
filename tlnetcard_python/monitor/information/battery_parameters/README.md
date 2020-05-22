@@ -12,7 +12,7 @@
 
 ### Selenium
 
-If you elect to use Selenium for any of the functions in this class (or use functions where Selenium is required), you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as your version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).
+If you elect to use Selenium for any of the functions in this class (or use functions where Selenium is required), you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as the corresponding version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).
 
 ### Selenium vs. SNMP
 

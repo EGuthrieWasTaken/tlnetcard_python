@@ -65,4 +65,6 @@ def scrape_with_selenium(host, element_ids, url, session=None, timeout=10):
         sleep(0.5)
         counter += 0.5
 
+    # Closing browser and returning.
+    browser.close()
     return [out[i] for i in out]

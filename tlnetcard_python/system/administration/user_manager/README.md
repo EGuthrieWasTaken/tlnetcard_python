@@ -135,11 +135,11 @@ Which may print, for example:
 "10.0.0.200"
 ```
 
-## get_user(user="Administrator")
+## get_user(user="Administrator", selenium=True)
 
-|    Name    |  Type  | Required |     Default Value     |            Description           |
-|:----------:|:------:|:--------:|:---------------------:|:--------------------------------:|
-| ```user``` | String |    No    | ```"Administrator"``` | The user to get information for. |
+|      Name      |   Type  | Required |     Default Value     |                 Description                 |
+|:--------------:|:-------:|:--------:|:---------------------:|:-------------------------------------------:|
+|   ```user```   |  String |    No    | ```"Administrator"``` |       The user to get information for.      |
 
 GETs information about the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, a dictionary of user information will be returned. The dictionary keys are as follows:  
 
@@ -191,8 +191,10 @@ Which may print, for example:
 |   ```callback_nas_prompt```   | Boolean |    No    |      ```False```      |   Whether the user should have ```callback_nas_prompt``` permission.   |
 |        ```call_check```       | Boolean |    No    |      ```False```      |        Whether the user should have ```call_check``` permission.       |
 | ```callback_administrative``` | Boolean |    No    |      ```False```      | Whether the user should have ```callback_administrative``` permission. |
-
+|         ```selenium```        | Boolean |    No    |      ```False```      |              Whether a selenium approach should be used.               |
+ 
 Sets the permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
+**It is recommended that ```selenium``` be set to ```True``` for speed, but it defaults to ```False``` for compatability. If you elect to use Selenium for this function, you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as the corresponding version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).**  
 Example:
 
 ```python

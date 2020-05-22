@@ -7,6 +7,9 @@
 from os import remove
 # Required internal class.
 from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
+# Related third-party library.
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 class UserManager:
     """ Class for the UserManager object. """
@@ -155,59 +158,88 @@ class UserManager:
                         framed_user=False, callback_login=False, callback_framed=False,
                         outbound=False, administrative=False, nas_prompt=False,
                         authenticate_only=False, callback_nas_prompt=False,
-                        call_check=False, callback_administrative=False):
+                        call_check=False, callback_administrative=False, selenium=False):
         """ Sets permissions for the provided user. """
-        # Setting user type string.
-        if user == "Administrator":
-            user_type = "RADIUS Admin User"
-        elif user == "Device Manager":
-            user_type = "RADIUS Device User"
-        elif user == "Read Only User":
-            user_type = "RADIUS User User"
-        else:
+        # Generating required dictionaries.
+        user_types = {
+            "Administrator": ['RADIUS Admin User', 'USR_RTA'],
+            "Device Manager": ['RADIUS Device User', 'USR_RTD'],
+            "Read Only User": ['RADIUS User User', 'USR_RTU']
+        }
+        permissions = {
+            1: login_user,
+            2: framed_user,
+            3: callback_login,
+            4: callback_framed,
+            5: outbound,
+            6: administrative,
+            7: nas_prompt,
+            8: authenticate_only,
+            9: callback_nas_prompt,
+            10: call_check,
+            11: callback_administrative
+        }
+
+        # Exiting if invalid user type was specified.
+        if user not in user_types:
             return -1
 
-        # Generating binary permissions string.
-        permission_code_bin = ""
-        permission_code_bin += str(int(login_user))
-        permission_code_bin += str(int(framed_user))
-        permission_code_bin += str(int(callback_login))
-        permission_code_bin += str(int(callback_framed))
-        permission_code_bin += str(int(outbound))
-        permission_code_bin += str(int(administrative))
-        permission_code_bin += str(int(nas_prompt))
-        permission_code_bin += str(int(authenticate_only))
-        permission_code_bin += str(int(callback_nas_prompt))
-        permission_code_bin += str(int(call_check))
-        permission_code_bin += str(int(callback_administrative))
-        permission_code_bin = permission_code_bin[::-1]
+        if not selenium:
+            # Generating binary permissions string.
+            permission_code_bin = ""
+            for i in permissions:
+                permission_code_bin += str(int(permissions[i]))
 
-        # Converting binary string to integer.
-        permission_code = int(permission_code_bin, 2)
+            # Reversing string.
+            permission_code_bin = permission_code_bin[::-1]
+            # Converting binary string to integer.
+            permission_code = int(permission_code_bin, 2)
 
-        # GETing system configuration and writing lines to list.
-        self._batch_object.download_system_configuration("system_config_temp.ini")
-        with open("system_config_temp.ini", "r") as sys_config_file:
-            sys_config = sys_config_file.readlines()
+            # GETing system configuration and writing lines to list.
+            self._batch_object.download_system_configuration("system_config_temp.ini")
+            with open("system_config_temp.ini", "r") as sys_config_file:
+                sys_config = sys_config_file.readlines()
 
-        # Parsing list and adding permissions code.
-        updated_sys_config = []
-        for line in sys_config:
-            if line.find(user_type) != -1:
-                updated_sys_config.append(user_type + " Type=" + str(permission_code) + "\n")
-            else:
-                updated_sys_config.append(line)
+            # Parsing list and adding permissions code.
+            updated_sys_config = []
+            for line in sys_config:
+                if line.find(user_types[user][0]) != -1:
+                    updated_sys_config.append(user_types[user][0] + " Type=" + str(permission_code) + "\n")
+                else:
+                    updated_sys_config.append(line)
 
-        # Writing updated config to file.
-        with open("system_config_temp.ini", "w") as sys_config_file:
-            sys_config_file.writelines(updated_sys_config)
+            # Writing updated config to file.
+            with open("system_config_temp.ini", "w") as sys_config_file:
+                sys_config_file.writelines(updated_sys_config)
 
-        # Uploading updated batch configuration file.
-        self._batch_object.upload_system_configuration("system_config_temp.ini")
+            # Uploading updated batch configuration file.
+            self._batch_object.upload_system_configuration("system_config_temp.ini")
 
-        # Cleaning up.
-        remove("system_config_temp.ini")
+            # Cleaning up.
+            remove("system_config_temp.ini")
+        else:
+            # Configuring Selenium to run headless (i.e. without a GUI).
+            browser_options = Options()
+            browser_options.add_argument("--headless")
+            browser = webdriver.Chrome(options=browser_options)
+            # Adding cookies from requests session.
+            requests_cookies = self._login_object.get_session().cookies.get_dict()
+            for cookie in requests_cookies:
+                browser.add_cookie({'name': cookie,
+                                    'domain': self._login_object.get_host(),
+                                    'value': requests_cookies[cookie]})
+            # Getting webpage.
+            browser.get(self._get_url)
 
+            # Clicking boxes.
+            for i in permissions:
+                if permissions[i]:
+                    browser.find_element_by_name(user_types[user][1] + "_" + str(i)).click()
+            
+            # Clicking submit and closing browser.
+            browser.find_element_by_name("OK").click()
+            browser.close()
+            
         return 0
     def set_server_info(self, server, secret, port=1812):
         """ Sets information for the RADIUS server. """
