@@ -236,7 +236,7 @@ class UserManager:
             # Clicking boxes.
             for i in permissions:
                 if permissions[i]:
-                    browser.find_element_by_id(str(i + user_types[i][1])).click()
+                    browser.find_element_by_id(str(i + user_types[user][1])).click()
 
             # Clicking submit and closing browser.
             browser.find_element_by_id("@adm_console#11").click()
