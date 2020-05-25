@@ -2,27 +2,27 @@
 
 ## Cheatsheet
 
-|                                                    Function Header                                                   |                Quick Description               |
-|:------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------:|
-| ```__init__(user="admin", passwd="password", host="", save_passwd=False, ssl=True, reject_invalid_certs=True)```   |          Initializes the Login object.         |
-|                                                 ```get_base_url()```                                                 |   Returns the base URL for TLNET Supervisor.   |
-|                                                   ```get_host()```                                                  |                Returns the host.               |
-|                                            ```get_reject_invalid_certs()```                                           |              Returns the ```reject_invalid_certs``` attribute.|
-|                                                 ```get_session()```                                                 |              Returns the session.              |
-|                                                   ```logout()```                                                   |               Closes the session.              |
-|                                             ```performLogin(passwd)```                                             |            Logs into a new session.            |
-|                                           ```set_host(host, passwd="")```                                           | Sets host and then calls ```performLogin()```. |
+|                                                 Function Header                                                  |                 Quick Description                 |
+|:----------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------:|
+| ```__init__(user="admin", passwd="password", host="", save_passwd=False, ssl=True, reject_invalid_certs=True)``` |           Initializes the Login object.           |
+|                                               ```get_base_url()```                                               |    Returns the base URL for TLNET Supervisor.     |
+|                                                 ```get_host()```                                                 |                 Returns the host.                 |
+|                                         ```get_reject_invalid_certs()```                                         | Returns the ```reject_invalid_certs``` attribute. |
+|                                               ```get_session()```                                                |               Returns the session.                |
+|                                                  ```logout()```                                                  |                Closes the session.                |
+|                                            ```performLogin(passwd)```                                            |             Logs into a new session.              |
+|                                         ```set_host(host, passwd="")```                                          |  Sets host and then calls ```performLogin()```.   |
 
 ## \_\_init__(user="admin", passwd="password", host="", save_passwd=False, ssl=True, reject_invalid_certs=True)
 
-|            Name            |   Type  | Required |   Default Value  |                                                                          Description                                                                          |
+|            Name            |  Type   | Required |  Default Value   |                                                                          Description                                                                          |
 |:--------------------------:|:-------:|:--------:|:----------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| ```user```                 |  String |    No    |   ```"admin"```  | The TLNET Supervisor username.                                                                                                                                |
-| ```passwd```               |  String |    No    | ```"password"``` | The TLNET Supervisor password.                                                                                                                                |
-| ```host```                 |  String |    No    |     ```""```     | The address of the TLNETCARD.                                                                                                                                 |
-| ```save_passwd```          | Boolean |    No    |    ```False```   | Determines whether or not the ```passwd``` value will be saved in the object. When set to ```False```, the ```passwd``` value will not be saved.              |
-| ```ssl```                  | Boolean |    No    |    ```True```    | Determines whether or not the TLNET Supervisor at the host address has an SSL certificate i.e. does it use HTTPS. When set to ```True```, HTTPS will be used. |
-| ```reject_invalid_certs``` | Boolean |    No    |    ```True```    | Determines whether or not an invalid (i.e. a self-signed) SSL certificate will be rejected. When set to ```True```, invalid certificates will be rejected.    |
+|         ```user```         | String  |    No    |  ```"admin"```   |                                                                The TLNET Supervisor username.                                                                 |
+|        ```passwd```        | String  |    No    | ```"password"``` |                                                                The TLNET Supervisor password.                                                                 |
+|         ```host```         | String  |    No    |     ```""```     |                                                                 The address of the TLNETCARD.                                                                 |
+|     ```save_passwd```      | Boolean |    No    |   ```False```    |       Determines whether or not the ```passwd``` value will be saved in the object. When set to ```False```, the ```passwd``` value will not be saved.        |
+|         ```ssl```          | Boolean |    No    |    ```True```    | Determines whether or not the TLNET Supervisor at the host address has an SSL certificate i.e. does it use HTTPS. When set to ```True```, HTTPS will be used. |
+| ```reject_invalid_certs``` | Boolean |    No    |    ```True```    |  Determines whether or not an invalid (i.e. a self-signed) SSL certificate will be rejected. When set to ```True```, invalid certificates will be rejected.   |
 
 Initializes the Login object. A Login object is required by all classes in this repository.  
 Example:
@@ -176,10 +176,10 @@ card.logout()
 
 ## set_host(host, passwd="")
 
-|     Name     |  Type  | Required | Default Value |           Description          |
+|     Name     |  Type  | Required | Default Value |          Description           |
 |:------------:|:------:|:--------:|:-------------:|:------------------------------:|
-|  ```host```  | String |    Yes   |      N/A      |  The address of the TLNETCARD. |
-| ```passwd``` | String |    No    |       ```""```      | The TLNET Supervisor password. |
+|  ```host```  | String |   Yes    |      N/A      | The address of the TLNETCARD.  |
+| ```passwd``` | String |    No    |   ```""```    | The TLNET Supervisor password. |
 
 Sets the ```self._host``` attribute to ```host```, and calls ```logout()``` if a session was already running. Then, the ```performLogin()``` function is called using ```passwd``` if it was specified. If it was not specified, the ```self._passwd``` value will be used if it was specified. Otherwise, the user will be prompted to enter a password (which will then be saved if the ```self._save_passwd``` attribute is set to ```True```). This function is highly useful if you wish to configure multiple cards which share the same credentials.  
 Example:

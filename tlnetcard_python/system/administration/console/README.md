@@ -1,19 +1,19 @@
 # [console.py](console.py)
 
-|          Function Header          |                Quick Description                |
-|:---------------------------------:|:-----------------------------------------------:|
-|    [```__init__(login_object)```](#__init__login_object)   |         Initializes the Console object.         |
-|        [```disable_ssh()```](#disable_ssh)        |                  Disables SSH.                  |
-|       [```disable_telnet()```](#disable_telnet)      |                 Disables Telnet.                |
-|         [```enable_ssh()```](#enable_ssh)        |                   Enables SSH.                  |
-|       [```enable_telnet()```](#enable_telnet)       |                 Enables Telnet.                 |
-|        [```get_ssh_port()```](#get_ssh_port)       |          GETs the port in use for SSH.          |
-|      [```get_telnet_port()```](#get_telnet_port)      |         GETs the port in use for Telnet.        |
-|    [```set_ssh_port(port=22)```](#set_ssh_portport22)    |          Sets the port for use by SSH.          |
-|   [```set_telnet_port(port=23)```](#set_telnet_portport23)  |         Sets the port for use by Telnet.        |
+|                         Function Header                         |                Quick Description                |
+|:---------------------------------------------------------------:|:-----------------------------------------------:|
+|      [```__init__(login_object)```](#__init__login_object)      |         Initializes the Console object.         |
+|               [```disable_ssh()```](#disable_ssh)               |                  Disables SSH.                  |
+|            [```disable_telnet()```](#disable_telnet)            |                Disables Telnet.                 |
+|                [```enable_ssh()```](#enable_ssh)                |                  Enables SSH.                   |
+|             [```enable_telnet()```](#enable_telnet)             |                 Enables Telnet.                 |
+|              [```get_ssh_port()```](#get_ssh_port)              |          GETs the port in use for SSH.          |
+|           [```get_telnet_port()```](#get_telnet_port)           |        GETs the port in use for Telnet.         |
+|       [```set_ssh_port(port=22)```](#set_ssh_portport22)        |          Sets the port for use by SSH.          |
+|    [```set_telnet_port(port=23)```](#set_telnet_portport23)     |        Sets the port for use by Telnet.         |
 | [```upload_auth_public_key(key)```](#upload_auth_public_keykey) | Uploads the provided authentication public key. |
-|   [```upload_dsa_host_key(key)```](#upload_dsa_host_keykey)  |        Uploads the provided DSA host key.       |
-|   [```upload_rsa_host_key(key)```](#upload_rsa_host_keykey)  |        Uploads the provided RSA host key.       |
+|    [```upload_dsa_host_key(key)```](#upload_dsa_host_keykey)    |       Uploads the provided DSA host key.        |
+|    [```upload_rsa_host_key(key)```](#upload_rsa_host_keykey)    |       Uploads the provided RSA host key.        |
 
 ## \_\_init__(login_object)
 

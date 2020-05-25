@@ -278,6 +278,14 @@ Which may print, for example:
 
 ## set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")
 
+|     Name      |  Type  | Required |     Default Value     |          Description          |
+|:-------------:|:------:|:--------:|:---------------------:|:-----------------------------:|
+| ```ip_addr``` | String |   Yes    |          N/A          |       The IPv4 address.       |
+|  ```mask```   | String |    No    | ```"255.255.255.0"``` |     The IPv4 subnet mask.     |
+| ```gateway``` | String |    No    |       ```""```        |   The IPv4 gateway router.    |
+| ```dns_ip```  | String |    No    |       ```""```        | The primary DNS IPv4 address. |
+| ```domain```  | String |    No    |       ```""```        |      The search domain.       |
+
 Sets info on how IPv4 is configured. Using this function will automatically disable DHCP for IPv4. **Using this function will cause the card to disconnect if you change its IP (and are connected via IPv4), and you will have to re-login.**  
 
 Example:
@@ -302,6 +310,13 @@ card.logout()
 
 ## set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")
 
+|       Name       |  Type   | Required | Default Value |          Description          |
+|:----------------:|:-------:|:--------:|:-------------:|:-----------------------------:|
+|  ```ip_addr```   | String  |   Yes    |      N/A      |       The IPv6 address.       |
+| ```prefix_len``` | Integer |    No    |   ```64```    |    The IPv6 prefix length.    |
+|  ```gateway```   | String  |    No    |  ```"::"```   |   The IPv6 gateway router.    |
+|   ```dns_ip```   | String  |    No    |  ```"::"```   | The primary DNS IPv6 address. |
+
 Sets info on how IPv6 is configured. Using this function will automatically disable DHCP for IPv6. **Using this function will cause the card to disconnect if you change its IP (and are connected via IPv6), and you will have to re-login.**  
 
 Example:
@@ -325,6 +340,12 @@ card.logout()
 ```
 
 ## set_system_info(name="TLNET", contact="", location="")
+
+|      Name      |  Type  | Required | Default Value |      Description      |
+|:--------------:|:------:|:--------:|:-------------:|:---------------------:|
+|   ```name```   | String |    No    | ```"TLNET"``` | The system host name. |
+|  ```contact``` | String |    No    |    ```""```   |  The system contact.  |
+| ```location``` | String |    No    |    ```""```   |  The system location. |
 
 Sets info on the system and its location.  
 

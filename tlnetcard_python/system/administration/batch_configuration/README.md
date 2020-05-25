@@ -45,8 +45,8 @@ card.logout()
 
 ## download_system_configuration(path=None)
 
-|    Name    |  Type  | Required | Default Value                                                                           | Description                                                          |
-|:----------:|:------:|----------|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+|    Name    |  Type  | Required | Default Value                                                                                   | Description                                |
+|:----------:|:------:|----------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
 | ```path``` | String | No       | Will default to the current user's Download directory with a file named ```system_config.ini``` | The qualified name of the file to save to. |
 
 Downloads the current system configuration. If nothing is specified for ```path```, then the configuration will be saved to a file called ```system_config.ini``` in the current user's Downloads directory.  
@@ -72,9 +72,9 @@ card.logout()
 
 ## upload_snmp_configuration(path)
 
-|    Name    |  Type  | Required | Default Value                                                                      | Description                                    |
-|:----------:|:------:|----------|------------------------------------------------------------------------------------|------------------------------------------------|
-| ```path``` | String | No       | ```"snmp_config.ini"``` | The qualified name of the file to upload.      |
+|    Name    |  Type  | Required | Default Value           | Description                               |
+|:----------:|:------:|----------|-------------------------|-------------------------------------------|
+| ```path``` | String | No       | ```"snmp_config.ini"``` | The qualified name of the file to upload. |
 
 Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned. Please note that the cards may not accept configuration files that do not use the ```.ini``` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
@@ -103,9 +103,9 @@ card.logout()
 
 ## upload_system_configuration(path)
 
-|    Name    |  Type  | Required | Default Value                                                                      | Description                                    |
-|:----------:|:------:|----------|------------------------------------------------------------------------------------|------------------------------------------------|
-| ```path``` | String | No       | ```"system_config.ini"``` | The qualified name of the file to upload.    |
+|    Name    |  Type  | Required | Default Value             | Description                               |
+|:----------:|:------:|----------|---------------------------|-------------------------------------------|
+| ```path``` | String | No       | ```"system_config.ini"``` | The qualified name of the file to upload. |
 
 Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned. Please note that the cards may not accept configuration files that do not use the ```.ini``` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
