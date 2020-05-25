@@ -16,6 +16,9 @@ class Upgrade:
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_upgrade"
         self._information_object = Information(self._login_object)
+    def get_firmware_version(self) -> str:
+        """ GETs the current firmware version. """
+        return self._information_object.get_firmware_version()
     def upgrade_snmp_firmware(self, path: str = "ups-tl-01_12_05c.bin") -> int:
         """ Upgrades SNMP Device Firmware. """
         # Testing if the file specified in path exists.
@@ -35,6 +38,3 @@ class Upgrade:
               + " will be offline for approximately 1 minute.")
 
         return 0
-    def get_firmware_version(self) -> str:
-        """ GETs the current firmware version. """
-        return self._information_object.get_firmware_version()
