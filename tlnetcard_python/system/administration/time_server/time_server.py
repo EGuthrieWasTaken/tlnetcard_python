@@ -24,6 +24,16 @@ class TimeServer:
         # Uploading time server configuration.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+    def disable_sntp(self) -> None:
+        """ Disables SNTP. """
+        # Generating payload.
+        time_server_data = {
+            "NTP_MANU": "1"
+        }
+
+        # Uploading time server configuration.
+        self._login_object.get_session().post(self._post_url, data=time_server_data,
+                                              verify=self._login_object.get_reject_invalid_certs())
     def enable_daylight_savings(self, start_date: str = "04/01", end_date: str = "11/01") -> None:
         """ Enables daylight savings from the start date to the end date for SNTP. """
         # Generating payload.
