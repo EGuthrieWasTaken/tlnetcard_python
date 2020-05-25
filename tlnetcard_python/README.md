@@ -13,7 +13,7 @@
 |                                            ```performLogin(passwd)```                                            |             Logs into a new session.              |
 |                                         ```set_host(host, passwd="")```                                          |  Sets host and then calls ```performLogin()```.   |
 
-## \_\_init__(user="admin", passwd="password", host="", save_passwd=False, ssl=True, reject_invalid_certs=True)
+## \_\_init__(user: str = "admin", passwd: str = "password", host: str = "", save_passwd: bool = False, ssl: bool = True, reject_invalid_certs: bool = True) -> None
 
 |            Name            |  Type   | Required |  Default Value   |                                                                          Description                                                                          |
 |:--------------------------:|:-------:|:--------:|:----------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -40,7 +40,7 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 card.logout()
 ```
 
-## get_base_url()
+## get_base_url() -> str
 
 Returns the ```self._base_url``` attribute. This attribute will be the fully-qualified URL of the TLNET Supervisor, usually in the form of ```https://<host>```, but can be in the form ```http://<host>``` if ```ssl``` was set to ```False``` in ```__init__()```. While this function is public, its primary function is to be called by other classes in this module.  
 Example:
@@ -64,7 +64,7 @@ Which would print:
 https://10.0.0.100
 ```
 
-## get_host()
+## get_host() -> str
 
 Returns the ```self._host``` attribute. This will be whatever was specified when initializing the object, or the most recent ```host``` argument passed to the ```set_host()``` function. Like the ```get_base_url()``` function, this function's primary function is to be called by other classes in this module.  
 Example:
@@ -88,7 +88,7 @@ Which would print:
 10.0.0.100
 ```
 
-## get_reject_invalid_certs()
+## get_reject_invalid_certs() -> bool
 
 Returns the ```self._reject_invalid_certs``` attribute. This will be whatever was specified when initializing the object. Like most other functions in this class, this function's primary function is to be used by other classes in this module.  
 Example:
@@ -112,7 +112,7 @@ Which would print:
 False
 ```
 
-## get_session()
+## get_session() -> Session
 
 Returns the ```self._session``` attribute. This will be the logged-in session created after initializing the object, or after the most recent call of the  ```set_host()``` function. This will be a standards python [requests](https://requests-html.kennethreitz.org/) object which may be used to make GET or POST requests. For more information, see the documentation for [requests](https://requests-html.kennethreitz.org/). This function's primary function is to be called by other classes in this module.  
 Example:
@@ -132,7 +132,7 @@ r = card.get_session().get("https://duckduckgo.com")
 card.logout()
 ```
 
-## logout()
+## logout() -> None
 
 Closes the session saved as ```self._session```. This module should be called before your program terminates.  
 Example:
@@ -150,7 +150,7 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 card.logout()
 ```
 
-## performLogin(passwd)
+## performLogin(passwd: str) -> int
 
 |     Name     |  Type  | Required | Default Value |           Description          |
 |:------------:|:------:|:--------:|:-------------:|:------------------------------:|
@@ -174,7 +174,7 @@ card.performLogin("correct_password")
 card.logout()
 ```
 
-## set_host(host, passwd="")
+## set_host(host: str, passwd: str = "") -> None
 
 |     Name     |  Type  | Required | Default Value |          Description           |
 |:------------:|:------:|:--------:|:-------------:|:------------------------------:|

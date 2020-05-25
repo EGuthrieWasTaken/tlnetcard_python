@@ -10,7 +10,7 @@
 |          [```get_servers()```](#get_servers)          | GETs syslog servers and returns them in a list. |
 |  [```remove_server(server)```](#remove_serverserver)  |            Removes a syslog server.             |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None:
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -18,7 +18,7 @@
 
 Initializes the Syslog object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## add_server(server)
+## add_server(server: str) -> int
 
 |     Name     |  Type  | Required | Default Value |               Description              |
 |:------------:|:------:|:--------:|:-------------:|:--------------------------------------:|
@@ -46,7 +46,7 @@ if card_syslog.add_server("10.0.0.200") == -1:
 card.logout()
 ```
 
-## clear_servers()
+## clear_servers() -> None
 
 Removes all servers from the syslog server list. This function returns nothing. It can be useful when servers need to be completely added from scratch and you don't want to get the current servers names.  
 Example:
@@ -69,7 +69,7 @@ card_syslog.clear_servers()
 card.logout()
 ```
 
-## disable_syslog()
+## disable_syslog() -> None
 
 Disables syslog servers. This does not remove the servers from the list (for that, see [clear_servers()](#clearservers)), it simply disables syslog servers entirely. If the [enable_syslog()](#enablesyslog) function is called after this one, the same servers that used before will be used again.  
 Example:
@@ -92,7 +92,7 @@ card_syslog.disable_syslog()
 card.logout()
 ```
 
-## enable_syslog()
+## enable_syslog() -> None
 
 Enables syslog servers. Whatever syslog servers are listed when this function is called will be used, unless this function is used in conjunction with the other functions in this class.  
 Example:
@@ -115,7 +115,7 @@ card_syslog.enable_syslog()
 card.logout()
 ```
 
-## get_servers()
+## get_servers() -> List[str]
 
 GETs the syslog servers that are currently listed. They will be returned in a list (which will be empty if there are no servers).  
 Example:
@@ -140,7 +140,7 @@ for i in syslog_servers:
 card.logout()
 ```
 
-## remove_server(server)
+## remove_server(server: str) -> int
 
 |     Name     |  Type  | Required | Default Value |                Description               |
 |:------------:|:------:|:--------:|:-------------:|:----------------------------------------:|

@@ -5,17 +5,21 @@
 
 # Standard library.
 from os.path import isfile
-# Required internal class.
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
 from tlnetcard_python.monitor.about.information import Information
 
 class Upgrade:
     """ Class for the Upgrade object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the Upgrade object. """
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_upgrade"
         self._information_object = Information(self._login_object)
-    def upgrade_snmp_firmware(self, path="ups-tl-01_12_05c.bin"):
+    def get_firmware_version(self) -> str:
+        """ GETs the current firmware version. """
+        return self._information_object.get_firmware_version()
+    def upgrade_snmp_firmware(self, path: str = "ups-tl-01_12_05c.bin") -> int:
         """ Upgrades SNMP Device Firmware. """
         # Testing if the file specified in path exists.
         if not isfile(path):
@@ -34,6 +38,3 @@ class Upgrade:
               + " will be offline for approximately 1 minute.")
 
         return 0
-    def get_firmware_version(self):
-        """ GETs the current firmware version. """
-        return self._information_object.get_firmware_version()

@@ -6,7 +6,7 @@
 |                          [```get_firmware_version()```](#get_firmware_version)                         | GETs the current firmware version. |
 | [```upgrade_snmp_firmware(path="ups-tl-01_12_05c.bin")```](#upgradesnmpfirmwrepathups-tl-01_12_05cbin) |   Upgrades SNMP device firmware.   |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                       Type                        | Required | Default Value |                                Description                                |
 |:------------------:|:-------------------------------------------------:|:--------:|:-------------:|:-------------------------------------------------------------------------:|
@@ -14,7 +14,7 @@
 
 Initializes the Upgrade object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## get_firmware_version()
+## get_firmware_version() -> str
 
 GETs the firmware version for the TLNETCARD. **Please note that this function is simply an alias to the function of the same name in [information.py](/tlnetcard_python/monitor/about/information) from /tlnetcard_python/monitor/about/information.**  
 Example:
@@ -37,7 +37,7 @@ firmware_version = card_upgrade.get_firmware_version()
 card.logout()
 ```
 
-## upgradeSNMPFirmwre(path="ups-tl-01_12_05c.bin")
+## upgradeSNMPFirmwre(path: str = "ups-tl-01_12_05c.bin") -> int
 
 |    Name    |  Type  | Required |        Default Value         |                       Description                        |
 |:----------:|:------:|:--------:|:----------------------------:|:--------------------------------------------------------:|

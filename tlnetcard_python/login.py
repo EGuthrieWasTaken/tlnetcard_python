@@ -13,8 +13,9 @@ from urllib3.exceptions import InsecureRequestWarning
 
 class Login:
     """ Class for the login object. A login object is required by all classes in this repository."""
-    def __init__(self, user="admin", passwd="password", host="",
-                 save_passwd=False, ssl=True, reject_invalid_certs=True):
+    def __init__(self, user: str = "admin", passwd: str = "password", host: str = "",
+                 save_passwd: bool = False, ssl: bool = True,
+                 reject_invalid_certs: bool = True) -> None:
         """ Initializes the login object. """
         # Saving values which will be used independently.
         self._host = host
@@ -30,7 +31,7 @@ class Login:
         # Executing login if a host was specified.
         if self._host != "":
             self.perform_login(passwd)
-    def get_base_url(self):
+    def get_base_url(self) -> str:
         """ Returns the base URL for TLNET Supervisor. """
         # Generating base URL.
         if self._ssl and self._host != "":
@@ -38,22 +39,22 @@ class Login:
         else:
             base_url = 'http://' + self._host
         return base_url
-    def get_host(self):
+    def get_host(self) -> str:
         """ Returns the host. """
         return self._host
-    def get_reject_invalid_certs(self):
+    def get_reject_invalid_certs(self) -> bool:
         """ Returns whether to accept invalid SSL certificates
         (i.e. self-signed SSL certificates). """
         return self._reject_invalid_certs
-    def get_session(self):
+    def get_session(self) -> Session:
         """ Returns the session. """
         return self._session
-    def logout(self):
+    def logout(self) -> None:
         """ Closes the session. """
         # Restoring warnings in case reject_invalid_certs flag is used.
         filterwarnings("default", category=InsecureRequestWarning)
         self._session.close()
-    def perform_login(self, passwd):
+    def perform_login(self, passwd: str) -> int:
         """ Logs into a new session. """
         # Ignoring self-signed SSL certificate warning when reject_invalid_certs is False.
         if not self._reject_invalid_certs:
@@ -100,7 +101,7 @@ class Login:
         # Saving session.
         self._session = session
         return 0
-    def set_host(self, host, passwd=""):
+    def set_host(self, host: str, passwd: str = "") -> None:
         """ Sets host and then calls perform_login(). """
         # Closing previous session (if there was one).
         if self._host != "":

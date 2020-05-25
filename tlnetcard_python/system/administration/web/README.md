@@ -15,7 +15,7 @@
 | [```set_web_refresh(seconds=10)```](#set_web_refreshseconds10) | Sets the web refresh time to ```seconds``` seconds. |
 |      [```upload_ssl_cert(path)```](#upload_ssl_certpath)       |        Uploads the provided SSL certificate.        |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -23,7 +23,7 @@
 
 Initializes the Web object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## disable_http()
+## disable_http() -> None
 
 Disables HTTP. Be careful using this function as it may disrupt this API.  
 Example:
@@ -46,7 +46,7 @@ card_web.disable_http()
 card.logout()
 ```
 
-## disable_https()
+## disable_https() -> None
 
 Disables HTTPS. Be careful using this function as it may disrupt this API.  
 Example:
@@ -69,7 +69,7 @@ card_web.disable_https()
 card.logout()
 ```
 
-## enable_http()
+## enable_http() -> None
 
 Enables HTTP.  
 Example:
@@ -92,7 +92,7 @@ card_web.enable_http()
 card.logout()
 ```
 
-## enable_https()
+## enable_https() -> None
 
 Enables HTTPS.  
 Example:
@@ -115,7 +115,7 @@ card_web.enable_https()
 card.logout()
 ```
 
-## get_http_port()
+## get_http_port() -> int
 
 GETs the HTTP port.  
 Example:
@@ -138,7 +138,7 @@ http_port = card_web.get_http_port()
 card.logout()
 ```
 
-## get_https_port()
+## get_https_port() -> int
 
 GETs the HTTP port.  
 Example:
@@ -161,7 +161,7 @@ https_port = card_web.get_https_port()
 card.logout()
 ```
 
-## get_web_refresh()
+## get_web_refresh() -> int
 
 GETs the web refresh time in seconds.  
 Example:
@@ -184,7 +184,7 @@ refresh_time = card_web.get_web_refresh()
 card.logout()
 ```
 
-## set_http_port(port=80)
+## set_http_port(port: int = 80) -> None
 
 |    Name    |   Type  | Required | Default Value |        Description        |
 |:----------:|:-------:|:--------:|:-------------:|:-------------------------:|
@@ -211,7 +211,7 @@ card_web.set_http_port(8080)
 card.logout()
 ```
 
-## set_https_port(port=443)
+## set_https_port(port: int = 443) -> None
 
 |    Name    |   Type  | Required | Default Value |        Description        |
 |:----------:|:-------:|:--------:|:-------------:|:-------------------------:|
@@ -238,7 +238,7 @@ card_web.set_https_port(4433)
 card.logout()
 ```
 
-## set_web_refresh(seconds=10)
+## set_web_refresh(seconds: int = 10) -> None
 
 |      Name     |   Type  | Required | Default Value |                 Description                 |
 |:-------------:|:-------:|:--------:|:-------------:|:-------------------------------------------:|
@@ -265,7 +265,7 @@ card_web.set_web_refresh(60)
 card.logout()
 ```
 
-## upload_ssl_cert(path)
+## upload_ssl_cert(path: str) -> int
 
 |    Name    |  Type  | Required | Default Value |                       Description                      |
 |:----------:|:------:|:--------:|:-------------:|:------------------------------------------------------:|

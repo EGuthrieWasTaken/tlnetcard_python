@@ -5,7 +5,7 @@
 | [```__init__(login_object)```](#__init__login_object) |     Initializes the Information object.      |
 | [```get_firmware_version()```](#get_firmware_version) | GETs the current TLNETCARD firmware version. |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                       Type                        | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -13,7 +13,7 @@
 
 Initializes the Information object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## get_firmware_version()
+## get_firmware_version() -> str
 
 GETs the firmware version for the TLNETCARD.  
 Example:

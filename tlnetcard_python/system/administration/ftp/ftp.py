@@ -3,14 +3,17 @@
 # 05/01/2020
 """ Allows FTP settings to be configured. """
 
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
+
 class Ftp:
     """ Class for the Ftp object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initialize Ftp object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_ftp.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_ftp"
-    def disable_ftp(self):
+    def disable_ftp(self) -> None:
         """ Disables FTP. """
         # Generating payload.
         ftp_data = {
@@ -20,7 +23,7 @@ class Ftp:
         # Uploading time server configuration.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_ftp(self):
+    def enable_ftp(self) -> None:
         """ Enables FTP. """
         # Generating payload.
         ftp_data = {
@@ -30,7 +33,7 @@ class Ftp:
         # Uploading time server configuration.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def get_ftp_port(self):
+    def get_ftp_port(self) -> int:
         """ GETs the port in use for FTP. """
         # GETing FTP page.
         resp = self._login_object.get_session().get(self._get_url)
@@ -41,7 +44,7 @@ class Ftp:
         end_index = str(resp.text).find("\"", start_index)
 
         return int(resp.text[start_index:end_index])
-    def set_ftp_port(self, port=21):
+    def set_ftp_port(self, port: int = 21) -> None:
         """ Sets the port for use by FTP. """
         # Generating payload.
         ftp_data = {

@@ -8,7 +8,7 @@
 |         [```get_ftp_port()```](#get_ftp_port)         | GETs the port in use for FTP. |
 |   [```set_ftp_port(port=21)```](#set_ftp_portport)    | Sets the port for use by FTP. |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -16,7 +16,7 @@
 
 Initializes the Ftp object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## disable_ftp()
+## disable_ftp() -> None
 
 Disables FTP.  
 Example:
@@ -39,7 +39,7 @@ card_ftp.disable_ftp()
 card.logout()
 ```
 
-## enable_ftp()
+## enable_ftp() -> None
 
 Enables FTP with currently configured port. FTP will be enabled automatically when the FTP port is changed using [set_ftp_port()](#set_ftp_portport), so there is no need to use these two functions together.  
 Example:
@@ -62,7 +62,7 @@ card_ftp.enable_ftp()
 card.logout()
 ```
 
-## get_ftp_port()
+## get_ftp_port() -> int
 
 GETs the FTP port.  
 Example:
@@ -85,7 +85,7 @@ ftp_port = card_ftp.get_ftp_port()
 card.logout()
 ```
 
-## set_ftp_port(port)
+## set_ftp_port(port: int = 21) -> None
 
 |    Name    |   Type  | Required | Default Value |        Description       |
 |:----------:|:-------:|:--------:|:-------------:|:------------------------:|

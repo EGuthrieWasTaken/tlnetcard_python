@@ -6,21 +6,23 @@
 # Standard library.
 from os import remove
 from time import sleep
+from typing import Any, Dict
 # Related third-party library.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-# Required internal class.
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
 from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class UserManager:
     """ Class for the UserManager object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the UserManager object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_user.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_user"
         self._batch_object = BatchConfiguration(self._login_object)
-    def disable_radius(self):
+    def disable_radius(self) -> None:
         """ Disables RADIUS authentication. """
         # Generating payload.
         user_data = {
@@ -30,7 +32,7 @@ class UserManager:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=user_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_radius(self):
+    def enable_radius(self) -> None:
         """ Enables RADIUS authentication. """
         # Generating payload.
         user_data = {
@@ -40,7 +42,7 @@ class UserManager:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=user_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def get_permissions(self, user="Administrator"):
+    def get_permissions(self, user: str = "Administrator") -> Dict[str, bool]:
         """ GETs the permissions for the provided user. """
         # Creating permission type list.
         permission_types = ["Login User", "Framed User", "Callback Login", "Callback Framed",
@@ -82,7 +84,7 @@ class UserManager:
         remove("system_config_temp.ini")
 
         return user_permissions
-    def get_server_info(self):
+    def get_server_info(self) -> Dict[str, Any]:
         """ GETs information about the RADIUS server. """
         # GETing User Manager page.
         resp = self._login_object.get_session().get(self._get_url)
@@ -113,7 +115,7 @@ class UserManager:
         }
 
         return server_data
-    def get_user(self, user="Administrator"):
+    def get_user(self, user: str = "Administrator") -> Dict[str, Any]:
         """ GETs information about the provided user. """
         # Setting user num string.
         if user == "Administrator":
@@ -155,11 +157,13 @@ class UserManager:
         }
 
         return user_data
-    def set_permissions(self, user="Administrator", login_user=False,
-                        framed_user=False, callback_login=False, callback_framed=False,
-                        outbound=False, administrative=False, nas_prompt=False,
-                        authenticate_only=False, callback_nas_prompt=False,
-                        call_check=False, callback_administrative=False, selenium=False):
+    def set_permissions(self, user: str = "Administrator", login_user: bool = False,
+                        framed_user: bool = False, callback_login: bool = False,
+                        callback_framed: bool = False, outbound: bool = False,
+                        administrative: bool = False, nas_prompt: bool = False,
+                        authenticate_only: bool = False, callback_nas_prompt: bool = False,
+                        call_check: bool = False, callback_administrative: bool = False,
+                        selenium: bool = False) -> int:
         """ Sets permissions for the provided user. """
         # Generating required dictionaries.
         user_types = {
@@ -251,7 +255,7 @@ class UserManager:
             browser.close()
 
         return 0
-    def set_server_info(self, server, secret, port=1812):
+    def set_server_info(self, server: str, secret: str, port: int = 1812) -> None:
         """ Sets information for the RADIUS server. """
         # Generating payload.
         user_data = {
@@ -264,7 +268,8 @@ class UserManager:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=user_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_user(self, username, passwd, wan_access=False, user="Administrator"):
+    def set_user(self, username: str, passwd: str, wan_access: int = False,
+                 user: str = "Administrator") -> None:
         """ Sets information for the provided user. """
         # Setting user num string.
         if user == "Administrator":
