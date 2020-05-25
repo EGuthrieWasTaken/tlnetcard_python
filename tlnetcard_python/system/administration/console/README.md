@@ -15,7 +15,7 @@
 |    [```upload_dsa_host_key(key)```](#upload_dsa_host_keykey)    |       Uploads the provided DSA host key.        |
 |    [```upload_rsa_host_key(key)```](#upload_rsa_host_keykey)    |       Uploads the provided RSA host key.        |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -23,7 +23,7 @@
 
 Initializes the Console object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## disable_ssh()
+## disable_ssh() -> None
 
 Disables SSH.  
 Example:
@@ -46,7 +46,7 @@ card_console.disable_ssh()
 card.logout()
 ```
 
-## disable_telnet()
+## disable_telnet() -> None
 
 Disables Telnet.  
 Example:
@@ -69,7 +69,7 @@ card_console.disable_telnet()
 card.logout()
 ```
 
-## enable_ssh()
+## enable_ssh() -> None
 
 Enables SSH.  
 Example:
@@ -92,7 +92,7 @@ card_console.enable_ssh()
 card.logout()
 ```
 
-## enable_telnet()
+## enable_telnet() -> None
 
 Enables Telnet.  
 Example:
@@ -115,7 +115,7 @@ card_console.enable_telnet()
 card.logout()
 ```
 
-## get_ssh_port()
+## get_ssh_port() -> int
 
 GETs the SSH port.  
 Example:
@@ -138,7 +138,7 @@ ssh_port = card_console.get_ssh_port()
 card.logout()
 ```
 
-## get_telnet_port()
+## get_telnet_port() -> int
 
 GETs the Telnet port.  
 Example:
@@ -161,7 +161,7 @@ telnet_port = card_console.get_telnet_port()
 card.logout()
 ```
 
-## set_ssh_port(port=22)
+## set_ssh_port(port: int = 22) -> None
 
 |    Name    |   Type  | Required | Default Value |        Description       |
 |:----------:|:-------:|:--------:|:-------------:|:------------------------:|
@@ -188,7 +188,7 @@ card_console.set_ssh_port(2222)
 card.logout()
 ```
 
-## set_telnet_port(port=23)
+## set_telnet_port(port: int = 23) -> None
 
 |    Name    |   Type  | Required | Default Value |         Description         |
 |:----------:|:-------:|:--------:|:-------------:|:---------------------------:|
@@ -215,7 +215,7 @@ card_console.set_telnet_port(2323)
 card.logout()
 ```
 
-## upload_auth_public_key(key)
+## upload_auth_public_key(key: str) -> int
 
 |    Name   |  Type  | Required | Default Value |                  Description                  |
 |:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
@@ -242,7 +242,7 @@ card_console.upload_auth_public_key("/path/to/key/file")
 card.logout()
 ```
 
-## upload_dsa_host_key(key)
+## upload_dsa_host_key(key: str) -> int
 
 |    Name   |  Type  | Required | Default Value |                  Description                  |
 |:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
@@ -269,7 +269,7 @@ card_console.upload_dsa_host_key("/path/to/key/file")
 card.logout()
 ```
 
-## upload_rsa_host_key(key)
+## upload_rsa_host_key(key: str) -> int
 
 |    Name   |  Type  | Required | Default Value |                  Description                  |
 |:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|

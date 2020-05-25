@@ -8,7 +8,7 @@
 |   [```upload_snmp_configuration(path="snmp_config.ini")```](#upload_snmp_configurationpath)   |             Uploads the specified SNMP configuration file.             |
 | [```upload_system_configuration(path="system_config.ini")```](#upload_system_configurationpath) |            Uploads the specified system configuration file.            |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -16,7 +16,7 @@
 
 Initializes the BatchConfiguration object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## download_snmp_configuration(path=None)
+## download_snmp_configuration(path: str = None) -> None
 
 |    Name    |  Type  | Required | Default Value                                                                           | Description                                                          |
 |:----------:|:------:|----------|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------|
@@ -43,7 +43,7 @@ card_batch_config.download_snmp_configuration()
 card.logout()
 ```
 
-## download_system_configuration(path=None)
+## download_system_configuration(path: str = None) -> None
 
 |    Name    |  Type  | Required | Default Value                                                                                   | Description                                |
 |:----------:|:------:|----------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
@@ -70,7 +70,7 @@ card_batch_config.download_system_configuration()
 card.logout()
 ```
 
-## upload_snmp_configuration(path)
+## upload_snmp_configuration(path: str) -> None
 
 |    Name    |  Type  | Required | Default Value           | Description                               |
 |:----------:|:------:|----------|-------------------------|-------------------------------------------|
@@ -101,7 +101,7 @@ sleep(10)
 card.logout()
 ```
 
-## upload_system_configuration(path)
+## upload_system_configuration(path: str) -> None
 
 |    Name    |  Type  | Required | Default Value             | Description                               |
 |:----------:|:------:|----------|---------------------------|-------------------------------------------|

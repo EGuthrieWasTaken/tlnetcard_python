@@ -20,7 +20,7 @@
 |                                                     [```use_full_duplex()```](#use_full_duplex)                                                    |   Sets the duplex for the link to full.   |
 |                                                     [```use_half_duplex()```](#use_half_duplex)                                                    |   Sets the duplex for the link to half.   |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None:
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -28,7 +28,7 @@
 
 Initializes the TcpIp object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## disable_autonegotiation()
+## disable_autonegotiation() -> None
 
 Disables link speed autonegotiation. It is generally recommended that this feature remain enabled.  
 Example:
@@ -51,7 +51,7 @@ card_ip.disable_autonegotiation()
 card.logout()
 ```
 
-## disable_ipv4_dhcp()
+## disable_ipv4_dhcp() -> None
 
 Disables DHCP for IPv4.  
 Example:
@@ -74,7 +74,7 @@ card_ip.disable_ipv4_dhcp()
 card.logout()
 ```
 
-## disable_ipv6_dhcp()
+## disable_ipv6_dhcp() -> None
 
 Disables DHCP for IPv6.  
 Example:
@@ -97,7 +97,7 @@ card_ip.disable_ipv6_dhcp()
 card.logout()
 ```
 
-## enable_autonegotiation()
+## enable_autonegotiation() -> None
 
 Enables link speed autonegotiation. It is generally recommended that this feature remain enabled.  
 Example:
@@ -120,7 +120,7 @@ card_ip.enable_autonegotiation()
 card.logout()
 ```
 
-## enable_ipv4_dhcp()
+## enable_ipv4_dhcp() -> None
 
 Enables DHCP for IPv4.  
 Example:
@@ -143,7 +143,7 @@ card_ip.enable_ipv4_dhcp()
 card.logout()
 ```
 
-## enable_ipv6_dhcp()
+## enable_ipv6_dhcp() -> None
 
 Enables DHCP for IPv6.  
 Example:
@@ -166,7 +166,7 @@ card_ip.enable_ipv6_dhcp()
 card.logout()
 ```
 
-## get_ipv4_info()
+## get_ipv4_info() -> Dict[str, str]
 
 GETs information on how IPv4 is configured and returns it in a dictionary. The dictionary keys are as follows:  
 
@@ -204,7 +204,7 @@ Which may print, for example:
 "10.0.0.100"
 ```
 
-## get_ipv6_info()
+## get_ipv6_info() -> Dict[str, Any]
 
 GETs information on how IPv6 is configured and returns it in a dictionary. The dictionary keys are as follows:  
 
@@ -241,7 +241,7 @@ Which may print, for example:
 64
 ```
 
-## get_system_info()
+## get_system_info() -> Dict[str, str]
 
 GETs info on the system and its location and returns it in a dictionary. The dictionary keys are as follows:  
 
@@ -276,7 +276,7 @@ Which may print, for example:
 "TLNET"
 ```
 
-## set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")
+## set_ipv4_info(ip_addr: str, mask: str = "255.255.255.0", gateway: str = "", dns_ip: str = "", domain: str = "") -> None
 
 |     Name      |  Type  | Required |     Default Value     |          Description          |
 |:-------------:|:------:|:--------:|:---------------------:|:-----------------------------:|
@@ -308,7 +308,7 @@ card_ip.set_ipv4_info("10.0.0.100", gateway="10.0.0.1", dns_ip="10.0.0.200", dom
 card.logout()
 ```
 
-## set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")
+## set_ipv6_info(ip_addr: str, prefix_len: int = 64, gateway: str = "::", dns_ip: str = "::") -> None
 
 |       Name       |  Type   | Required | Default Value |          Description          |
 |:----------------:|:-------:|:--------:|:-------------:|:-----------------------------:|
@@ -339,7 +339,7 @@ card_ip.set_ipv6_info("fe80::3022:abdc:ef01")
 card.logout()
 ```
 
-## set_system_info(name="TLNET", contact="", location="")
+## set_system_info(name: str = "TLNET", contact: str = "", location: str = "") -> None
 
 |      Name      |  Type  | Required | Default Value |      Description      |
 |:--------------:|:------:|:--------:|:-------------:|:---------------------:|
@@ -369,7 +369,7 @@ card_ip.set_system_info(name="MY-UPS-01", location="LEVEL-1")
 card.logout()
 ```
 
-## use_10m_link_speed()
+## use_10m_link_speed() -> None
 
 Sets the link speed to 10M.  
 
@@ -393,7 +393,7 @@ card_ip.use_10m_link_speed()
 card.logout()
 ```
 
-## use_100m_link_speed()
+## use_100m_link_speed() -> None
 
 Sets the link speed to 100M.  
 
@@ -417,7 +417,7 @@ card_ip.use_100m_link_speed()
 card.logout()
 ```
 
-## use_full_duplex()
+## use_full_duplex() -> None
 
 Sets the link duplex to full.  
 
@@ -441,7 +441,7 @@ card_ip.use_full_duplex()
 card.logout()
 ```
 
-## use_half_duplex()
+## use_half_duplex() -> None
 
 Sets the link duplex to half.  
 

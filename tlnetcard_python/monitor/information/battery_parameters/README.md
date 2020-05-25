@@ -18,7 +18,7 @@ If you elect to use Selenium for any of the functions in this class (or use func
 
 It is recommended that the SNMP-based approach be used in all areas where this is possible. Selenium should generally only be used where it is absolutely necessary (or if you enjoy suffering) as it generally suffers from greatly reduced speeds.
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -26,7 +26,7 @@ It is recommended that the SNMP-based approach be used in all areas where this i
 
 Initializes the BatteryParameters object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## get_battery_status(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)
+## get_battery_status(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
 
 |         Name        |   Type  | Required | Default Value |                                                     Description                                                    |
 |:-------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------------------------------------------------:|
@@ -69,7 +69,7 @@ Which may print, for example:
 "The battery status for the UPS at 10.0.0.100 is unknown!"
 ```
 
-## get_battery_measurements(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)
+## get_battery_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
 
 |         Name        |   Type  | Required | Default Value |                                                     Description                                                    |
 |:-------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------------------------------------------------:|
@@ -114,7 +114,7 @@ Which may print, for example:
 "The battery temperature for the UPS at 10.0.0.100 is 53°C!"
 ```
 
-## get_last_replacement_date(timeout=10)
+## get_last_replacement_date(timeout: int = 10) -> str
 
 |      Name     |  Type | Required | Default Value |                           Description                          |
 |:-------------:|:-----:|:--------:|:-------------:|:--------------------------------------------------------------:|
@@ -141,7 +141,7 @@ last_replacement = card_battery.get_last_replacement_date()
 card.logout()
 ```
 
-## get_next_replacement_date(timeout=10)
+## get_next_replacement_date(timeout: int = 10) -> str
 
 |      Name     |  Type | Required | Default Value |                           Description                          |
 |:-------------:|:-----:|:--------:|:-------------:|:--------------------------------------------------------------:|

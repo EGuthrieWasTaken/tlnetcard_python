@@ -12,7 +12,7 @@
 |                                                                                                                                                                                                                                    [```set_server_info(server, secret, port)```](#set_server_infoserver-secret-port)                                                                                                                                                                                                                                     |   Sets information for the RADIUS server.   |
 |                                                                                                                                                                                                          [```set_user(username, passwd, wan_access=False, user="Administrator")```](#set_userusername-passwd-wan_accessfalse-useradministrator)                                                                                                                                                                                                          |   Sets information for the provided user.   |
 
-## \_\_init__(login_object)
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
@@ -20,7 +20,7 @@
 
 Initializes the UserManager object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## disable_radius()
+## disable_radius() -> None
 
 Disables RADIUS authentication.  
 Example:
@@ -43,7 +43,7 @@ card_user_manager.disable_radius()
 card.logout()
 ```
 
-## enable_radius()
+## enable_radius() -> None
 
 Enables RADIUS authentication. RADIUS will be enabled automatically when server info is set using [set_server_info()](#set_server_infoserver-secret-port), so there is no need to use these two functions together.  
 Example:
@@ -66,7 +66,7 @@ card_user_manager.enable_radius()
 card.logout()
 ```
 
-## get_permissions(user="Administrator")
+## get_permissions(user: str = "Administrator") -> Dict[str, bool]
 
 |    Name    |  Type  | Required |     Default Value     |            Description           |
 |:----------:|:------:|:--------:|:---------------------:|:--------------------------------:|
@@ -100,7 +100,7 @@ Which may print, for example:
 True
 ```
 
-## get_server_info()
+## get_server_info() -> Dict[str, Any]
 
 GETs information about the RADIUS server and returns it in a dictionary. The dictionary keys are as follows:  
 
@@ -135,7 +135,7 @@ Which may print, for example:
 "10.0.0.200"
 ```
 
-## get_user(user="Administrator")
+## get_user(user: str = "Administrator") -> Dict[str, Any]
 
 |      Name      |   Type  | Required |     Default Value     |                 Description                 |
 |:--------------:|:-------:|:--------:|:---------------------:|:-------------------------------------------:|
@@ -175,7 +175,7 @@ Which may print, for example:
 "10.0.0.200"
 ```
 
-## set_permissions(user="Administrator", login_user=False, framed_user=False, callback_login=False, callback_framed=False, outbound=False, administrative=False, nas_prompt=False, authenticate_only=False, callback_nas_prompt=False, call_check=False, callback_administrative=False, selenium=False)
+## set_permissions(user: str = "Administrator", login_user: bool = False, framed_user: bool = False, callback_login: bool = False, callback_framed: bool = False, outbound: bool = False, administrative: bool = False, nas_prompt: bool = False, authenticate_only: bool = False, callback_nas_prompt: bool = False, call_check: bool = False, callback_administrative: bool = False, selenium: bool = False) -> int
 
 |              Name             |   Type  | Required |     Default Value     |                               Description                              |
 |:-----------------------------:|:-------:|:--------:|:---------------------:|:----------------------------------------------------------------------:|
@@ -192,7 +192,7 @@ Which may print, for example:
 |        ```call_check```       | Boolean |    No    |      ```False```      |        Whether the user should have ```call_check``` permission.       |
 | ```callback_administrative``` | Boolean |    No    |      ```False```      | Whether the user should have ```callback_administrative``` permission. |
 |         ```selenium```        | Boolean |    No    |      ```False```      |              Whether a selenium approach should be used.               |
- 
+
 Sets the permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
 **It is recommended that ```selenium``` be set to ```True``` for speed, but it defaults to ```False``` for compatability. If you elect to use Selenium for this function, you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as the corresponding version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).**  
 Example:
@@ -215,7 +215,7 @@ card_user_manager.set_permissions(user="Read Only", callback_nas_prompt=True, ou
 card.logout()
 ```
 
-## set_server_info(server, secret, port=1812)
+## set_server_info(server: str, secret: str, port: int = 1812) -> None
 
 |     Name     |   Type  | Required | Default Value |              Description             |
 |:------------:|:-------:|:--------:|:-------------:|:------------------------------------:|
@@ -244,7 +244,7 @@ card_user_manager.set_server_info("10.0.0.200", "Av43udHEk3uh2278eDss", 3333)
 card.logout()
 ```
 
-## set_user(username, passwd, wan_access=False, user="Administrator")
+## set_user(username: str, passwd: str, wan_access: int = False, user: str = "Administrator") -> None
 
 |       Name       |  Type   | Required |     Default Value     |                         Description                          |
 |:----------------:|:-------:|:--------:|:---------------------:|:------------------------------------------------------------:|
