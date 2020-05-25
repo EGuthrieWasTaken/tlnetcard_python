@@ -7,14 +7,16 @@
 from os.path import isfile
 from pathlib import Path
 from platform import system
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
 
 class BatchConfiguration:
     """ Class for the BatchConfiguration object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the BatchConfiguration object. """
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_batch"
-    def download_snmp_configuration(self, path=None):
+    def download_snmp_configuration(self, path: str = None) -> None:
         """ Downloads the SNMP configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
         if path is None:
@@ -34,7 +36,7 @@ class BatchConfiguration:
         with open(path, "w") as out_file:
             out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
                                                                  verify=verify).text)
-    def download_system_configuration(self, path=None):
+    def download_system_configuration(self, path: str = None) -> None:
         """ Downloads the system configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
         if path is None:
@@ -54,7 +56,7 @@ class BatchConfiguration:
         with open(path, "w") as out_file:
             out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
                                                                  verify=verify).text)
-    def upload_snmp_configuration(self, path="snmp_config.ini"):
+    def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> int:
         """ Uploads the specified SNMP configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
@@ -76,7 +78,7 @@ class BatchConfiguration:
               + " will be offline for approximately 10 seconds.")
 
         return 0
-    def upload_system_configuration(self, path="system_config.ini"):
+    def upload_system_configuration(self, path: str = "system_config.ini") -> int:
         """ Uploads the specified system configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):

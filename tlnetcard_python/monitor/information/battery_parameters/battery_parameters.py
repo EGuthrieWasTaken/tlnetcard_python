@@ -2,17 +2,21 @@
 # Ethan Guthrie
 # 05/14/2020
 """ Allows battery parameters to be read. """
-# Required internal functions.
+# Standard library.
+from typing import Any, Dict
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
 from tlnetcard_python.monitor.information.information import get_with_snmp, scrape_with_selenium
 
 class BatteryParameters:
     """ Class for the Battery_Parameters object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the Battery_Parameters object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_battery.asp"
-    def get_battery_status(self, snmp=True, snmp_user=None,
-                           snmp_auth_key=None, snmp_priv_key=None, timeout=10):
+    def get_battery_status(self, snmp: bool = True, snmp_user: str = None,
+                           snmp_auth_key: str = None, snmp_priv_key: str = None,
+                           timeout: int = 10) -> Dict[str, Any]:
         """ Gets battery status information. """
         if snmp:
             # SNMP will be used to get the value. This is the preferred method.
@@ -53,8 +57,9 @@ class BatteryParameters:
                 'On Battery Time (s)': int(batt_time)
             }
         return out
-    def get_battery_measurements(self, snmp=True, snmp_user=None,
-                                 snmp_auth_key=None, snmp_priv_key=None, timeout=10):
+    def get_battery_measurements(self, snmp: bool = True, snmp_user: str = None,
+                                 snmp_auth_key: str = None, snmp_priv_key: str = None,
+                                 timeout: int = 10) -> Dict[str, Any]:
         """ Gets information about battery capacity, temperature, and voltage. """
         if snmp:
             # SNMP will be used to get the value. This is the preferred method.
@@ -102,12 +107,12 @@ class BatteryParameters:
                 'Remaining Time (HH:MM)': time
             }
         return out
-    def get_last_replacement_date(self, timeout=10):
+    def get_last_replacement_date(self, timeout: int = 10) -> str:
         """ Gets the last date the UPS battery was changed. """
         # This value is not available with SNMP.
         return scrape_with_selenium(self._login_object.get_host(), ["UPS_BATTLAST"],
                                     self._get_url, self._login_object.get_session(), timeout)[0]
-    def get_next_replacement_date(self, timeout=10):
+    def get_next_replacement_date(self, timeout: int = 10) -> str:
         """ Gets the next date the UPS battery should be changed. """
         # This value is not available with SNMP.
         return scrape_with_selenium(self._login_object.get_host(), ["UPS_BATTNEXT"],

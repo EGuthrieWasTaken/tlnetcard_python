@@ -5,15 +5,17 @@
 
 # Standard library.
 from os.path import isfile
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
 
 class Console:
     """ Class for the Console object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the Console object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_console.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_console"
-    def disable_ssh(self):
+    def disable_ssh(self) -> None:
         """ Disables SSH. """
         # Generating payload.
         console_data = {
@@ -23,7 +25,7 @@ class Console:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def disable_telnet(self):
+    def disable_telnet(self) -> None:
         """ Disables Telnet. """
         # Generating payload.
         console_data = {
@@ -33,7 +35,7 @@ class Console:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_ssh(self):
+    def enable_ssh(self) -> None:
         """ Enables SSH. """
         # Generating payload.
         console_data = {
@@ -43,7 +45,7 @@ class Console:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_telnet(self):
+    def enable_telnet(self) -> None:
         """ Enables Telnet. """
         # Generating payload.
         console_data = {
@@ -53,7 +55,7 @@ class Console:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def get_ssh_port(self):
+    def get_ssh_port(self) -> int:
         """ GETs the port in use for SSH. """
         # GETing Console page.
         resp = self._login_object.get_session().get(self._get_url)
@@ -64,7 +66,7 @@ class Console:
         end_index = str(resp.text).find("\"", start_index)
 
         return int(resp.text[start_index:end_index])
-    def get_telnet_port(self):
+    def get_telnet_port(self) -> int:
         """ GETs the port in use for Telnet. """
         # GETing Console page.
         resp = self._login_object.get_session().get(self._get_url)
@@ -75,7 +77,7 @@ class Console:
         end_index = str(resp.text).find("\"", start_index)
 
         return int(resp.text[start_index:end_index])
-    def set_ssh_port(self, port=22):
+    def set_ssh_port(self, port=22) -> None:
         """ Sets the port for use by SSH. """
         # Generating payload.
         console_data = {
@@ -86,7 +88,7 @@ class Console:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_telnet_port(self, port=23):
+    def set_telnet_port(self, port=23) -> None:
         """ Sets the port for use by Telnet. """
         # Generating payload.
         console_data = {
@@ -97,7 +99,7 @@ class Console:
         # Uploading console configuration.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def upload_auth_public_key(self, key):
+    def upload_auth_public_key(self, key: str) -> int:
         """ Uploads the provided authentication public key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
@@ -112,7 +114,7 @@ class Console:
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
-    def upload_dsa_host_key(self, key):
+    def upload_dsa_host_key(self, key: str) -> str:
         """ Uploads the provided DSA host key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
@@ -127,7 +129,7 @@ class Console:
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
-    def upload_rsa_host_key(self, key):
+    def upload_rsa_host_key(self, key: str) -> int:
         """ Uploads the provided RSA host key. """
         # Testing if the file specified in path exists.
         if not isfile(key):

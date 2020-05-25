@@ -5,15 +5,17 @@
 
 # Standard library.
 from time import sleep
+from typing import List
 # Related third-party library.
 from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
+from requests import Session
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Initialize class methods.
-def get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None,
-                  snmp_priv_key=None, timeout=10):
+def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_auth_key: str = None,
+                  snmp_priv_key: str = None, timeout: int = 10) -> List[str]:
     """ Gets the provided SNMP values from their SNMP IDs. """
     out = []
     for i in snmp_ids:
@@ -36,7 +38,8 @@ def get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None,
         else:
             out.append(str(var_binds[0]).split("=")[-1])
     return out
-def scrape_with_selenium(host, element_ids, url, session=None, timeout=10):
+def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: Session = None,
+                         timeout: int = 10) -> List[str]:
     """ Scrapes the provided web elements by their ID from the provided webpage. """
     # Configuring Selenium to run headless (i.e. without a GUI).
     browser_options = Options()

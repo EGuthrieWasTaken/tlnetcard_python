@@ -3,14 +3,19 @@
 # 04/16/2020
 """ Allows syslog servers to be added or removed. """
 
+# Standard library.
+from typing import List
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
+
 class Syslog:
     """ Class for the syslog object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the Syslog object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_syslog.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_syslog"
-    def add_server(self, server):
+    def add_server(self, server: str) -> int:
         """ Adds a syslog server. """
         # Quitting if four servers are already listed.
         curr_servers = self.get_servers()
@@ -39,7 +44,7 @@ class Syslog:
                                               verify=self._login_object.get_reject_invalid_certs())
 
         return 0
-    def clear_servers(self):
+    def clear_servers(self) -> None:
         """ Clears all syslog servers. """
         # Generating payload.
         syslog_data = {}
@@ -49,7 +54,7 @@ class Syslog:
         # Uploading server configuration.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def disable_syslog(self):
+    def disable_syslog(self) -> None:
         """ Disables syslog servers. """
         # Generating payload.
         syslog_data = {
@@ -59,7 +64,7 @@ class Syslog:
         # Uploading server configuration.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_syslog(self):
+    def enable_syslog(self) -> None:
         """ Enables syslog servers. """
         # Generating payload.
         syslog_data = {
@@ -69,7 +74,7 @@ class Syslog:
         # Uploading server configuration.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def get_servers(self):
+    def get_servers(self) -> List[str]:
         """ GETs syslog servers and returns them in a list. """
         # GETing syslog page.
         resp = self._login_object.get_session().get(self._get_url)
@@ -86,7 +91,7 @@ class Syslog:
                     servers.append(str(i)[start_index:end_index])
 
         return servers
-    def remove_server(self, server):
+    def remove_server(self, server: str) -> int:
         """ Removes a syslog server. """
         # Quitting if server isn't listed.
         curr_servers = self.get_servers()

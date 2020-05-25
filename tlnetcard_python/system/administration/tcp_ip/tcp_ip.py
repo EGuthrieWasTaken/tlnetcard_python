@@ -5,18 +5,20 @@
 
 # Standard library.
 from os import remove
-# Required internal class.
+from typing import Any, Dict
+# Required internal classes/functions.
+from tlnetcard_python.login import Login
 from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class TcpIp:
     """ Class for the TcpIp object. """
-    def __init__(self, login_object):
+    def __init__(self, login_object: Login) -> None:
         """ Initializes the TcpIp object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_ipconfig.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_ipconfig"
         self._batch_object = BatchConfiguration(self._login_object)
-    def disable_autonegotiation(self):
+    def disable_autonegotiation(self) -> None:
         """ Disables link speed autonegotiation. """
         # Generating payload.
         ip_data = {
@@ -26,7 +28,7 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def disable_ipv4_dhcp(self):
+    def disable_ipv4_dhcp(self) -> None:
         """ Disables DHCP for IPv4. """
         # Generating payload.
         ip_data = {
@@ -36,7 +38,7 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def disable_ipv6_dhcp(self):
+    def disable_ipv6_dhcp(self) -> None:
         """ Disables DHCP for IPv6. """
         ip_data = {
             "SYS_V6DHCP": "0"
@@ -45,7 +47,7 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_autonetogiation(self):
+    def enable_autonetogiation(self) -> None:
         """ Enables link speed negotiation. """
         # Generating payload.
         ip_data = {
@@ -55,7 +57,7 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_ipv4_dhcp(self):
+    def enable_ipv4_dhcp(self) -> None:
         """ Enables DHCP for IPv4. """
         # Generating payload.
         ip_data = {
@@ -65,7 +67,7 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def enable_ipv6_dhcp(self):
+    def enable_ipv6_dhcp(self) -> None:
         """ Enables DHCP for IPv6. """
         ip_data = {
             "SYS_V6DHCP": "1"
@@ -74,7 +76,7 @@ class TcpIp:
         # Uploading TCP/IP configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def get_ipv4_info(self):
+    def get_ipv4_info(self) -> Dict[str, str]:
         """ GETs info on how IPv4 is configured. """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
@@ -101,7 +103,7 @@ class TcpIp:
         # Cleaning up.
         remove("system_config_temp.ini")
         return out
-    def get_ipv6_info(self):
+    def get_ipv6_info(self) -> Dict[str, Any]:
         """ GETs info on how IPv6 is configured. """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
@@ -128,7 +130,7 @@ class TcpIp:
         # Cleaning up.
         remove("system_config_temp.ini")
         return out
-    def get_system_info(self):
+    def get_system_info(self) -> Dict[str, str]:
         """ GETs info on the system and its location. """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
@@ -152,7 +154,8 @@ class TcpIp:
         # Cleaning up.
         remove("system_config_temp.ini")
         return out
-    def set_ipv4_info(self, ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain=""):
+    def set_ipv4_info(self, ip_addr: str, mask: str = "255.255.255.0", gateway: str = "",
+                      dns_ip: str = "", domain: str = "") -> None:
         """ Sets info on how IPv4 is configured. """
         # Generating payload.
         ip_data = {
@@ -167,7 +170,8 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_ipv6_info(self, ip_addr, prefix_len=64, gateway="::", dns_ip="::"):
+    def set_ipv6_info(self, ip_addr: str, prefix_len: int = 64,
+                      gateway: str = "::", dns_ip: str = "::") -> None:
         """ Sets info on how IPv6 is configured. """
         # Generating payload.
         ip_data = {
@@ -181,7 +185,7 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def set_system_info(self, name="TLNET", contact="", location=""):
+    def set_system_info(self, name: str = "TLNET", contact: str = "", location: str = "") -> None:
         """ Sets info on the system and its location. """
         # Generating payload.
         ip_data = {
@@ -193,7 +197,7 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def use_10m_link_speed(self):
+    def use_10m_link_speed(self) -> None:
         """ Sets the link speed to 10M. """
         # Generating payload.
         ip_data = {
@@ -203,7 +207,7 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def use_100m_link_speed(self):
+    def use_100m_link_speed(self) -> None:
         """ Sets the link speed to 100M. """
         # Generating payload.
         ip_data = {
@@ -213,7 +217,7 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def use_full_duplex(self):
+    def use_full_duplex(self) -> None:
         """ Sets the duplex for the link to full. """
         # Generating payload.
         ip_data = {
@@ -223,7 +227,7 @@ class TcpIp:
         # Uploading web configuration.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-    def use_half_duplex(self):
+    def use_half_duplex(self) -> None:
         """ Sets the duplex for the link to half. """
         # Generating payload.
         ip_data = {
