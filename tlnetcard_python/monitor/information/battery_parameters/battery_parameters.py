@@ -2,6 +2,7 @@
 # Ethan Guthrie
 # 05/14/2020
 """ Allows battery parameters to be read. """
+
 # Standard library.
 from typing import Any, Dict
 # Required internal classes/functions.

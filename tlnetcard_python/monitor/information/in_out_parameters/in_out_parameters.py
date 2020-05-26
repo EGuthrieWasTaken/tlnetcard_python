@@ -3,6 +3,8 @@
 # DATE TBD
 """ Allows UPS input and output power levels to be read. """
 
+# Standard library.
+from typing import Any, Dict
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 from tlnetcard_python.monitor.information.information import get_with_snmp, scrape_with_selenium
