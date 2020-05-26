@@ -20,7 +20,7 @@
 |                                                     [```use_full_duplex()```](#use_full_duplex)                                                    |   Sets the duplex for the link to full.   |
 |                                                     [```use_half_duplex()```](#use_half_duplex)                                                    |   Sets the duplex for the link to half.   |
 
-## \_\_init__(login_object: Login) -> None:
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
