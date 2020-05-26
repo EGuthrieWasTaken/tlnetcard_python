@@ -150,7 +150,7 @@ class InOutParameters:
                                                                         "UPS_OUTVOLT1",
                                                                         "UPS_OUTAMP1",
                                                                         "UPS_OUTPOWER1",
-                                                                        "OUTLOAD1"],
+                                                                        "UPS_OUTLOAD1"],
                                                                        self._get_url, session,
                                                                        timeout)
 
