@@ -38,9 +38,9 @@ class InOutParameters:
 
             # Generating out dictionary.
             out = {
-                'Frequency (Hz)': float(int(freq))/10,
+                'Frequency (Hz)': float(freq)/10,
                 'Voltage (V)': float(volts),
-                'Current (A)': float(int(curr)/10),
+                'Current (A)': float(curr)/10,
                 'Power (Watt)': int(power)
             }
         else:
@@ -62,8 +62,8 @@ class InOutParameters:
             }
         return out
     def get_input_measurements(self, snmp: bool = True, snmp_user: str = None,
-                                snmp_auth_key: str = None, snmp_priv_key: str = None,
-                                timeout: int = 10) -> Dict[str, Any]:
+                               snmp_auth_key: str = None, snmp_priv_key: str = None,
+                               timeout: int = 10) -> Dict[str, Any]:
         """ Gets battery input measurements. """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
@@ -76,12 +76,12 @@ class InOutParameters:
 
             # Getting values.
             freq, volts = get_with_snmp(self._login_object.get_host(),
-                                                     [snmp_dict[i] for i in snmp_dict], snmp_user,
-                                                     snmp_auth_key, snmp_priv_key, timeout)
+                                        [snmp_dict[i] for i in snmp_dict], snmp_user, snmp_auth_key,
+                                        snmp_priv_key, timeout)
 
             # Generating out dictionary.
             out = {
-                'Frequency (Hz)': float(freq),
+                'Frequency (Hz)': float(freq)/10,
                 'Voltage (V)': float(volts)
             }
         else:
@@ -134,9 +134,9 @@ class InOutParameters:
             # Generating out dictionary.
             out = {
                 'Output Source': status_dict[int(out)],
-                'Frequency (Hz)': float(int(freq))/10,
+                'Frequency (Hz)': float(freq)/10,
                 'Voltage (V)': float(volts),
-                'Current (A)': float(int(curr)/10),
+                'Current (A)': float(curr)/10,
                 'Power (Watt)': int(power),
                 'Loading (%)': int(load)
             }
@@ -147,8 +147,10 @@ class InOutParameters:
             session = self._login_object.get_session()
             out, freq, volts, curr, power, load = scrape_with_selenium(host,
                                                                        ["UPS_OUTSRC", "UPS_OUTFREQ",
-                                                                        "UPS_OUTVOLT1", "UPS_OUTAMP1",
-                                                                        "UPS_OUTPOWER1", "OUTLOAD1"],
+                                                                        "UPS_OUTVOLT1",
+                                                                        "UPS_OUTAMP1",
+                                                                        "UPS_OUTPOWER1",
+                                                                        "OUTLOAD1"],
                                                                        self._get_url, session,
                                                                        timeout)
 
