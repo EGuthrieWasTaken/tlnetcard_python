@@ -23,10 +23,11 @@ class InOutParameters:
             # SNMP will be used to get values. This is the preferred method.
             # Generating SNMP ID dictionary.
             snmp_dict = {
-                'Frequency (Hz)': 'iso.3.6.1.2.1.33.1.5.1',
-                'Voltage (V)': 'iso.3.6.1.2.1.33.1.5.3.1.2.1',
-                'Current (A)': 'iso.3.6.1.2.1.33.1.5.3.1.3.1', # In deciamps (i.e. divide this value by 10).
-                'Power (Watt)': 'iso.3.6.1.2.1.33.1.5.3.1.4.1'
+                'Frequency': 'iso.3.6.1.2.1.33.1.5.1',
+                'Voltage': 'iso.3.6.1.2.1.33.1.5.3.1.2.1',
+                'Current': 'iso.3.6.1.2.1.33.1.5.3.1.3.1', # In deciamps
+                                                           # (i.e. divide this value by 10).
+                'Power': 'iso.3.6.1.2.1.33.1.5.3.1.4.1'
             }
 
             # Getting values.
