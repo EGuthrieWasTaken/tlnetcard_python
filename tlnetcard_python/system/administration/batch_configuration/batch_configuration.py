@@ -16,10 +16,10 @@ class BatchConfiguration:
         """ Initializes the BatchConfiguration object. """
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_batch"
-    def download_snmp_configuration(self, path: str = None) -> None:
+    def download_snmp_configuration(self, path: str = None, no_write: bool = False) -> str:
         """ Downloads the SNMP configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
-        if path is None:
+        if path is None and not no_write:
             path = str(Path.home())
             if system() == "Windows":
                 path += "\\Downloads\\snmp_config.ini"
@@ -31,15 +31,22 @@ class BatchConfiguration:
             'DL_SNMP': 'Download'
         }
 
-        # Submitting download request and writing to file.
+        # Submitting download request.
         verify = self._login_object.get_reject_invalid_certs()
+        data = self._login_object.get_session().post(self._post_url, data=download_data,
+                                                     verify=verify).text
+        # Returning raw configuration data if no_write was set to True.
+        if no_write:
+            return data
+        # Otherwise writing configuration data to file an returning the file path.
         with open(path, "w") as out_file:
             out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
                                                                  verify=verify).text)
-    def download_system_configuration(self, path: str = None) -> None:
+        return path
+    def download_system_configuration(self, path: str = None, no_write: bool = False) -> None:
         """ Downloads the system configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
-        if path is None:
+        if path is None and not no_write:
             path = str(Path.home())
             if system() == "Windows":
                 path += "\\Downloads\\system_config.ini"
@@ -51,11 +58,18 @@ class BatchConfiguration:
             'DL_SYSTEM': 'Download'
         }
 
-        # Submitting download request and writing to file.
+        # Submitting download request.
         verify = self._login_object.get_reject_invalid_certs()
+        data = self._login_object.get_session().post(self._post_url, data=download_data,
+                                                     verify=verify).text
+        # Returning raw configuration data if no_write was set to True.
+        if no_write:
+            return data
+        # Otherwise writing configuration data to file an returning the file path.
         with open(path, "w") as out_file:
             out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
                                                                  verify=verify).text)
+        return path
     def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> int:
         """ Uploads the specified SNMP configuration file. """
         # Testing if the file specified in path exists.

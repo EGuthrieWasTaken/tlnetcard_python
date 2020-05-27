@@ -6,10 +6,12 @@
 # Standard library.
 from getpass import getpass
 from hashlib import md5
+from typing import List
 from warnings import filterwarnings
 # Related third-party library.
 from requests import Session
 from urllib3.exceptions import InsecureRequestWarning
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class Login:
     """ Class for the login object. A login object is required by all classes in this repository."""
@@ -30,7 +32,12 @@ class Login:
             self._passwd = ""
         # Executing login if a host was specified.
         if self._host != "":
-            self.perform_login(passwd)
+            self._perform_login(passwd)
+        # Initializing system/snmp config list variables.
+        self._snmp_config = []
+        self._system_config = []
+        self._renew_snmp = True
+        self._renew_system = True
     def get_base_url(self) -> str:
         """ Returns the base URL for TLNET Supervisor. """
         # Generating base URL.
@@ -49,12 +56,36 @@ class Login:
     def get_session(self) -> Session:
         """ Returns the session. """
         return self._session
+    def get_snmp_config(self, force: bool = False) -> List[str]:
+        """ Triggers the API to pull a new version of SNMP config file if required and returns the
+        configuration as a list. """
+        # Checking if a snmp config is required or forced and returning if neither.
+        if not self._renew_snmp and not force:
+            return self._snmp_config
+        # Otherwise initializing BatchConfiguration object pulling new SNMP config.
+        batch_object = BatchConfiguration(self)
+        self._snmp_config = batch_object.download_snmp_configuration(no_write=True).split('\n')
+        # Resetting _renew_snmp variable to False.
+        self._renew_snmp = False
+        return self._snmp_config
+    def get_system_config(self, force: bool = False) -> List[str]:
+        """ Triggers the API to pull a new version of system config file if required and returns the
+        configuration as a list. """
+        # Checking if a system config is required or forced and returning if neither.
+        if not self._renew_system and not force:
+            return self._system_config
+        # Otherwise initializing BatchConfiguration object pulling new system config.
+        batch_object = BatchConfiguration(self)
+        self._system_config = batch_object.download_system_configuration(no_write=True).split('\n')
+        # Resetting _renew_system variable to False.
+        self._renew_system = False
+        return self._system_config
     def logout(self) -> None:
         """ Closes the session. """
         # Restoring warnings in case reject_invalid_certs flag is used.
         filterwarnings("default", category=InsecureRequestWarning)
         self._session.close()
-    def perform_login(self, passwd: str) -> int:
+    def _perform_login(self, passwd: str) -> int:
         """ Logs into a new session. """
         # Ignoring self-signed SSL certificate warning when reject_invalid_certs is False.
         if not self._reject_invalid_certs:
@@ -101,8 +132,16 @@ class Login:
         # Saving session.
         self._session = session
         return 0
+    def request_snmp_config_renewal(self) -> None:
+        """ Sets the _renew_snmp attribute to True so that the next call to get_snmp_config() will
+        trigger a re-pull of the SNMP config file. """
+        self._renew_snmp = True
+    def request_system_config_renewal(self) -> None:
+        """ Sets the _renew_system attribute to True so that the next call to get_system_config()
+        will trigger a re-pull of the system config file. """
+        self._renew_system = True
     def set_host(self, host: str, passwd: str = "") -> None:
-        """ Sets host and then calls perform_login(). """
+        """ Sets host and then calls _perform_login(). """
         # Closing previous session (if there was one).
         if self._host != "":
             self.logout()
@@ -111,11 +150,11 @@ class Login:
 
         # Checking if password was provided or if password was saved, and then logging in.
         if passwd != "":
-            self.perform_login(passwd)
+            self._perform_login(passwd)
         elif self._save_passwd:
-            self.perform_login(self._passwd)
+            self._perform_login(self._passwd)
         else:
             passwd = getpass()
             if self._save_passwd:
                 self._passwd = passwd
-            self.perform_login(getpass())
+            self._perform_login(getpass())
