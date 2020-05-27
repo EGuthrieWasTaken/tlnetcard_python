@@ -4,11 +4,9 @@
 """ Allows TCP/IP settings for IPv4/IPv6 to be configured. """
 
 # Standard library.
-from os import remove
 from typing import Any, Dict
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
-from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class TcpIp:
     """ Class for the TcpIp object. """
@@ -17,7 +15,6 @@ class TcpIp:
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_ipconfig.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_ipconfig"
-        self._batch_object = BatchConfiguration(self._login_object)
     def disable_autonegotiation(self) -> None:
         """ Disables link speed autonegotiation. """
         # Generating payload.
