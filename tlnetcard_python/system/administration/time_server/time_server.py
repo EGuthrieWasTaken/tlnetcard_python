@@ -21,9 +21,10 @@ class TimeServer:
             "NTP_DLS_EN": "0"
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def disable_sntp(self) -> None:
         """ Disables SNTP. """
         # Generating payload.
@@ -31,9 +32,10 @@ class TimeServer:
             "NTP_MANU": "1"
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_daylight_savings(self, start_date: str = "04/01", end_date: str = "11/01") -> None:
         """ Enables daylight savings from the start date to the end date for SNTP. """
         # Generating payload.
@@ -44,9 +46,10 @@ class TimeServer:
             "NTP_DLS_EDATE": end_date
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_sntp(self) -> None:
         """ Enables SNTP. """
         # Generating payload.
@@ -54,31 +57,30 @@ class TimeServer:
             "NTP_MANU": "0"
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def get_primary_server(self) -> str:
         """ GETs the primary time server for SNTP and returns it. """
-        # GETing time server page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for primary server.
-        addr = resp.html.find("NTP_IP1")
-        start_index = str(addr).find("value=") + 7
-        end_index = str(addr).find("'", start_index)
-
-        return addr[start_index:end_index]
+        # Parsing config for primary SNTP server.
+        for line in system_config:
+            if line.find("Server1") != -1:
+                return line.split("=")[1]
+        return ""
     def get_secondary_server(self) -> str:
         """ GETs the secondary time server for SNTP and returns it. """
-        # GETing time server page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for primary server.
-        addr = resp.html.find("NTP_IP2")
-        start_index = str(addr).find("value=") + 7
-        end_index = str(addr).find("'", start_index)
-
-        return addr[start_index:end_index]
+        # Parsing config for secondary SNTP server.
+        for line in system_config:
+            if line.find("Server2") != -1:
+                return line.split("=")[1]
+        return ""
     def set_manual_time(self, date: str = "01/01/2000", time: str = "00:00:00") -> None:
         """ Sets the time manually. """
         # Generating payload.
@@ -89,9 +91,10 @@ class TimeServer:
             "NTP_SYSTIME": time
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def set_primary_server(self, server: str) -> None:
         """ Sets the primary time server for SNTP. """
         # Generating payload.
@@ -100,9 +103,10 @@ class TimeServer:
             "NTP_IP1": server
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def set_secondary_server(self, server: str) -> None:
         """ Sets the secondary time server for SNTP. """
         # Generating payload.
@@ -111,9 +115,10 @@ class TimeServer:
             "NTP_IP2": server
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def set_time_zone(self, offset: str = "GMT") -> int:
         """ Sets the time zone for SNTP. """
         # Converting string to list value.
@@ -139,9 +144,10 @@ class TimeServer:
             "NTP_ZONE": str(zone)
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
         return 0
     def use_local_time(self) -> None:
         """ Sets the manual time to this PC's time. """
@@ -151,6 +157,7 @@ class TimeServer:
             "NTP_USE_PCTIME": "1"
         }
 
-        # Uploading time server configuration.
+        # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
