@@ -11,7 +11,8 @@ from warnings import filterwarnings
 # Related third-party library.
 from requests import Session
 from urllib3.exceptions import InsecureRequestWarning
-from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
+# NOTE: See below class Login for import statement of BatchConfiguration class.
+#       The import statement is placed below class Login to prevent a circular import error.
 
 class Login:
     """ Class for the login object. A login object is required by all classes in this repository."""
@@ -158,3 +159,6 @@ class Login:
             if self._save_passwd:
                 self._passwd = passwd
             self._perform_login(getpass())
+
+# Importing BatchConfiguration module to access configuration files.
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
