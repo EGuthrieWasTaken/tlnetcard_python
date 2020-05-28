@@ -2,6 +2,7 @@
 # Ethan Guthrie
 # 05/14/2020
 """ Allows battery parameters to be read. """
+
 # Standard library.
 from typing import Any, Dict
 # Required internal classes/functions.
@@ -83,7 +84,7 @@ class BatteryParameters:
             rem_time = '{hours:02d}:{mins:02d}'.format(hours=hours, mins=mins % 60)
             out = {
                 'Battery Capacity (%)': int(batt_cap),
-                'Voltage (V)': float(int(volts)/10),
+                'Voltage (V)': float(volts)/10,
                 'Temperature (°C)': int(temp),
                 'Remaining Time (HH:MM)': rem_time
             }
