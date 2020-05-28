@@ -2,16 +2,18 @@
 
 ## Cheatsheet
 
-|                                                 Function Header                                                  |                 Quick Description                 |
-|:----------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------:|
-| ```__init__(user="admin", passwd="password", host="", save_passwd=False, ssl=True, reject_invalid_certs=True)``` |           Initializes the Login object.           |
-|                                               ```get_base_url()```                                               |    Returns the base URL for TLNET Supervisor.     |
-|                                                 ```get_host()```                                                 |                 Returns the host.                 |
-|                                         ```get_reject_invalid_certs()```                                         | Returns the ```reject_invalid_certs``` attribute. |
-|                                               ```get_session()```                                                |               Returns the session.                |
-|                                                  ```logout()```                                                  |                Closes the session.                |
-|                                            ```performLogin(passwd)```                                            |             Logs into a new session.              |
-|                                         ```set_host(host, passwd="")```                                          |  Sets host and then calls ```performLogin()```.   |
+|                                                                                                                      Function Header                                                                                                                       |                 Quick Description                 |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------:|
+| [```__init__(user="admin", passwd="password", host="", save_passwd=False, ssl=True, reject_invalid_certs=True)```](#__init__user-str--admin-passwd-str--password-host-str---save_passwd-bool--false-ssl-bool--true-reject_invalid_certs-bool--true---none) |           Initializes the Login object.           |
+|                                                                                                        [```get_base_url()```](#get_base_url---str)                                                                                                         |    Returns the base URL for TLNET Supervisor.     |
+|                                                                                                            [```get_host()```](#get_host---str)                                                                                                             |                 Returns the host.                 |
+|                                                                                            [```get_reject_invalid_certs()```](#get_reject_invalid_certs---bool)                                                                                            | Returns the ```reject_invalid_certs``` attribute. |
+|                                                                                                       [```get_session()```](#get_session---session)                                                                                                        |               Returns the session.                |
+|                                                                                     [```get_snmp_config(force=False)```](#get_snmp_configforce-bool--false---liststr)                                                                                      |     GETs the current SNMP configuration file.     |
+|                                                                                   [```get_system_config(force=False)```](#get_system_configforce-bool--false---liststr)                                                                                    |    GETs the current system configuration file.    |
+|                                                                                                              [```logout()```](#logout---none)                                                                                                              |                Closes the session.                |
+|                                                                                              [```_perform_login(passwd)```](#_perform_loginpasswd-str---int)                                                                                               |             Logs into a new session.              |
+|                                                                                          [```set_host(host, passwd="")```](#set_hosthost-str-passwd-str-----none)                                                                                          | Sets host and then calls ```_perform_login()```.  |
 
 ## \_\_init__(user: str = "admin", passwd: str = "password", host: str = "", save_passwd: bool = False, ssl: bool = True, reject_invalid_certs: bool = True) -> None
 
@@ -132,6 +134,10 @@ r = card.get_session().get("https://duckduckgo.com")
 card.logout()
 ```
 
+## get_snmp_config(force: bool = False) -> List[str]
+
+## get_system_config(force: bool = False) -> List[str]
+
 ## logout() -> None
 
 Closes the session saved as ```self._session```. This module should be called before your program terminates.  
@@ -150,7 +156,7 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 card.logout()
 ```
 
-## performLogin(passwd: str) -> int
+## _perform_login(passwd: str) -> int
 
 |     Name     |  Type  | Required | Default Value |           Description          |
 |:------------:|:------:|:--------:|:-------------:|:------------------------------:|
@@ -188,7 +194,7 @@ Example:
 from tlnetcard_python import Login
 
 # Defining a list of TLNETCARD hostnames.
-hosts = [10.0.0.100, 10.0.0.101, 10.0.0.103]
+hosts = ["10.0.0.100", "10.0.0.101", "10.0.0.103"]
 # Initializing a session-less Login object.
 card = Login("admin", "sample_password", save_passwd=True)
 

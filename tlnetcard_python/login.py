@@ -158,7 +158,7 @@ class Login:
             passwd = getpass()
             if self._save_passwd:
                 self._passwd = passwd
-            self._perform_login(getpass())
+            self._perform_login(passwd)
 
 # Importing BatchConfiguration module to access configuration files.
 from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
