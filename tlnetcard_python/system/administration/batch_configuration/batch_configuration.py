@@ -85,12 +85,12 @@ class BatchConfiguration:
             'UL_F_SNMP': (path.split("/")[-1], open(path, 'rb'), 'multipart/form-data'),
         }
 
-        # Uploading SNMP configuration.
+        # Uploading SNMP configuration and requesting SNMP config renewal.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
-
+        self._login_object.request_snmp_config_renewal()
         return 0
     def upload_system_configuration(self, path: str = "system_config.ini") -> int:
         """ Uploads the specified system configuration file. """
@@ -107,10 +107,10 @@ class BatchConfiguration:
             'UL_F_SYSTEM': (path.split("/")[-1], open(path, 'rb'), 'multipart/form-data'),
         }
 
-        # Uploading system configuration.
+        # Uploading system configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
-
+        self._login_object.request_system_config_renewal()
         return 0
