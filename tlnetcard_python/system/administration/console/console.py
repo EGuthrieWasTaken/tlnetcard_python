@@ -22,9 +22,10 @@ class Console:
             "CON_SSH": "0"
         }
 
-        # Uploading console configuration.
+        # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def disable_telnet(self) -> None:
         """ Disables Telnet. """
         # Generating payload.
@@ -32,9 +33,10 @@ class Console:
             "CON_TELNET": "0"
         }
 
-        # Uploading console configuration.
+        # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_ssh(self) -> None:
         """ Enables SSH. """
         # Generating payload.
@@ -42,9 +44,10 @@ class Console:
             "CON_SSH": "1"
         }
 
-        # Uploading console configuration.
+        # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_telnet(self) -> None:
         """ Enables Telnet. """
         # Generating payload.
@@ -52,31 +55,30 @@ class Console:
             "CON_TELNET": "1"
         }
 
-        # Uploading console configuration.
+        # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def get_ssh_port(self) -> int:
         """ GETs the port in use for SSH. """
-        # GETing Console page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for SSH Port.
-        addr = resp.text.find("NAME=\"CON_PORT_SSH\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-
-        return int(resp.text[start_index:end_index])
+        # Parsing config for SSH port.
+        for line in system_config:
+            if line.find("SSH Port") != -1:
+                return int(line.split("=")[1])
+        return -1
     def get_telnet_port(self) -> int:
         """ GETs the port in use for Telnet. """
-        # GETing Console page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for Telnet Port.
-        addr = resp.text.find("NAME=\"CON_PORT_TELNET\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-
-        return int(resp.text[start_index:end_index])
+        # Parsing config for telnet port.
+        for line in system_config:
+            if line.find("Telnet Port") != -1:
+                return int(line.split("=")[1])
+        return -1
     def set_ssh_port(self, port=22) -> None:
         """ Sets the port for use by SSH. """
         # Generating payload.
@@ -85,9 +87,10 @@ class Console:
             "CON_PORT_SSH": str(port)
         }
 
-        # Uploading console configuration.
+        # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def set_telnet_port(self, port=23) -> None:
         """ Sets the port for use by Telnet. """
         # Generating payload.
@@ -96,9 +99,10 @@ class Console:
             "CON_PORT_TELNET": str(port)
         }
 
-        # Uploading console configuration.
+        # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def upload_auth_public_key(self, key: str) -> int:
         """ Uploads the provided authentication public key. """
         # Testing if the file specified in path exists.
@@ -106,12 +110,16 @@ class Console:
             print("Specified key file does not exist!")
             return -1
 
-        # Generating payload.
-        console_data = {
-            "CON_PUB": key
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'CON_PUB': (key.split("/")[-1], open(key, 'rb'), 'multipart/form-data'),
         }
 
-        self._login_object.get_session().post(self._post_url, data=console_data,
+        # Uploading public authentication key.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
     def upload_dsa_host_key(self, key: str) -> str:
@@ -121,12 +129,16 @@ class Console:
             print("Specified key file does not exist!")
             return -1
 
-        # Generating payload.
-        console_data = {
-            "CON_DSA": key
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'CON_DSA': (key.split("/")[-1], open(key, 'rb'), 'multipart/form-data'),
         }
 
-        self._login_object.get_session().post(self._post_url, data=console_data,
+        # Uploading DSA key.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
     def upload_rsa_host_key(self, key: str) -> int:
@@ -136,11 +148,15 @@ class Console:
             print("Specified key file does not exist!")
             return -1
 
-        # Generating payload.
-        console_data = {
-            "CON_RSA": key
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'CON_RSA': (key.split("/")[-1], open(key, 'rb'), 'multipart/form-data'),
         }
 
-        self._login_object.get_session().post(self._post_url, data=console_data,
+        # Uploading DSA key.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0

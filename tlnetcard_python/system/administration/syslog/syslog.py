@@ -39,10 +39,10 @@ class Syslog:
         for j in range(i + 2, 4):
             syslog_data["SLG_SERVER" + str(j + 1)] = ""
 
-        # Uploading server configuration.
+        # Uploading syslog configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
-
+        self._login_object.request_system_config_renewal()
         return 0
     def clear_servers(self) -> None:
         """ Clears all syslog servers. """
@@ -51,9 +51,10 @@ class Syslog:
         for i in range(0, 4):
             syslog_data["SLG_SERVER" + str(i + 1)] = ""
 
-        # Uploading server configuration.
+        # Uploading syslog configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def disable_syslog(self) -> None:
         """ Disables syslog servers. """
         # Generating payload.
@@ -61,9 +62,10 @@ class Syslog:
             'SLG_SLG': 0
         }
 
-        # Uploading server configuration.
+        # Uploading syslog configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_syslog(self) -> None:
         """ Enables syslog servers. """
         # Generating payload.
@@ -71,25 +73,20 @@ class Syslog:
             'SLG_SLG': 1
         }
 
-        # Uploading server configuration.
+        # Uploading syslog configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def get_servers(self) -> List[str]:
         """ GETs syslog servers and returns them in a list. """
-        # GETing syslog page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for server names.
         servers = []
-        inputs = resp.html.find("input")
-        for i in inputs:
-            is_server = str(i).find("SLG_SERVER")
-            if is_server != -1:
-                start_index = str(i).find("value=") + 7
-                end_index = str(i).find("'", start_index)
-                if str(i)[start_index:end_index]:
-                    servers.append(str(i)[start_index:end_index])
-
+        # Parsing config for syslog servers.
+        for line in system_config:
+            if line.find("SysLog Server") != -1 and line.split("=")[1] != "":
+                servers.append(line.split("=")[1])
         return servers
     def remove_server(self, server: str) -> int:
         """ Removes a syslog server. """
@@ -110,7 +107,8 @@ class Syslog:
         for j in range(i + 1, 4):
             syslog_data["SLG_SERVER" + str(j + 1)] = ""
 
-        # Uploading server configuration.
+        # Uploading syslog configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=syslog_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
         return 0

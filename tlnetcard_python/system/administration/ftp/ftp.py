@@ -20,9 +20,10 @@ class Ftp:
             "FTP_FTP": "0",
         }
 
-        # Uploading time server configuration.
+        # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_ftp(self) -> None:
         """ Enables FTP. """
         # Generating payload.
@@ -30,20 +31,20 @@ class Ftp:
             "FTP_FTP": "1",
         }
 
-        # Uploading time server configuration.
+        # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def get_ftp_port(self) -> int:
         """ GETs the port in use for FTP. """
-        # GETing FTP page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for primary server.
-        addr = resp.text.find("NAME=\"FTP_PORT_FTP\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-
-        return int(resp.text[start_index:end_index])
+        # Parsing config for FTP port.
+        for line in system_config:
+            if line.find("FTP Port") != -1:
+                return int(line.split("=")[1])
+        return -1
     def set_ftp_port(self, port: int = 21) -> None:
         """ Sets the port for use by FTP. """
         # Generating payload.
@@ -52,6 +53,7 @@ class Ftp:
             "FTP_PORT_FTP": str(port),
         }
 
-        # Uploading time server configuration.
+        # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()

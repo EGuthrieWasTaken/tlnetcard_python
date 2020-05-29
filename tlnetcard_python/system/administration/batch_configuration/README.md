@@ -1,12 +1,12 @@
 # [batch_configuration.py](batch_configuration.py)
 
-|                      Function Header                      |                            Quick Description                           |
-|:---------------------------------------------------------:|:----------------------------------------------------------------------:|
-|                [```__init__(login_object)```](#__init__login_object)               |               Initializes the BatchConfiguration object.              |
-|         [```download_snmp_configuration(path=None)```](#download_snmp_configurationpathnone)        |  Downloads the SNMP configuration and saves it to the specified file.  |
-|        [```download_system_configuration(path=None)```](#download_system_configurationpathnone)       | Downloads the system configuration and saves it to the specified file. |
-|   [```upload_snmp_configuration(path="snmp_config.ini")```](#upload_snmp_configurationpath)   |             Uploads the specified SNMP configuration file.             |
-| [```upload_system_configuration(path="system_config.ini")```](#upload_system_configurationpath) |            Uploads the specified system configuration file.            |
+|                                                              Function Header                                                               |                           Quick Description                            |
+|:------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------:|
+|                                     [```__init__(login_object)```](#__init__login_object-login---none)                                     |               Initializes the BatchConfiguration object.               |
+|   [```download_snmp_configuration(path=None, no_write=False)```](#download_snmp_configurationpath-str--none-no_write-bool--false---none)   |  Downloads the SNMP configuration and saves it to the specified file.  |
+| [```download_system_configuration(path=None, no_write=False)```](#download_system_configurationpath-str--none-no_write-bool--false---none) | Downloads the system configuration and saves it to the specified file. |
+|                    [```upload_snmp_configuration(path="snmp_config.ini")```](#upload_snmp_configurationpath-str---none)                    |             Uploads the specified SNMP configuration file.             |
+|                 [```upload_system_configuration(path="system_config.ini")```](#upload_system_configurationpath-str---none)                 |            Uploads the specified system configuration file.            |
 
 ## \_\_init__(login_object: Login) -> None
 
@@ -16,13 +16,14 @@
 
 Initializes the BatchConfiguration object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
-## download_snmp_configuration(path: str = None) -> None
+## download_snmp_configuration(path: str = None, no_write: bool = False) -> None
 
-|    Name    |  Type  | Required | Default Value                                                                           | Description                                                          |
-|:----------:|:------:|----------|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| ```path``` | String | No       | Will default to the current user's Download directory with a file named ```snmp_config.ini``` | The qualified name of the file to save to. |
+|      Name      |  Type   | Required | Default Value                                                                                 | Description                                                                                             |
+|:--------------:|:-------:|----------|-----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+|   ```path```   | String  | No       | Will default to the current user's Download directory with a file named ```snmp_config.ini``` | The qualified name of the file to save to.                                                              |
+| ```no_write``` | Boolean | No       | ```False```                                                                                   | Whether the function should return the contents of the configuration rather than saving them to a file. |
 
-Downloads the current SNMP configuration. If nothing is specified for ```path```, then the configuration will be saved to a file called ```snmp_config.ini``` in the current user's Downloads directory.  
+Downloads the current SNMP configuration. If nothing is specified for ```path``` and ```no_write``` is ```False```, then the configuration will be saved to a file called ```snmp_config.ini``` in the current user's Downloads directory. If ```no_write``` is ```True```, the contents of the configuration will be returned as a string, and no file will be written.  
 Example:
 
 ```python
@@ -43,13 +44,14 @@ card_batch_config.download_snmp_configuration()
 card.logout()
 ```
 
-## download_system_configuration(path: str = None) -> None
+## download_system_configuration(path: str = None, no_write: bool = False) -> None
 
-|    Name    |  Type  | Required | Default Value                                                                                   | Description                                |
-|:----------:|:------:|----------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
-| ```path``` | String | No       | Will default to the current user's Download directory with a file named ```system_config.ini``` | The qualified name of the file to save to. |
+|      Name      |  Type   | Required | Default Value                                                                                   | Description                                                                                             |
+|:--------------:|:-------:|----------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+|   ```path```   | String  | No       | Will default to the current user's Download directory with a file named ```system_config.ini``` | The qualified name of the file to save to.                                                              |
+| ```no_write``` | Boolean | No       | ```False```                                                                                     | Whether the function should return the contents of the configuration rather than saving them to a file. |
 
-Downloads the current system configuration. If nothing is specified for ```path```, then the configuration will be saved to a file called ```system_config.ini``` in the current user's Downloads directory.  
+Downloads the current system configuration. If nothing is specified for ```path``` and ```no_write``` is ```False```, then the configuration will be saved to a file called ```system_config.ini``` in the current user's Downloads directory. If ```no_write``` is ```True```, the contents of the configuration will be returned as a string, and no file will be written.  
 Example:
 
 ```python

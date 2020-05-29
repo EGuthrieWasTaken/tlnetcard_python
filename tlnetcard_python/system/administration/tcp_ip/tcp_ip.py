@@ -4,11 +4,9 @@
 """ Allows TCP/IP settings for IPv4/IPv6 to be configured. """
 
 # Standard library.
-from os import remove
 from typing import Any, Dict
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
-from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class TcpIp:
     """ Class for the TcpIp object. """
@@ -17,7 +15,6 @@ class TcpIp:
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_ipconfig.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_ipconfig"
-        self._batch_object = BatchConfiguration(self._login_object)
     def disable_autonegotiation(self) -> None:
         """ Disables link speed autonegotiation. """
         # Generating payload.
@@ -25,9 +22,10 @@ class TcpIp:
             "SYS_AUTONEG": "0"
         }
 
-        # Uploading TCP/IP configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def disable_ipv4_dhcp(self) -> None:
         """ Disables DHCP for IPv4. """
         # Generating payload.
@@ -35,18 +33,20 @@ class TcpIp:
             "SYS_DHCP": "0"
         }
 
-        # Uploading TCP/IP configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def disable_ipv6_dhcp(self) -> None:
         """ Disables DHCP for IPv6. """
         ip_data = {
             "SYS_V6DHCP": "0"
         }
 
-        # Uploading TCP/IP configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_autonetogiation(self) -> None:
         """ Enables link speed negotiation. """
         # Generating payload.
@@ -54,9 +54,10 @@ class TcpIp:
             "SYS_AUTONEG": "1"
         }
 
-        # Uploading TCP/IP configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_ipv4_dhcp(self) -> None:
         """ Enables DHCP for IPv4. """
         # Generating payload.
@@ -64,18 +65,20 @@ class TcpIp:
             "SYS_DHCP": "1"
         }
 
-        # Uploading TCP/IP configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def enable_ipv6_dhcp(self) -> None:
         """ Enables DHCP for IPv6. """
         ip_data = {
             "SYS_V6DHCP": "1"
         }
 
-        # Uploading TCP/IP configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def get_ipv4_info(self) -> Dict[str, str]:
         """ GETs info on how IPv4 is configured. """
         # Generating dictionary of items to search for and initializing out dictionary.
@@ -89,19 +92,14 @@ class TcpIp:
         }
         out = {}
 
-        # GETing system configuration and writing lines to list.
-        self._batch_object.download_system_configuration("system_config_temp.ini")
-        with open("system_config_temp.ini", "r") as sys_config_file:
-            sys_config = sys_config_file.readlines()
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
         # Parsing list for required values.
-        for line in sys_config:
+        for line in system_config:
             format_line = line.split("=")
             if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
-
-        # Cleaning up.
-        remove("system_config_temp.ini")
+                out[pretty[format_line[0]]] = str(format_line[1])
         return out
     def get_ipv6_info(self) -> Dict[str, Any]:
         """ GETs info on how IPv6 is configured. """
@@ -114,21 +112,16 @@ class TcpIp:
         }
         out = {}
 
-        # GETing system configuration and writing lines to list.
-        self._batch_object.download_system_configuration("system_config_temp.ini")
-        with open("system_config_temp.ini", "r") as sys_config_file:
-            sys_config = sys_config_file.readlines()
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
         # Parsing list for required values.
-        for line in sys_config:
+        for line in system_config:
             format_line = line.split("=")
             if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
+                out[pretty[format_line[0]]] = str(format_line[1])
         out["Prefix Length"] = int(out["IP Address"].split("/")[1])
         out["IP Address"] = out["IP Address"].split("/")[0]
-
-        # Cleaning up.
-        remove("system_config_temp.ini")
         return out
     def get_system_info(self) -> Dict[str, str]:
         """ GETs info on the system and its location. """
@@ -140,19 +133,14 @@ class TcpIp:
         }
         out = {}
 
-        # GETing system configuration and writing lines to list.
-        self._batch_object.download_system_configuration("system_config_temp.ini")
-        with open("system_config_temp.ini", "r") as sys_config_file:
-            sys_config = sys_config_file.readlines()
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
         # Parsing list for required values.
-        for line in sys_config:
+        for line in system_config:
             format_line = line.split("=")
             if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1]).rstrip('\n')
-
-        # Cleaning up.
-        remove("system_config_temp.ini")
+                out[pretty[format_line[0]]] = str(format_line[1])
         return out
     def set_ipv4_info(self, ip_addr: str, mask: str = "255.255.255.0", gateway: str = "",
                       dns_ip: str = "", domain: str = "") -> None:
@@ -167,9 +155,10 @@ class TcpIp:
             "SYS_DOMAIN": domain
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def set_ipv6_info(self, ip_addr: str, prefix_len: int = 64,
                       gateway: str = "::", dns_ip: str = "::") -> None:
         """ Sets info on how IPv6 is configured. """
@@ -182,9 +171,10 @@ class TcpIp:
             "SYS_V6DNS": dns_ip,
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def set_system_info(self, name: str = "TLNET", contact: str = "", location: str = "") -> None:
         """ Sets info on the system and its location. """
         # Generating payload.
@@ -194,9 +184,10 @@ class TcpIp:
             "SYS_LOC": location,
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def use_10m_link_speed(self) -> None:
         """ Sets the link speed to 10M. """
         # Generating payload.
@@ -204,9 +195,10 @@ class TcpIp:
             "SYS_SPEED": "0"
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def use_100m_link_speed(self) -> None:
         """ Sets the link speed to 100M. """
         # Generating payload.
@@ -214,9 +206,10 @@ class TcpIp:
             "SYS_SPEED": "1"
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def use_full_duplex(self) -> None:
         """ Sets the duplex for the link to full. """
         # Generating payload.
@@ -224,9 +217,10 @@ class TcpIp:
             "SYS_DUPLEX": "1"
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()
     def use_half_duplex(self) -> None:
         """ Sets the duplex for the link to half. """
         # Generating payload.
@@ -234,6 +228,7 @@ class TcpIp:
             "SYS_DUPLEX": "0"
         }
 
-        # Uploading web configuration.
+        # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
                                               verify=self._login_object.get_reject_invalid_certs())
+        self._login_object.request_system_config_renewal()

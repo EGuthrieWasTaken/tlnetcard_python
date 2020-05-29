@@ -57,37 +57,34 @@ class Web:
                                               verify=self._login_object.get_reject_invalid_certs())
     def get_http_port(self) -> int:
         """ GETs the port in use for HTTP. """
-        # GETing Web page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for HTTP Port.
-        addr = resp.text.find("NAME=\"WEB_PORT_HTTP\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-
-        return int(resp.text[start_index:end_index])
+        # Parsing config for HTTP port.
+        for line in system_config:
+            if line.find("HTTP Port") != -1:
+                return int(line.split("=")[1])
+        return -1
     def get_https_port(self) -> int:
         """ GETs the port in use for HTTPS. """
-        # GETing Web page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for HTTP Port.
-        addr = resp.text.find("NAME=\"WEB_PORT_HTTPS\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-
-        return int(resp.text[start_index:end_index])
+        # Parsing config for HTTP port.
+        for line in system_config:
+            if line.find("HTTPS Port") != -1:
+                return int(line.split("=")[1])
+        return -1
     def get_web_refresh(self) -> int:
         """ GETs the web refresh time in seconds. """
-        # GETing Web page.
-        resp = self._login_object.get_session().get(self._get_url)
+        # GETing system config.
+        system_config = self._login_object.get_system_config()
 
-        # Parsing response for web refresh.
-        addr = resp.text.find("NAME=\"WEB_REFRESH\"")
-        start_index = str(resp.text).find("VALUE=", addr) + 7
-        end_index = str(resp.text).find("\"", start_index)
-
-        return int(resp.text[start_index:end_index])
+        # Parsing config for web refresh time.
+        for line in system_config:
+            if line.find("Web Refresh") != -1:
+                return int(line.split("=")[1])
+        return -1
     def set_http_port(self, port: int = 80) -> None:
         """ Sets the port for use by HTTP. """
         # Generating payload.
@@ -127,12 +124,15 @@ class Web:
             print("Specified PEM file does not exist!")
             return -1
 
-        # Generating payload.
-        web_data = {
-            "WEB_SSLCERT": path
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'WEB_SSLCERT': (path.split("/")[-1], open(path, 'rb'), 'multipart/form-data'),
         }
 
-        # Uploading web configuration.
-        self._login_object.get_session().post(self._post_url, data=web_data,
+        # Uploading SSL certificate.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
