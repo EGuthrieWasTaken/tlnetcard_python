@@ -124,12 +124,15 @@ class Web:
             print("Specified PEM file does not exist!")
             return -1
 
-        # Generating payload.
-        web_data = {
-            "WEB_SSLCERT": path
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'WEB_SSLCERT': (path.split("/")[-1], open(path, 'rb'), 'multipart/form-data'),
         }
 
-        # Uploading web configuration.
-        self._login_object.get_session().post(self._post_url, data=web_data,
+        # Uploading SSL certificate.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0

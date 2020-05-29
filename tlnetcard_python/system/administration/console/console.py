@@ -110,12 +110,16 @@ class Console:
             print("Specified key file does not exist!")
             return -1
 
-        # Generating payload.
-        console_data = {
-            "CON_PUB": key
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'CON_PUB': (key.split("/")[-1], open(key, 'rb'), 'multipart/form-data'),
         }
 
-        self._login_object.get_session().post(self._post_url, data=console_data,
+        # Uploading public authentication key.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
     def upload_dsa_host_key(self, key: str) -> str:
@@ -125,12 +129,16 @@ class Console:
             print("Specified key file does not exist!")
             return -1
 
-        # Generating payload.
-        console_data = {
-            "CON_DSA": key
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'CON_DSA': (key.split("/")[-1], open(key, 'rb'), 'multipart/form-data'),
         }
 
-        self._login_object.get_session().post(self._post_url, data=console_data,
+        # Uploading DSA key.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
     def upload_rsa_host_key(self, key: str) -> int:
@@ -140,11 +148,15 @@ class Console:
             print("Specified key file does not exist!")
             return -1
 
-        # Generating payload.
-        console_data = {
-            "CON_RSA": key
+        # Creating upload payload.
+        upload_data = {
+            'OK': 'Submit'
+        }
+        upload_file = {
+            'CON_RSA': (key.split("/")[-1], open(key, 'rb'), 'multipart/form-data'),
         }
 
-        self._login_object.get_session().post(self._post_url, data=console_data,
+        # Uploading DSA key.
+        self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
                                               verify=self._login_object.get_reject_invalid_certs())
         return 0
