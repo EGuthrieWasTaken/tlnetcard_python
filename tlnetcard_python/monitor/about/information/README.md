@@ -1,9 +1,9 @@
 # [information.py](information.py)
 
-|                    Function Header                    |              Quick Description               |
-|:-----------------------------------------------------:|:--------------------------------------------:|
-| [```__init__(login_object)```](#__init__login_object) |     Initializes the Information object.      |
-| [```get_firmware_version()```](#get_firmware_version) | GETs the current TLNETCARD firmware version. |
+|                          Function Header                           |              Quick Description               |
+|:------------------------------------------------------------------:|:--------------------------------------------:|
+| [```__init__(login_object)```](#__init__login_object-login---none) |     Initializes the Information object.      |
+|    [```get_firmware_version()```](#get_firmware_version---str)     | GETs the current TLNETCARD firmware version. |
 
 ## \_\_init__(login_object: Login) -> None
 
