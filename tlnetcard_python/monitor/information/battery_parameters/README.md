@@ -2,11 +2,11 @@
 
 |                                                          Function Header                                                          |                         Quick Description                          |
 |:---------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------:|
-|                                       [```__init__(login_object)```](#__init__login_object)                                       |             Initializes the BatteryParameters object.              |
-|       [```get_battery_status(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None)```](#get_battery_statussnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)       |                  Gets battery status information.                  |
-| [```get_battery_measurements(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None)```](#get_battery_measurementssnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10) | Gets information about battery capacity, temperature, and voltage. |
-|                             [```get_last_replacement_date()```](#get_last_replacement_datetimeout10)                              |          Gets the last date the UPS battery was changed.           |
-|                             [```get_next_replacement_date()```](#get_next_replacement_datetimeout10)                              |       Gets the next date the UPS battery should be changed.        |
+|                                       [```__init__(login_object)```](#__init__login_object-login---none)                                       |             Initializes the BatteryParameters object.              |
+|       [```get_battery_status(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None)```](#get_battery_statussnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none---dictstr-any)       |                  Gets battery status information.                  |
+| [```get_battery_measurements(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None)```](#get_battery_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none---dictstr-any) | Gets information about battery capacity, temperature, and voltage. |
+|                             [```get_last_replacement_date()```](#get_last_replacement_date---str)                              |          Gets the last date the UPS battery was changed.           |
+|                             [```get_next_replacement_date()```](#get_next_replacement_date---str)                              |       Gets the next date the UPS battery should be changed.        |
 
 ## Important Notes
 
