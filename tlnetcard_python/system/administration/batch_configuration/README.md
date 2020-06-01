@@ -5,8 +5,8 @@
 |                                     [```__init__(login_object)```](#__init__login_object-login---none)                                     |               Initializes the BatchConfiguration object.               |
 |   [```download_snmp_configuration(path=None, no_write=False)```](#download_snmp_configurationpath-str--none-no_write-bool--false---none)   |  Downloads the SNMP configuration and saves it to the specified file.  |
 | [```download_system_configuration(path=None, no_write=False)```](#download_system_configurationpath-str--none-no_write-bool--false---none) | Downloads the system configuration and saves it to the specified file. |
-|                    [```upload_snmp_configuration(path="snmp_config.ini")```](#upload_snmp_configurationpath-str---none)                    |             Uploads the specified SNMP configuration file.             |
-|                 [```upload_system_configuration(path="system_config.ini")```](#upload_system_configurationpath-str---none)                 |            Uploads the specified system configuration file.            |
+|                    [```upload_snmp_configuration(path="snmp_config.ini")```](#upload_snmp_configurationpath-str---bool)                    |             Uploads the specified SNMP configuration file.             |
+|                 [```upload_system_configuration(path="system_config.ini")```](#upload_system_configurationpath-str---bool)                 |            Uploads the specified system configuration file.            |
 
 ## \_\_init__(login_object: Login) -> None
 
