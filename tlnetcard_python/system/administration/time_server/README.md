@@ -2,18 +2,18 @@
 
 |                                                  Function Header                                                   |                           Quick Description                            |
 |:------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------:|
-|                               [```__init__(login_object)```](#__init__login_object)                                |                   Initializes the TimeServer object.                   |
-|                           [```disable_daylight_savings()```](#disable_daylight_savings)                            |                  Disables daylight savings for SNTP.                   |
-|                                       [```disable_sntp()```](#disable_sntp)                                        |                             Disables SNTP.                             |
-| [```enable_daylight_savings(start_date="04/01", end_date="11/01")```](#enable_daylight_savingsstart_date-end_date) | Enables daylight savings from the start date to the end date for SNTP. |
-|                                        [```enable_sntp()```](#enable_sntp)                                         |                             Enables SNTP.                              |
-|                                 [```get_primary_server()```](#get_primary_server)                                  |         GETs the primary time server for SNTP and returns it.          |
-|                               [```get_secondary_server()```](#get_secondary_server)                                |        GETs the secondary time server for SNTP and returns it.         |
-|               [```set_manual_time(date="01/01/2000", time="00:00:00")```](#set_manual_timedate-time)               |                        Sets the time manually.                         |
-|                           [```set_primary_server(server)```](#set_primary_serverserver)                            |                 Sets the primary time server for SNTP.                 |
-|                         [```set_secondary_server(server)```](#set_secondary_serverserver)                          |                Sets the secondary time server for SNTP.                |
-|                             [```set_time_zone(offset="GMT")```](#set_time_zoneoffset)                              |                      Sets the time zone for SNTP.                      |
-|                                     [```use_local_time()```](#use_local_time)                                      |                Sets the manual time to this PC's time.                 |
+|                               [```__init__(login_object)```](#__init__login_object-login---none)                                |                   Initializes the TimeServer object.                   |
+|                           [```disable_daylight_savings()```](#disable_daylight_savings---none)                            |                  Disables daylight savings for SNTP.                   |
+|                                       [```disable_sntp()```](#disable_sntp---none)                                        |                             Disables SNTP.                             |
+| [```enable_daylight_savings(start_date="04/01", end_date="11/01")```](#enable_daylight_savingsstart_date-str--0401-end_date-str--1101---none) | Enables daylight savings from the start date to the end date for SNTP. |
+|                                        [```enable_sntp()```](#enable_sntp---none)                                         |                             Enables SNTP.                              |
+|                                 [```get_primary_server()```](#get_primary_server---str)                                  |         GETs the primary time server for SNTP and returns it.          |
+|                               [```get_secondary_server()```](#get_secondary_server---str)                                |        GETs the secondary time server for SNTP and returns it.         |
+|               [```set_manual_time(date="01/01/2000", time="00:00:00")```](#set_manual_timedate-str--01012000-time-str--000000---none)               |                        Sets the time manually.                         |
+|                           [```set_primary_server(server)```](#set_primary_serverserver-str---none)                            |                 Sets the primary time server for SNTP.                 |
+|                         [```set_secondary_server(server)```](#set_secondary_serverserver-str---none)                          |                Sets the secondary time server for SNTP.                |
+|                             [```set_time_zone(offset="GMT")```](#set_time_zoneoffset-str--gmt---bool)                              |                      Sets the time zone for SNTP.                      |
+|                                     [```use_local_time()```](#use_local_time---none)                                      |                Sets the manual time to this PC's time.                 |
 
 ## \_\_init__(login_object: Login) -> None
 
