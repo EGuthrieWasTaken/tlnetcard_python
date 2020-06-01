@@ -116,7 +116,8 @@ class Login:
 
         # Getting login screen HTML (so that Challenge can be retrieved).
         login_screen = session.get(login_get_url, timeout=self._timeout,
-                                   verify=self._reject_invalid_certs).raise_for_status()
+                                   verify=self._reject_invalid_certs)
+        login_screen.raise_for_status()
 
         # Retrieving challenge from HTML.
         challenge_loc = login_screen.text.find('name="Challenge"')
@@ -141,7 +142,8 @@ class Login:
 
         # Checking if login was successful.
         login_response = session.get(login_get_url, timeout=self._timeout,
-                                     verify=self._reject_invalid_certs).raise_for_status()
+                                     verify=self._reject_invalid_certs)
+        login_response.raise_for_status()
         if login_response.text.find("login_title") != -1:
             print("login failed for host at URL " + self._host)
             session.close()

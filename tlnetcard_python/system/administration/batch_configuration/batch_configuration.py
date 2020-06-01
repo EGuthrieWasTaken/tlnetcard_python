@@ -35,7 +35,8 @@ class BatchConfiguration:
         verify = self._login_object.get_reject_invalid_certs()
         data = self._login_object.get_session().post(self._post_url, data=download_data,
                                                      timeout=self._login_object.get_timeout(),
-                                                     verify=verify).raise_for_status()
+                                                     verify=verify)
+        data.raise_for_status()
         # Returning raw configuration data if no_write was set to True.
         if no_write:
             return data.text
@@ -62,7 +63,8 @@ class BatchConfiguration:
         verify = self._login_object.get_reject_invalid_certs()
         data = self._login_object.get_session().post(self._post_url, data=download_data,
                                                      timeout=self._login_object.get_timeout(),
-                                                     verify=verify).raise_for_status()
+                                                     verify=verify)
+        data.raise_for_status()
         # Returning raw configuration data if no_write was set to True.
         if no_write:
             return data.text

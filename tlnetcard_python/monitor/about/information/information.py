@@ -18,7 +18,8 @@ class Information:
         verify = self._login_object.get_reject_invalid_certs()
         resp = self._login_object.get_session().get(self._get_url,
                                                     timeout=self._login_object.get_timeout(),
-                                                    verify=verify).raise_for_status()
+                                                    verify=verify)
+        resp.raise_for_status()
 
         # Parsing response for firmware version.
         start_index = str(resp.text).find("Version : ") + 10
