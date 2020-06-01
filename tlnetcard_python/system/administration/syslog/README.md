@@ -1,16 +1,16 @@
 # [syslog.py](syslog.py)
 
-|                    Function Header                    |                Quick Description                |
-|:-----------------------------------------------------:|:-----------------------------------------------:|
-| [```__init__(login_object)```](#__init__login_object) |         Initializes the Syslog object.          |
-|     [```add_server(server)```](#add_serverserver)     |              Adds a syslog server.              |
-|        [```clear_servers()```](#clear_servers)        |           Clears all syslog servers.            |
-|       [```disable_syslog()```](#disable_syslog)       |            Disables syslog servers.             |
-|        [```enable_syslog()```](#enable_syslog)        |             Enables syslog servers.             |
-|          [```get_servers()```](#get_servers)          | GETs syslog servers and returns them in a list. |
-|  [```remove_server(server)```](#remove_serverserver)  |            Removes a syslog server.             |
+|                          Function Header                           |                Quick Description                |
+|:------------------------------------------------------------------:|:-----------------------------------------------:|
+| [```__init__(login_object)```](#__init__login_object-login---none) |         Initializes the Syslog object.          |
+|      [```add_server(server)```](#add_serverserver-str---bool)      |              Adds a syslog server.              |
+|           [```clear_servers()```](#clear_servers---none)           |           Clears all syslog servers.            |
+|          [```disable_syslog()```](#disable_syslog---none)          |            Disables syslog servers.             |
+|           [```enable_syslog()```](#enable_syslog---none)           |             Enables syslog servers.             |
+|           [```get_servers()```](#get_servers---liststr)            | GETs syslog servers and returns them in a list. |
+|   [```remove_server(server)```](#remove_serverserver-str---bool)   |            Removes a syslog server.             |
 
-## \_\_init__(login_object: Login) -> None:
+## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
