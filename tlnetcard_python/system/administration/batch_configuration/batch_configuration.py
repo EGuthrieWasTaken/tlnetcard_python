@@ -7,6 +7,7 @@
 from os.path import isfile
 from pathlib import Path
 from platform import system
+from warnings import warn
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 
@@ -76,7 +77,7 @@ class BatchConfiguration:
         """ Uploads the specified SNMP configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
-            print("Specified configuration file does not exist!")
+            warn("Specified configuration file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.
@@ -92,15 +93,15 @@ class BatchConfiguration:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        print("NOTE: The card at " + self._login_object.get_base_url()
-              + " will be offline for approximately 10 seconds.")
+        warn("NOTE: The card at " + self._login_object.get_base_url()
+             + " will be offline for approximately 10 seconds.", RuntimeWarning)
         self._login_object.request_snmp_config_renewal()
         return True
     def upload_system_configuration(self, path: str = "system_config.ini") -> bool:
         """ Uploads the specified system configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
-            print("Specified configuration file does not exist!")
+            warn("Specified configuration file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.
@@ -116,7 +117,7 @@ class BatchConfiguration:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        print("NOTE: The card at " + self._login_object.get_base_url()
-              + " will be offline for approximately 10 seconds.")
+        warn("NOTE: The card at " + self._login_object.get_base_url()
+             + " will be offline for approximately 10 seconds.", RuntimeWarning)
         self._login_object.request_system_config_renewal()
         return True

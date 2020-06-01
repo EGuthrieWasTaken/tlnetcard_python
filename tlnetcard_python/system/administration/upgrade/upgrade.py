@@ -5,6 +5,7 @@
 
 # Standard library.
 from os.path import isfile
+from warnings import warn
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 from tlnetcard_python.monitor.about.information import Information
@@ -23,7 +24,7 @@ class Upgrade:
         """ Upgrades SNMP Device Firmware. """
         # Testing if the file specified in path exists.
         if not isfile(path):
-            print("Specified configuration file does not exist!")
+            warn("Specified configuration file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.
@@ -36,7 +37,7 @@ class Upgrade:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        print("NOTE: The card at " + self._login_object.get_base_url()
-              + " will be offline for approximately 1 minute.")
+        warn("NOTE: The card at " + self._login_object.get_base_url()
+             + " will be offline for approximately 1 minute.", RuntimeWarning)
 
         return True

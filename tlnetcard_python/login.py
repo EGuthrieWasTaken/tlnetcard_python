@@ -7,7 +7,7 @@
 from getpass import getpass
 from hashlib import md5
 from typing import List
-from warnings import filterwarnings
+from warnings import filterwarnings, warn
 # Related third-party library.
 from requests import Session
 from urllib3.exceptions import InsecureRequestWarning
@@ -145,7 +145,7 @@ class Login:
                                      verify=self._reject_invalid_certs)
         login_response.raise_for_status()
         if login_response.text.find("login_title") != -1:
-            print("login failed for host at URL " + self._host)
+            warn("login failed for host at URL " + self._host, RuntimeWarning)
             session.close()
             return False
 

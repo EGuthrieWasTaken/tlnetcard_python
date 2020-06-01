@@ -5,6 +5,7 @@
 
 # Standard library.
 from os.path import isfile
+from warnings import warn
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 
@@ -142,7 +143,7 @@ class Web:
         """ Uploads the provided SSL certificate. """
         # Testing if the file specified in path exists.
         if not isfile(path):
-            print("Specified PEM file does not exist!")
+            warn("Specified PEM file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.

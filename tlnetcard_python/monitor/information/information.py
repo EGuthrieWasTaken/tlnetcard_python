@@ -6,6 +6,7 @@
 # Standard library.
 from time import sleep
 from typing import List
+from warnings import warn
 # Related third-party library.
 from pysnmp.hlapi import getCmd, SnmpEngine, UsmUserData, UdpTransportTarget
 from pysnmp.hlapi import ContextData, ObjectType, ObjectIdentity
@@ -39,12 +40,13 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth
         )
 
         if error_indication:
-            print(error_indication)
+            warn(error_indication, RuntimeError)
             # Creating an output list of the proper size.
             return ["" for i in snmp_ids]
         elif error_status:
-            print('%s at %s' % (error_status.prettyPrint(),
-                                error_index and var_binds[int(error_index) - 1][0] or '?'))
+            warn('%s at %s' % (error_status.prettyPrint(),
+                               error_index and var_binds[int(error_index) - 1][0] or '?'),
+                 RuntimeError)
             # Creating an output list of the proper size.
             return ["" for i in snmp_ids]
         else:

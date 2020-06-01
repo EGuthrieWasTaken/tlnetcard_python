@@ -5,6 +5,7 @@
 
 # Standard library.
 from os.path import isfile
+from warnings import warn
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 
@@ -119,7 +120,7 @@ class Console:
         """ Uploads the provided authentication public key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
-            print("Specified key file does not exist!")
+            warn("Specified key file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.
@@ -140,7 +141,7 @@ class Console:
         """ Uploads the provided DSA host key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
-            print("Specified key file does not exist!")
+            warn("Specified key file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.
@@ -161,7 +162,7 @@ class Console:
         """ Uploads the provided RSA host key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
-            print("Specified key file does not exist!")
+            warn("Specified key file does not exist!", FileNotFoundError)
             return False
 
         # Creating upload payload.

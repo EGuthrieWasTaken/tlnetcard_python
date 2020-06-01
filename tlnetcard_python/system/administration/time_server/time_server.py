@@ -3,6 +3,8 @@
 # 04/17/2020
 """ Allows TimeServer to be updated or removed (i.e. switch to manual time). """
 
+# Standard library.
+from warnings import warn
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 
@@ -149,7 +151,7 @@ class TimeServer:
 
         # Checking if zone value was set (otherwise an improper offset value was provided).
         if zone == -1:
-            print("Invalid time zone specified!")
+            warn("Invalid time zone specified!", ValueError)
             return False
 
         # Generating payload.
