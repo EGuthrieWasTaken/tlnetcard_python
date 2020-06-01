@@ -265,13 +265,13 @@ card_web.set_web_refresh(60)
 card.logout()
 ```
 
-## upload_ssl_cert(path: str) -> int
+## upload_ssl_cert(path: str) -> bool
 
 |    Name    |  Type  | Required | Default Value |                       Description                      |
 |:----------:|:------:|:--------:|:-------------:|:------------------------------------------------------:|
 | ```path``` | String |    Yes   |      N/A      | The qualified name of the SSL PEM file to be uploaded. |
 
-Uploads the provided SSL PEM file. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Uploads the provided SSL PEM file. If the specified file does not exist, this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python

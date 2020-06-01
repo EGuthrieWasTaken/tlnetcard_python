@@ -125,7 +125,7 @@ class Web:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-    def set_web_refresh(self, seconds: int = 10) -> None:
+    def set_web_refresh(self, seconds: int = 10) -> bool:
         """ Sets the web refresh time to ```seconds``` seconds. """
         # Generating payload.
         web_data = {
@@ -143,7 +143,7 @@ class Web:
         # Testing if the file specified in path exists.
         if not isfile(path):
             print("Specified PEM file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -158,4 +158,4 @@ class Web:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        return 0
+        return True

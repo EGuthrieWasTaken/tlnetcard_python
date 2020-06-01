@@ -101,7 +101,7 @@ class Login:
         # Restoring warnings in case reject_invalid_certs flag is used.
         filterwarnings("default", category=InsecureRequestWarning)
         self._session.close()
-    def _perform_login(self, passwd: str) -> int:
+    def _perform_login(self, passwd: str) -> bool:
         """ Logs into a new session. """
         # Ignoring self-signed SSL certificate warning when reject_invalid_certs is False.
         if not self._reject_invalid_certs:
@@ -147,11 +147,11 @@ class Login:
         if login_response.text.find("login_title") != -1:
             print("login failed for host at URL " + self._host)
             session.close()
-            return -1
+            return False
 
         # Saving session.
         self._session = session
-        return 0
+        return True
     def request_snmp_config_renewal(self) -> None:
         """ Sets the _renew_snmp attribute to True so that the next call to get_snmp_config() will
         trigger a re-pull of the SNMP config file. """

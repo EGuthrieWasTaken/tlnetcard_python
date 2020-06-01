@@ -143,7 +143,7 @@ class UserManager:
                         administrative: bool = False, nas_prompt: bool = False,
                         authenticate_only: bool = False, callback_nas_prompt: bool = False,
                         call_check: bool = False, callback_administrative: bool = False,
-                        selenium: bool = False) -> int:
+                        selenium: bool = False) -> bool:
         """ Sets permissions for the provided user. """
         # Generating required dictionaries.
         pretty = {
@@ -167,7 +167,7 @@ class UserManager:
 
         # Exiting if invalid user type was specified.
         if user not in pretty:
-            return -1
+            return False
 
         if not selenium:
             # Generating binary permissions string.
@@ -236,7 +236,7 @@ class UserManager:
 
         # Requesting system config renewal.
         self._login_object.request_system_config_renewal()
-        return 0
+        return True
     def set_server_info(self, server: str, secret: str, port: int = 1812) -> None:
         """ Sets information for the RADIUS server. """
         # Generating payload.
@@ -254,7 +254,7 @@ class UserManager:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_user(self, username: str, passwd: str, wan_access: int = False,
-                 user: str = "Administrator") -> None:
+                 user: str = "Administrator") -> bool:
         """ Sets information for the provided user. """
         # Setting user num string.
         if user == "Administrator":
@@ -264,7 +264,7 @@ class UserManager:
         elif user == "Read Only User":
             num = "3"
         else:
-            return -1
+            return False
 
         # Generating payload.
         user_data = {
@@ -279,4 +279,4 @@ class UserManager:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-        return 0
+        return True

@@ -15,8 +15,8 @@ class BatteryParameters:
         """ Initializes the Battery_Parameters object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_battery.asp"
-    def get_battery_status(self, snmp: bool = True, snmp_user: str = None,
-                           snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]:
+    def get_battery_status(self, snmp: bool = True, snmp_user: str = "",
+                           snmp_auth_key: str = "", snmp_priv_key: str = "") -> Dict[str, Any]:
         """ Gets battery status information. """
         if snmp:
             # SNMP will be used to get the value. This is the preferred method.
@@ -59,8 +59,8 @@ class BatteryParameters:
                 'On Battery Time (s)': int(batt_time)
             }
         return out
-    def get_battery_measurements(self, snmp: bool = True, snmp_user: str = None,
-                                 snmp_auth_key: str = None, snmp_priv_key: str = None
+    def get_battery_measurements(self, snmp: bool = True, snmp_user: str = "",
+                                 snmp_auth_key: str = "", snmp_priv_key: str = ""
                                  ) -> Dict[str, Any]:
         """ Gets information about battery capacity, temperature, and voltage. """
         if snmp:

@@ -15,16 +15,16 @@ class Syslog:
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_syslog.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_syslog"
-    def add_server(self, server: str) -> int:
+    def add_server(self, server: str) -> bool:
         """ Adds a syslog server. """
         # Quitting if four servers are already listed.
         curr_servers = self.get_servers()
         if len(curr_servers) >= 4:
-            return -1
+            return False
 
         # Returning success if server is already in use.
         if server in curr_servers:
-            return 0
+            return True
 
         # Adding current servers to payload.
         syslog_data = {}
@@ -45,7 +45,7 @@ class Syslog:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-        return 0
+        return True
     def clear_servers(self) -> None:
         """ Clears all syslog servers. """
         # Generating payload.
@@ -96,12 +96,12 @@ class Syslog:
             if line.find("SysLog Server") != -1 and line.split("=")[1] != "":
                 servers.append(line.split("=")[1])
         return servers
-    def remove_server(self, server: str) -> int:
+    def remove_server(self, server: str) -> bool:
         """ Removes a syslog server. """
         # Quitting if server isn't listed.
         curr_servers = self.get_servers()
         if server not in curr_servers:
-            return -1
+            return False
 
         # Removing server from list.
         curr_servers.remove(server)
@@ -121,4 +121,4 @@ class Syslog:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-        return 0
+        return True

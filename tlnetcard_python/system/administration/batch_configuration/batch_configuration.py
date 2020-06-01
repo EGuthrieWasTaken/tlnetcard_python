@@ -16,10 +16,10 @@ class BatchConfiguration:
         """ Initializes the BatchConfiguration object. """
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_batch"
-    def download_snmp_configuration(self, path: str = None, no_write: bool = False) -> str:
+    def download_snmp_configuration(self, path: str = "", no_write: bool = False) -> str:
         """ Downloads the SNMP configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
-        if path is None and not no_write:
+        if path is "" and not no_write:
             path = str(Path.home())
             if system() == "Windows":
                 path += "\\Downloads\\snmp_config.ini"
@@ -44,10 +44,10 @@ class BatchConfiguration:
         with open(path, "w") as out_file:
             out_file.write(data.text)
         return path
-    def download_system_configuration(self, path: str = None, no_write: bool = False) -> None:
+    def download_system_configuration(self, path: str = "", no_write: bool = False) -> None:
         """ Downloads the system configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
-        if path is None and not no_write:
+        if path is "" and not no_write:
             path = str(Path.home())
             if system() == "Windows":
                 path += "\\Downloads\\system_config.ini"
@@ -72,12 +72,12 @@ class BatchConfiguration:
         with open(path, "w") as out_file:
             out_file.write(data.text)
         return path
-    def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> int:
+    def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> bool:
         """ Uploads the specified SNMP configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
             print("Specified configuration file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -95,13 +95,13 @@ class BatchConfiguration:
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
         self._login_object.request_snmp_config_renewal()
-        return 0
-    def upload_system_configuration(self, path: str = "system_config.ini") -> int:
+        return True
+    def upload_system_configuration(self, path: str = "system_config.ini") -> bool:
         """ Uploads the specified system configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
             print("Specified configuration file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -119,4 +119,4 @@ class BatchConfiguration:
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
         self._login_object.request_system_config_renewal()
-        return 0
+        return True

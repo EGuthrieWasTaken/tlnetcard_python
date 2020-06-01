@@ -15,8 +15,8 @@ class InOutParameters:
         """ Initializes the InOutParameters object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_io.asp"
-    def get_bypass_measurements(self, snmp: bool = True, snmp_user: str = None,
-                                snmp_auth_key: str = None, snmp_priv_key: str = None
+    def get_bypass_measurements(self, snmp: bool = True, snmp_user: str = "",
+                                snmp_auth_key: str = "", snmp_priv_key: str = ""
                                 ) -> Dict[str, Any]:
         """ Gets battery bypass measurements. """
         if snmp:
@@ -62,8 +62,8 @@ class InOutParameters:
                 'Power (Watt)': int(power)
             }
         return out
-    def get_input_measurements(self, snmp: bool = True, snmp_user: str = None,
-                               snmp_auth_key: str = None, snmp_priv_key: str = None
+    def get_input_measurements(self, snmp: bool = True, snmp_user: str = "",
+                               snmp_auth_key: str = "", snmp_priv_key: str = ""
                                ) -> Dict[str, Any]:
         """ Gets battery input measurements. """
         if snmp:
@@ -99,8 +99,8 @@ class InOutParameters:
                 'Voltage (V)': float(volts),
             }
         return out
-    def get_output_measurements(self, snmp: bool = True, snmp_user: str = None,
-                                snmp_auth_key: str = None, snmp_priv_key: str = None
+    def get_output_measurements(self, snmp: bool = True, snmp_user: str = "",
+                                snmp_auth_key: str = "", snmp_priv_key: str = ""
                                 ) -> Dict[str, Any]:
         """ Gets battery output measurements. """
         if snmp:

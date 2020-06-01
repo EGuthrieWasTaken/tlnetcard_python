@@ -18,13 +18,13 @@
 
 Initializes the Syslog object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## add_server(server: str) -> int
+## add_server(server: str) -> bool
 
 |     Name     |  Type  | Required | Default Value |               Description              |
 |:------------:|:------:|:--------:|:-------------:|:--------------------------------------:|
 | ```server``` | String |    Yes   |      N/A      | The address of the server to be added. |
 
-Adds the provided server to the list of servers to upload syslogs to. If four servers are already active, then the provided server will not be added, and this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Adds the provided server to the list of servers to upload syslogs to. If four servers are already active, then the provided server will not be added, and this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python
@@ -140,13 +140,13 @@ for i in syslog_servers:
 card.logout()
 ```
 
-## remove_server(server: str) -> int
+## remove_server(server: str) -> bool
 
 |     Name     |  Type  | Required | Default Value |                Description               |
 |:------------:|:------:|:--------:|:-------------:|:----------------------------------------:|
 | ```server``` | String |    Yes   |      N/A      | The address of the server to be removed. |
 
-Removes the provided server from the list of servers to upload syslogs to. If the provided server is not listed, then the provided server does not need to be removed, and this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Removes the provided server from the list of servers to upload syslogs to. If the provided server is not listed, then the provided server does not need to be removed, and this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python

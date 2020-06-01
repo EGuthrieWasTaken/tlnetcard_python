@@ -115,12 +115,12 @@ class Console:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-    def upload_auth_public_key(self, key: str) -> int:
+    def upload_auth_public_key(self, key: str) -> bool:
         """ Uploads the provided authentication public key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
             print("Specified key file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -135,13 +135,13 @@ class Console:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        return 0
-    def upload_dsa_host_key(self, key: str) -> str:
+        return True
+    def upload_dsa_host_key(self, key: str) -> bool:
         """ Uploads the provided DSA host key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
             print("Specified key file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -156,13 +156,13 @@ class Console:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        return 0
-    def upload_rsa_host_key(self, key: str) -> int:
+        return True
+    def upload_rsa_host_key(self, key: str) -> bool:
         """ Uploads the provided RSA host key. """
         # Testing if the file specified in path exists.
         if not isfile(key):
             print("Specified key file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -177,4 +177,4 @@ class Console:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        return 0
+        return True

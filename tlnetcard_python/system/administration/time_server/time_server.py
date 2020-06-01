@@ -133,7 +133,7 @@ class TimeServer:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-    def set_time_zone(self, offset: str = "GMT") -> int:
+    def set_time_zone(self, offset: str = "GMT") -> bool:
         """ Sets the time zone for SNTP. """
         # Converting string to list value.
         offsets = ["GMT-12", "GMT-11", "GMT-10", "GMT-09", "GMT-08", "GMT-07",
@@ -150,7 +150,7 @@ class TimeServer:
         # Checking if zone value was set (otherwise an improper offset value was provided).
         if zone == -1:
             print("Invalid time zone specified!")
-            return -1
+            return False
 
         # Generating payload.
         time_server_data = {
@@ -164,7 +164,7 @@ class TimeServer:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-        return 0
+        return True
     def use_local_time(self) -> None:
         """ Sets the manual time to this PC's time. """
         # Generating payload.

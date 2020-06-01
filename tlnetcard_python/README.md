@@ -247,7 +247,7 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 card.logout()
 ```
 
-## _perform_login(passwd: str) -> int
+## _perform_login(passwd: str) -> bool
 
 |     Name     |  Type  | Required | Default Value |           Description          |
 |:------------:|:------:|:--------:|:-------------:|:------------------------------:|
