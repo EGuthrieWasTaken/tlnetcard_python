@@ -19,7 +19,7 @@ class BatchConfiguration:
     def download_snmp_configuration(self, path: str = "", no_write: bool = False) -> str:
         """ Downloads the SNMP configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
-        if path is "" and not no_write:
+        if path == "" and not no_write:
             path = str(Path.home())
             if system() == "Windows":
                 path += "\\Downloads\\snmp_config.ini"
@@ -47,7 +47,7 @@ class BatchConfiguration:
     def download_system_configuration(self, path: str = "", no_write: bool = False) -> None:
         """ Downloads the system configuration and saves it to the specified file. """
         # Setting path to downloads directory for operating system if no path was specified.
-        if path is "" and not no_write:
+        if path == "" and not no_write:
             path = str(Path.home())
             if system() == "Windows":
                 path += "\\Downloads\\system_config.ini"

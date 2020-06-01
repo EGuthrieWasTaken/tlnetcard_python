@@ -19,11 +19,11 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth
     """ Gets the provided SNMP values from their SNMP IDs. """
     out = []
 
-    if snmp_auth_key is not "" and snmp_priv_key is not "":
+    if snmp_auth_key != "" and snmp_priv_key != "":
         usm_user_data = UsmUserData(snmp_user, authKey=snmp_auth_key, privKey=snmp_priv_key)
-    elif snmp_auth_key is not "":
+    elif snmp_auth_key != "":
         usm_user_data = UsmUserData(snmp_user, authKey=snmp_auth_key)
-    elif snmp_priv_key is not "":
+    elif snmp_priv_key != "":
         usm_user_data = UsmUserData(snmp_user, privKey=snmp_priv_key)
     else:
         usm_user_data = UsmUserData(snmp_user)
@@ -40,11 +40,13 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth
 
         if error_indication:
             print(error_indication)
-            return []
+            # Creating an output list of the proper size.
+            return ["" for i in snmp_ids]
         elif error_status:
             print('%s at %s' % (error_status.prettyPrint(),
                                 error_index and var_binds[int(error_index) - 1][0] or '?'))
-            return []
+            # Creating an output list of the proper size.
+            return ["" for i in snmp_ids]
         else:
             out.append(str(var_binds[0]).split("=")[-1])
     return out
