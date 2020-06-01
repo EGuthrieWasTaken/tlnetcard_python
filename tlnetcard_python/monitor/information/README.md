@@ -4,10 +4,10 @@
 
 The functions in this file are not part of a class, and can be used independently of the rest of the API.
 
-|                                                                                          Function Header                                                                                           |                            Quick Description                             |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|
-| [```get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)```](#get_with_snmphost-snmp_ids-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10) |            Gets the provided SNMP values from their SNMP IDs.            |
-|                           [```scrape_with_selenium(host, element_ids, url, session=None timeout=10)```](#scrape_with_seleniumhost-element_ids-url-sessionnone-timeout10)                           | Scrapes the provided web elements by their ID from the provided webpage. |
+|                                                                                                                   Function Header                                                                                                                   |                            Quick Description                             |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------:|
+| [```get_with_snmp(host, snmp_ids, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None, timeout=10)```](#get_with_snmphost-str-snmp_ids-liststr-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-float--100---liststr) |            Gets the provided SNMP values from their SNMP IDs.            |
+|                             [```scrape_with_selenium(host, element_ids, url, session=None timeout=10)```](#scrape_with_seleniumhost-str-element_ids-liststr-url-str-session-session--none-timeout-float--100---liststr)                             | Scrapes the provided web elements by their ID from the provided webpage. |
 
 ## get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: float = 10.0) -> List[str]
 
