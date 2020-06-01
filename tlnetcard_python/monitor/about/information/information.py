@@ -15,7 +15,11 @@ class Information:
     def get_firmware_version(self) -> str:
         """ GETs the current firmware version. """
         # GETing Information page.
-        resp = self._login_object.get_session().get(self._get_url)
+        verify = self._login_object.get_reject_invalid_certs()
+        resp = self._login_object.get_session().get(self._get_url,
+                                                    port=self._login_object.get_port(),
+                                                    timeout=self._login_object.get_timeout(),
+                                                    verify=verify).raise_for_status()
 
         # Parsing response for firmware version.
         start_index = str(resp.text).find("Version : ") + 10

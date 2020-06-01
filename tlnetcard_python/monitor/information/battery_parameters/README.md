@@ -3,8 +3,8 @@
 |                                                          Function Header                                                          |                         Quick Description                          |
 |:---------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------:|
 |                                       [```__init__(login_object)```](#__init__login_object)                                       |             Initializes the BatteryParameters object.              |
-|       [```get_battery_status()```](#get_battery_statussnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)       |                  Gets battery status information.                  |
-| [```get_battery_measurements()```](#get_battery_measurementssnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10) | Gets information about battery capacity, temperature, and voltage. |
+|       [```get_battery_status(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None)```](#get_battery_statussnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10)       |                  Gets battery status information.                  |
+| [```get_battery_measurements(snmp=True, snmp_user=None, snmp_auth_key=None, snmp_priv_key=None)```](#get_battery_measurementssnmptrue-snmp_usernone-snmp_auth_keynone-snmp_priv_keynone-timeout10) | Gets information about battery capacity, temperature, and voltage. |
 |                             [```get_last_replacement_date()```](#get_last_replacement_datetimeout10)                              |          Gets the last date the UPS battery was changed.           |
 |                             [```get_next_replacement_date()```](#get_next_replacement_datetimeout10)                              |       Gets the next date the UPS battery should be changed.        |
 
@@ -26,7 +26,7 @@ It is recommended that the SNMP-based approach be used in all areas where this i
 
 Initializes the BatteryParameters object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## get_battery_status(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
+## get_battery_status(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
 |         Name        |   Type  | Required | Default Value |                                                     Description                                                    |
 |:-------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------------------------------------------------:|
@@ -34,7 +34,6 @@ Initializes the BatteryParameters object. If ```login_object``` is a valid Login
 |   ```snmp_user```   |  String |    No    |   ```None```  |          An SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing.         |
 | ```snmp_auth_key``` |  String |    No    |   ```None```  | The auth key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
 | ```snmp_priv_key``` |  String |    No    |   ```None```  | The priv key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
-|    ```timeout```    |  Float  |    No    |    ```10```   |                    The time in seconds which either SNMP or Selenium should wait before failing.                   |
 
 Gets battery status information and returns it in a dictionary. The dictionary keys are as follows:  
 
@@ -69,7 +68,7 @@ Which may print, for example:
 "The battery status for the UPS at 10.0.0.100 is unknown!"
 ```
 
-## get_battery_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
+## get_battery_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
 |         Name        |   Type  | Required | Default Value |                                                     Description                                                    |
 |:-------------------:|:-------:|:--------:|:-------------:|:------------------------------------------------------------------------------------------------------------------:|
@@ -77,7 +76,6 @@ Which may print, for example:
 |   ```snmp_user```   |  String |    No    |   ```None```  |          An SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing.         |
 | ```snmp_auth_key``` |  String |    No    |   ```None```  | The auth key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
 | ```snmp_priv_key``` |  String |    No    |   ```None```  | The priv key for an SNMP user with read permissions. If ```snmp``` is set to ```False```, this value does nothing. |
-|    ```timeout```    |  Float  |    No    |    ```10```   |                    The time in seconds which either SNMP or Selenium should wait before failing.                   |
 
 Gets battery measurements and returns them in a dictionary. The dictionary keys are as follows:  
 
@@ -114,11 +112,7 @@ Which may print, for example:
 "The battery temperature for the UPS at 10.0.0.100 is 53°C!"
 ```
 
-## get_last_replacement_date(timeout: int = 10) -> str
-
-|      Name     |  Type | Required | Default Value |                           Description                          |
-|:-------------:|:-----:|:--------:|:-------------:|:--------------------------------------------------------------:|
-| ```timeout``` | Float |    No    |    ```10```   | The time in seconds which Selenium should wait before failing. |
+## get_last_replacement_date() -> str
 
 Gets the date that the battery was last replaced and returns it as a string with the format ```MM/DD/YYYY```.  
 Example:
@@ -141,11 +135,7 @@ last_replacement = card_battery.get_last_replacement_date()
 card.logout()
 ```
 
-## get_next_replacement_date(timeout: int = 10) -> str
-
-|      Name     |  Type | Required | Default Value |                           Description                          |
-|:-------------:|:-----:|:--------:|:-------------:|:--------------------------------------------------------------:|
-| ```timeout``` | Float |    No    |    ```10```   | The time in seconds which Selenium should wait before failing. |
+## get_next_replacement_date() -> str
 
 Gets the date that the battery is due to be replaced.  
 Example:

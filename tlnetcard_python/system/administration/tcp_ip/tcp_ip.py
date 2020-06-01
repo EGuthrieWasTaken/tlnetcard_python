@@ -24,7 +24,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def disable_ipv4_dhcp(self) -> None:
         """ Disables DHCP for IPv4. """
@@ -35,7 +38,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def disable_ipv6_dhcp(self) -> None:
         """ Disables DHCP for IPv6. """
@@ -45,7 +51,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_autonetogiation(self) -> None:
         """ Enables link speed negotiation. """
@@ -56,7 +65,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_ipv4_dhcp(self) -> None:
         """ Enables DHCP for IPv4. """
@@ -67,7 +79,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_ipv6_dhcp(self) -> None:
         """ Enables DHCP for IPv6. """
@@ -77,7 +92,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def get_ipv4_info(self) -> Dict[str, str]:
         """ GETs info on how IPv4 is configured. """
@@ -157,7 +175,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_ipv6_info(self, ip_addr: str, prefix_len: int = 64,
                       gateway: str = "::", dns_ip: str = "::") -> None:
@@ -173,7 +194,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_system_info(self, name: str = "TLNET", contact: str = "", location: str = "") -> None:
         """ Sets info on the system and its location. """
@@ -186,7 +210,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_10m_link_speed(self) -> None:
         """ Sets the link speed to 10M. """
@@ -197,7 +224,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_100m_link_speed(self) -> None:
         """ Sets the link speed to 100M. """
@@ -208,7 +238,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_full_duplex(self) -> None:
         """ Sets the duplex for the link to full. """
@@ -219,7 +252,10 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_half_duplex(self) -> None:
         """ Sets the duplex for the link to half. """
@@ -230,5 +266,8 @@ class TcpIp:
 
         # Uploading TCP/IP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ip_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()

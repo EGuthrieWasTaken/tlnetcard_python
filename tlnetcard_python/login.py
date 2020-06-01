@@ -18,7 +18,8 @@ class Login:
     """ Class for the login object. A login object is required by all classes in this repository."""
     def __init__(self, user: str = "admin", passwd: str = "password", host: str = "",
                  save_passwd: bool = False, ssl: bool = True,
-                 reject_invalid_certs: bool = True) -> None:
+                 reject_invalid_certs: bool = True, timeout: float = 10.0, port: int = None
+                 ) -> None:
         """ Initializes the login object. """
         # Saving values which will be used independently.
         self._host = host
@@ -26,6 +27,14 @@ class Login:
         self._reject_invalid_certs = reject_invalid_certs
         self._save_passwd = save_passwd
         self._ssl = ssl
+        self._timeout = timeout
+        # Setting port.
+        if self._ssl and port is None:
+            self._port = 443
+        elif not self._ssl and port is None:
+            self._port = 80
+        else:
+            self._port = port
         # Checking to see if password should be saved.
         if self._save_passwd:
             self._passwd = passwd
@@ -50,6 +59,9 @@ class Login:
     def get_host(self) -> str:
         """ Returns the host. """
         return self._host
+    def get_port(self) -> int:
+        """ Returns the port number. """
+        return self._port
     def get_reject_invalid_certs(self) -> bool:
         """ Returns whether to accept invalid SSL certificates
         (i.e. self-signed SSL certificates). """
@@ -81,6 +93,9 @@ class Login:
         # Resetting _renew_system variable to False.
         self._renew_system = False
         return self._system_config
+    def get_timeout(self) -> float:
+        """ Returns the timeout value. """
+        return self._timeout
     def logout(self) -> None:
         """ Closes the session. """
         # Restoring warnings in case reject_invalid_certs flag is used.
@@ -100,7 +115,8 @@ class Login:
         session = Session()
 
         # Getting login screen HTML (so that Challenge can be retrieved).
-        login_screen = session.get(login_get_url, verify=self._reject_invalid_certs, timeout=0.5)
+        login_screen = session.get(login_get_url, port=self._port, timeout=self._timeout,
+                                   verify=self._reject_invalid_certs).raise_for_status()
 
         # Retrieving challenge from HTML.
         challenge_loc = login_screen.text.find('name="Challenge"')
@@ -120,12 +136,13 @@ class Login:
         }
 
         # Logging in.
-        session.post(login_post_url, data=login_data, verify=self._reject_invalid_certs)
+        session.post(login_post_url, data=login_data, port=self._port, timeout=self._timeout,
+                     verify=self._reject_invalid_certs).raise_for_status()
 
         # Checking if login was successful.
-        login_response = session.get(login_get_url,
-                                     verify=self._reject_invalid_certs, timeout=0.5).text
-        if login_response.find("login_title") != -1:
+        login_response = session.get(login_get_url, port=self._port, timeout=self._timeout,
+                                     verify=self._reject_invalid_certs).raise_for_status()
+        if login_response.text.find("login_title") != -1:
             print("login failed for host at URL " + self._host)
             session.close()
             return -1

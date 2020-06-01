@@ -24,7 +24,10 @@ class Console:
 
         # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def disable_telnet(self) -> None:
         """ Disables Telnet. """
@@ -35,7 +38,10 @@ class Console:
 
         # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_ssh(self) -> None:
         """ Enables SSH. """
@@ -46,7 +52,10 @@ class Console:
 
         # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_telnet(self) -> None:
         """ Enables Telnet. """
@@ -57,7 +66,10 @@ class Console:
 
         # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def get_ssh_port(self) -> int:
         """ GETs the port in use for SSH. """
@@ -89,7 +101,10 @@ class Console:
 
         # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_telnet_port(self, port=23) -> None:
         """ Sets the port for use by Telnet. """
@@ -101,7 +116,10 @@ class Console:
 
         # Uploading console configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=console_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def upload_auth_public_key(self, key: str) -> int:
         """ Uploads the provided authentication public key. """
@@ -120,7 +138,10 @@ class Console:
 
         # Uploading public authentication key.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         return 0
     def upload_dsa_host_key(self, key: str) -> str:
         """ Uploads the provided DSA host key. """
@@ -139,7 +160,10 @@ class Console:
 
         # Uploading DSA key.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         return 0
     def upload_rsa_host_key(self, key: str) -> int:
         """ Uploads the provided RSA host key. """
@@ -158,5 +182,8 @@ class Console:
 
         # Uploading DSA key.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         return 0

@@ -34,14 +34,15 @@ class BatchConfiguration:
         # Submitting download request.
         verify = self._login_object.get_reject_invalid_certs()
         data = self._login_object.get_session().post(self._post_url, data=download_data,
-                                                     verify=verify).text
+                                                     port=self._login_object.get_port(),
+                                                     timeout=self._login_object.get_timeout(),
+                                                     verify=verify).raise_for_status()
         # Returning raw configuration data if no_write was set to True.
         if no_write:
-            return data
+            return data.text
         # Otherwise writing configuration data to file an returning the file path.
         with open(path, "w") as out_file:
-            out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
-                                                                 verify=verify).text)
+            out_file.write(data.text)
         return path
     def download_system_configuration(self, path: str = None, no_write: bool = False) -> None:
         """ Downloads the system configuration and saves it to the specified file. """
@@ -61,14 +62,15 @@ class BatchConfiguration:
         # Submitting download request.
         verify = self._login_object.get_reject_invalid_certs()
         data = self._login_object.get_session().post(self._post_url, data=download_data,
-                                                     verify=verify).text
+                                                     port=self._login_object.get_port(),
+                                                     timeout=self._login_object.get_timeout(),
+                                                     verify=verify).raise_for_status()
         # Returning raw configuration data if no_write was set to True.
         if no_write:
-            return data
+            return data.text
         # Otherwise writing configuration data to file an returning the file path.
         with open(path, "w") as out_file:
-            out_file.write(self._login_object.get_session().post(self._post_url, data=download_data,
-                                                                 verify=verify).text)
+            out_file.write(data.text)
         return path
     def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> int:
         """ Uploads the specified SNMP configuration file. """
@@ -87,7 +89,10 @@ class BatchConfiguration:
 
         # Uploading SNMP configuration and requesting SNMP config renewal.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
         self._login_object.request_snmp_config_renewal()
@@ -109,7 +114,10 @@ class BatchConfiguration:
 
         # Uploading system configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 10 seconds.")
         self._login_object.request_system_config_renewal()

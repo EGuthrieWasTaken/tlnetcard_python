@@ -33,7 +33,10 @@ class Upgrade:
 
         # Uploading SNMP configuration.
         self._login_object.get_session().post(self._post_url, data=upgrade_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 1 minute.")
 

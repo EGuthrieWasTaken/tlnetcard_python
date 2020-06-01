@@ -23,7 +23,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def disable_sntp(self) -> None:
         """ Disables SNTP. """
@@ -34,7 +37,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_daylight_savings(self, start_date: str = "04/01", end_date: str = "11/01") -> None:
         """ Enables daylight savings from the start date to the end date for SNTP. """
@@ -48,7 +54,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_sntp(self) -> None:
         """ Enables SNTP. """
@@ -59,7 +68,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def get_primary_server(self) -> str:
         """ GETs the primary time server for SNTP and returns it. """
@@ -93,7 +105,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_primary_server(self, server: str) -> None:
         """ Sets the primary time server for SNTP. """
@@ -105,7 +120,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_secondary_server(self, server: str) -> None:
         """ Sets the secondary time server for SNTP. """
@@ -117,7 +135,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_time_zone(self, offset: str = "GMT") -> int:
         """ Sets the time zone for SNTP. """
@@ -146,7 +167,10 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
         return 0
     def use_local_time(self) -> None:
@@ -159,5 +183,8 @@ class TimeServer:
 
         # Uploading time server configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=time_server_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              port=self._login_object.get_port(),
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()

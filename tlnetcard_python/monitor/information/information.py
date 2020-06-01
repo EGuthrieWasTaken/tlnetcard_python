@@ -15,7 +15,7 @@ from selenium.webdriver.chrome.options import Options
 
 # Initialize class methods.
 def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_auth_key: str = None,
-                  snmp_priv_key: str = None, timeout: int = 10) -> List[str]:
+                  snmp_priv_key: str = None, timeout: float = 10.0) -> List[str]:
     """ Gets the provided SNMP values from their SNMP IDs. """
     out = []
     for i in snmp_ids:
@@ -39,7 +39,7 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_au
             out.append(str(var_binds[0]).split("=")[-1])
     return out
 def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: Session = None,
-                         timeout: int = 10) -> List[str]:
+                         timeout: float = 10.0) -> List[str]:
     """ Scrapes the provided web elements by their ID from the provided webpage. """
     # Configuring Selenium to run headless (i.e. without a GUI).
     browser_options = Options()
