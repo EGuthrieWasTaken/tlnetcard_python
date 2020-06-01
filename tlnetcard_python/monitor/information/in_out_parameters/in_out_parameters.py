@@ -15,9 +15,9 @@ class InOutParameters:
         """ Initializes the InOutParameters object. """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_io.asp"
-    def get_bypass_measurements(self, snmp: bool = True, snmp_user: str = None,
-                                snmp_auth_key: str = None, snmp_priv_key: str = None,
-                                timeout: int = 10) -> Dict[str, Any]:
+    def get_bypass_measurements(self, snmp: bool = True, snmp_user: str = "",
+                                snmp_auth_key: str = "", snmp_priv_key: str = ""
+                                ) -> Dict[str, Any]:
         """ Gets battery bypass measurements. """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
@@ -34,7 +34,8 @@ class InOutParameters:
             # Getting values.
             freq, volts, curr, power = get_with_snmp(self._login_object.get_host(),
                                                      [snmp_dict[i] for i in snmp_dict], snmp_user,
-                                                     snmp_auth_key, snmp_priv_key, timeout)
+                                                     snmp_auth_key, snmp_priv_key,
+                                                     self._login_object.get_timeout())
 
             # Generating out dictionary.
             out = {
@@ -51,7 +52,7 @@ class InOutParameters:
                                                              "UPS_BYAMP1", "UPS_BYPOWER1"],
                                                             self._get_url,
                                                             self._login_object.get_session(),
-                                                            timeout)
+                                                            self._login_object.get_timeout())
 
             # Generating out dictionary.
             out = {
@@ -61,9 +62,9 @@ class InOutParameters:
                 'Power (Watt)': int(power)
             }
         return out
-    def get_input_measurements(self, snmp: bool = True, snmp_user: str = None,
-                               snmp_auth_key: str = None, snmp_priv_key: str = None,
-                               timeout: int = 10) -> Dict[str, Any]:
+    def get_input_measurements(self, snmp: bool = True, snmp_user: str = "",
+                               snmp_auth_key: str = "", snmp_priv_key: str = ""
+                               ) -> Dict[str, Any]:
         """ Gets battery input measurements. """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
@@ -77,7 +78,7 @@ class InOutParameters:
             # Getting values.
             freq, volts = get_with_snmp(self._login_object.get_host(),
                                         [snmp_dict[i] for i in snmp_dict], snmp_user, snmp_auth_key,
-                                        snmp_priv_key, timeout)
+                                        snmp_priv_key, self._login_object.get_timeout())
 
             # Generating out dictionary.
             out = {
@@ -89,7 +90,8 @@ class InOutParameters:
             # Getting values.
             freq, volts = scrape_with_selenium(self._login_object.get_host(),
                                                ["UPS_INFREQ1", "UPS_INVOLT1"], self._get_url,
-                                               self._login_object.get_session(), timeout)
+                                               self._login_object.get_session(),
+                                               self._login_object.get_timeout())
 
             # Generating out dictionary.
             out = {
@@ -97,9 +99,9 @@ class InOutParameters:
                 'Voltage (V)': float(volts),
             }
         return out
-    def get_output_measurements(self, snmp: bool = True, snmp_user: str = None,
-                                snmp_auth_key: str = None, snmp_priv_key: str = None,
-                                timeout: int = 10) -> Dict[str, Any]:
+    def get_output_measurements(self, snmp: bool = True, snmp_user: str = "",
+                                snmp_auth_key: str = "", snmp_priv_key: str = ""
+                                ) -> Dict[str, Any]:
         """ Gets battery output measurements. """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
@@ -119,7 +121,8 @@ class InOutParameters:
             out, freq, volts, curr, power, load = get_with_snmp(self._login_object.get_host(),
                                                                 [snmp_dict[i] for i in snmp_dict],
                                                                 snmp_user, snmp_auth_key,
-                                                                snmp_priv_key, timeout)
+                                                                snmp_priv_key,
+                                                                self._login_object.get_timeout())
             # Output source status is actually returned as an integer whose values map as follows:
             status_dict = {
                 1: 'Other',
@@ -145,6 +148,7 @@ class InOutParameters:
             # Getting values.
             host = self._login_object.get_host()
             session = self._login_object.get_session()
+            timeout = self._login_object.get_timeout()
             out, freq, volts, curr, power, load = scrape_with_selenium(host,
                                                                        ["UPS_OUTSRC", "UPS_OUTFREQ",
                                                                         "UPS_OUTVOLT1",

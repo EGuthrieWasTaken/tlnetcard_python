@@ -3,9 +3,9 @@
 |                                                                                                                                                 Function Header                                                                                                                                                 |            Quick Description            |
 |:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------:|
 |                                                                                                             [```__init__(self, login_object: Login) -> None```](#__init__login_object-login---none)                                                                                                             | Initializes the InOutParameters object. |
-| [```get_bypass_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]```](#get_bypass_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-int--10---dictstr-any) |    Gets battery bypass measurements.    |
-|  [```get_input_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]```](#get_input_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-int--10---dictstr-any)  |     Gets battery input measurements.    |
-| [```get_output_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]```](#get_output_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-int--10---dictstr-any) |    Gets battery output measurements.    |
+| [```get_bypass_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]```](#get_bypass_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-int--10---dictstr-any) |    Gets battery bypass measurements.    |
+|  [```get_input_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]```](#get_input_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-int--10---dictstr-any)  |     Gets battery input measurements.    |
+| [```get_output_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]```](#get_output_measurementssnmp-bool--true-snmp_user-str--none-snmp_auth_key-str--none-snmp_priv_key-str--none-timeout-int--10---dictstr-any) |    Gets battery output measurements.    |
 
 ## Important Notes
 
@@ -25,7 +25,7 @@ It is recommended that the SNMP-based approach be used in all areas where this i
 
 Initializes the InOutParameters object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.  
 
-## get_bypass_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
+## get_bypass_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
 Gets battery bypass measurements and returns them in a dictionary. The dictionary keys are as follows:  
 
@@ -52,7 +52,7 @@ batt_bypass_volt = card_io.get_bypass_measurements(snmp=False)["Voltage (V)"]
 card.logout()
 ```
 
-## get_input_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
+## get_input_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
 Gets battery input measurements and returns them in a dictionary. The dictionary keys are as follows:  
 
@@ -77,7 +77,7 @@ batt_input_volt = card_io.get_input_measurements(snmp=False)["Voltage (V)"]
 card.logout()
 ```
 
-## get_output_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: int = 10) -> Dict[str, Any]
+## get_output_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
 Gets battery output measurements and returns them in a dictionary. The dictionary keys are as follows:  
 

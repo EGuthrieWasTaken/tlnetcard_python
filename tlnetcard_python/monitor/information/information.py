@@ -14,14 +14,24 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Initialize class methods.
-def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_auth_key: str = None,
-                  snmp_priv_key: str = None, timeout: int = 10) -> List[str]:
+def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth_key: str = "",
+                  snmp_priv_key: str = "", timeout: float = 10.0) -> List[str]:
     """ Gets the provided SNMP values from their SNMP IDs. """
     out = []
+
+    if snmp_auth_key != "" and snmp_priv_key != "":
+        usm_user_data = UsmUserData(snmp_user, authKey=snmp_auth_key, privKey=snmp_priv_key)
+    elif snmp_auth_key != "":
+        usm_user_data = UsmUserData(snmp_user, authKey=snmp_auth_key)
+    elif snmp_priv_key != "":
+        usm_user_data = UsmUserData(snmp_user, privKey=snmp_priv_key)
+    else:
+        usm_user_data = UsmUserData(snmp_user)
+
     for i in snmp_ids:
         error_indication, error_status, error_index, var_binds = next(
             getCmd(SnmpEngine(),
-                   UsmUserData(snmp_user, authKey=snmp_auth_key, privKey=snmp_priv_key),
+                   usm_user_data,
                    UdpTransportTarget((host, 161),
                                       timeout=timeout, retries=1),
                    ContextData(),
@@ -30,16 +40,18 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_au
 
         if error_indication:
             print(error_indication)
-            return -1
+            # Creating an output list of the proper size.
+            return ["" for i in snmp_ids]
         elif error_status:
             print('%s at %s' % (error_status.prettyPrint(),
                                 error_index and var_binds[int(error_index) - 1][0] or '?'))
-            return -1
+            # Creating an output list of the proper size.
+            return ["" for i in snmp_ids]
         else:
             out.append(str(var_binds[0]).split("=")[-1])
     return out
 def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: Session = None,
-                         timeout: int = 10) -> List[str]:
+                         timeout: float = 10.0) -> List[str]:
     """ Scrapes the provided web elements by their ID from the provided webpage. """
     # Configuring Selenium to run headless (i.e. without a GUI).
     browser_options = Options()

@@ -22,7 +22,9 @@ class Ftp:
 
         # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_ftp(self) -> None:
         """ Enables FTP. """
@@ -33,7 +35,9 @@ class Ftp:
 
         # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def get_ftp_port(self) -> int:
         """ GETs the port in use for FTP. """
@@ -55,5 +59,7 @@ class Ftp:
 
         # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         self._login_object.request_system_config_renewal()

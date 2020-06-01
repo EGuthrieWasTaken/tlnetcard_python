@@ -19,12 +19,12 @@ class Upgrade:
     def get_firmware_version(self) -> str:
         """ GETs the current firmware version. """
         return self._information_object.get_firmware_version()
-    def upgrade_snmp_firmware(self, path: str = "ups-tl-01_12_05c.bin") -> int:
+    def upgrade_snmp_firmware(self, path: str = "ups-tl-01_12_05c.bin") -> bool:
         """ Upgrades SNMP Device Firmware. """
         # Testing if the file specified in path exists.
         if not isfile(path):
             print("Specified configuration file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upgrade_data = {
@@ -33,8 +33,10 @@ class Upgrade:
 
         # Uploading SNMP configuration.
         self._login_object.get_session().post(self._post_url, data=upgrade_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
         print("NOTE: The card at " + self._login_object.get_base_url()
               + " will be offline for approximately 1 minute.")
 
-        return 0
+        return True

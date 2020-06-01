@@ -248,13 +248,13 @@ card_time_server.set_primary_server("10.0.0.201")
 card.logout()
 ```
 
-## set_time_zone(offset: str = "GMT") -> int
+## set_time_zone(offset: str = "GMT") -> bool
 
 |     Name     |  Type  | Required | Default Value |                 Description                 |
 |:------------:|:------:|:--------:|:-------------:|:-------------------------------------------:|
 | ```offset``` | String |    No    |  ```"GMT"```  | The offset time to be used for time zoning. |
 
-Sets the SNTP time zone.  ```offset``` must be specified as "GMT" followed by a sign (+/-) followed by an offset in the form of HH (or HH:MM if applicable i.e. 3:30). An example is below.  
+Sets the SNTP time zone.  ```offset``` must be specified as "GMT" followed by a sign (+/-) followed by an offset in the form of HH (or HH:MM if applicable i.e. 3:30). An example is below. If an invalid specifier is provided, this function will return ```False```. Otherwise, this function will return ```True```.  
 Example:
 
 ```python

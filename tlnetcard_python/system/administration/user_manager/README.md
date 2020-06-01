@@ -175,7 +175,7 @@ Which may print, for example:
 "10.0.0.200"
 ```
 
-## set_permissions(user: str = "Administrator", login_user: bool = False, framed_user: bool = False, callback_login: bool = False, callback_framed: bool = False, outbound: bool = False, administrative: bool = False, nas_prompt: bool = False, authenticate_only: bool = False, callback_nas_prompt: bool = False, call_check: bool = False, callback_administrative: bool = False, selenium: bool = False) -> int
+## set_permissions(user: str = "Administrator", login_user: bool = False, framed_user: bool = False, callback_login: bool = False, callback_framed: bool = False, outbound: bool = False, administrative: bool = False, nas_prompt: bool = False, authenticate_only: bool = False, callback_nas_prompt: bool = False, call_check: bool = False, callback_administrative: bool = False, selenium: bool = False) -> bool
 
 |              Name             |   Type  | Required |     Default Value     |                               Description                              |
 |:-----------------------------:|:-------:|:--------:|:---------------------:|:----------------------------------------------------------------------:|
@@ -193,7 +193,7 @@ Which may print, for example:
 | ```callback_administrative``` | Boolean |    No    |      ```False```      | Whether the user should have ```callback_administrative``` permission. |
 |         ```selenium```        | Boolean |    No    |      ```False```      |              Whether a selenium approach should be used.               |
 
-Sets the permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Sets the permissions for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```False```. Otherwise, ```True``` will be returned.  
 **It is recommended that ```selenium``` be set to ```True``` for speed, but it defaults to ```False``` for compatability. If you elect to use Selenium for this function, you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as the corresponding version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).**  
 Example:
 
@@ -244,7 +244,7 @@ card_user_manager.set_server_info("10.0.0.200", "Av43udHEk3uh2278eDss", 3333)
 card.logout()
 ```
 
-## set_user(username: str, passwd: str, wan_access: int = False, user: str = "Administrator") -> None
+## set_user(username: str, passwd: str, wan_access: int = False, user: str = "Administrator") -> bool
 
 |       Name       |  Type   | Required |     Default Value     |                         Description                          |
 |:----------------:|:-------:|:--------:|:---------------------:|:------------------------------------------------------------:|
@@ -253,7 +253,7 @@ card.logout()
 | ```wan_access``` | Boolean |    No    |      ```False```      |    Whether the account should be accessible from the WAN.    |
 |    ```user```    | String  |    No    | ```"Administrator"``` | The type of user (from which permissions will be inherited). |
 
-Sets information for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Sets information for the provided user. If ```user``` is not a valid value (```"Administrator"```, ```"Device Manager"```, ```"Read Only User"```), then this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python

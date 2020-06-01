@@ -37,13 +37,13 @@ firmware_version = card_upgrade.get_firmware_version()
 card.logout()
 ```
 
-## upgradeSNMPFirmwre(path: str = "ups-tl-01_12_05c.bin") -> int
+## upgrade_snmp_firmware(path: str = "ups-tl-01_12_05c.bin") -> bool
 
 |    Name    |  Type  | Required |        Default Value         |                       Description                        |
 |:----------:|:------:|:--------:|:----------------------------:|:--------------------------------------------------------:|
 | ```path``` | String |    No    | ```"ups-tl-01_12_05c.bin"``` | The upgrade ```.bin``` file, downloaded from Tripp Lite. |
 
-Uploads the specified SNMP Device Firmware. If the specified (or default) configuration file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned. Please note that the cards may not accept configuration files that do not use the  ```.bin``` file extension. Also, after upgrade files are uploaded, the card will become unresponsive for ~1 minute. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
+Uploads the specified SNMP Device Firmware. If the specified (or default) configuration file does not exist, this function will return ```False```. Otherwise, ```True``` will be returned. Please note that the cards may not accept configuration files that do not use the  ```.bin``` file extension. Also, after upgrade files are uploaded, the card will become unresponsive for ~1 minute. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
 ```python

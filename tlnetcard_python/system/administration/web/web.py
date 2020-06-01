@@ -22,9 +22,12 @@ class Web:
             "WEB_HTTP": "0"
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
     def disable_https(self) -> None:
         """ Disables HTTPS access. """
         # Generating payload.
@@ -32,9 +35,12 @@ class Web:
             "WEB_HTTPS": "0"
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
     def enable_http(self) -> None:
         """ Enables HTTP access. """
         # Generating payload.
@@ -42,9 +48,12 @@ class Web:
             "WEB_HTTP": "1"
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
     def enable_https(self) -> None:
         """ Enables HTTPS access. """
         # Generating payload.
@@ -52,9 +61,12 @@ class Web:
             "WEB_HTTPS": "1"
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
     def get_http_port(self) -> int:
         """ GETs the port in use for HTTP. """
         # GETing system config.
@@ -93,9 +105,12 @@ class Web:
             "WEB_PORT_HTTP": str(port)
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
     def set_https_port(self, port: int = 443) -> None:
         """ Sets the port for use by HTTPS. """
         # Generating payload.
@@ -104,25 +119,31 @@ class Web:
             "WEB_PORT_HTTPS": str(port)
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
-    def set_web_refresh(self, seconds: int = 10) -> None:
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
+    def set_web_refresh(self, seconds: int = 10) -> bool:
         """ Sets the web refresh time to ```seconds``` seconds. """
         # Generating payload.
         web_data = {
             "WEB_REFRESH": str(seconds)
         }
 
-        # Uploading web configuration.
+        # Uploading web configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=web_data,
-                                              verify=self._login_object.get_reject_invalid_certs())
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
     def upload_ssl_cert(self, path: str) -> int:
         """ Uploads the provided SSL certificate. """
         # Testing if the file specified in path exists.
         if not isfile(path):
             print("Specified PEM file does not exist!")
-            return -1
+            return False
 
         # Creating upload payload.
         upload_data = {
@@ -134,5 +155,7 @@ class Web:
 
         # Uploading SSL certificate.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              verify=self._login_object.get_reject_invalid_certs())
-        return 0
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        return True

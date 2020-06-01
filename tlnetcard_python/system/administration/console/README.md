@@ -215,13 +215,13 @@ card_console.set_telnet_port(2323)
 card.logout()
 ```
 
-## upload_auth_public_key(key: str) -> int
+## upload_auth_public_key(key: str) -> bool
 
 |    Name   |  Type  | Required | Default Value |                  Description                  |
 |:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
 | ```key``` | String |    Yes   |      N/A      | The qualified name of the key file to upload. |
 
-Uploads the provided public authentication key. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Uploads the provided public authentication key. If the specified file does not exist, this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python
@@ -242,13 +242,13 @@ card_console.upload_auth_public_key("/path/to/key/file")
 card.logout()
 ```
 
-## upload_dsa_host_key(key: str) -> int
+## upload_dsa_host_key(key: str) -> bool
 
 |    Name   |  Type  | Required | Default Value |                  Description                  |
 |:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
 | ```key``` | String |    Yes   |      N/A      | The qualified name of the key file to upload. |
 
-Uploads the provided DSA host key. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Uploads the provided DSA host key. If the specified file does not exist, this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python
@@ -275,7 +275,7 @@ card.logout()
 |:---------:|:------:|:--------:|:-------------:|:---------------------------------------------:|
 | ```key``` | String |    Yes   |      N/A      | The qualified name of the key file to upload. |
 
-Uploads the provided RSA host key. If the specified file does not exist, this function will return ```-1```. Otherwise, ```0``` will be returned.  
+Uploads the provided RSA host key. If the specified file does not exist, this function will return ```False```. Otherwise, ```True``` will be returned.  
 Example:
 
 ```python
