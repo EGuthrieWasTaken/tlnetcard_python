@@ -51,10 +51,10 @@ class Login:
     def get_base_url(self) -> str:
         """ Returns the base URL for TLNET Supervisor. """
         # Generating base URL.
-        if self._ssl and self._host != "":
-            base_url = 'https://' + self._host
+        if self._ssl:
+            base_url = 'https://' + self._host + ":" + str(self._port)
         else:
-            base_url = 'http://' + self._host
+            base_url = 'http://' + self._host + ":" + str(self._port)
         return base_url
     def get_host(self) -> str:
         """ Returns the host. """
@@ -115,7 +115,7 @@ class Login:
         session = Session()
 
         # Getting login screen HTML (so that Challenge can be retrieved).
-        login_screen = session.get(login_get_url, port=self._port, timeout=self._timeout,
+        login_screen = session.get(login_get_url, timeout=self._timeout,
                                    verify=self._reject_invalid_certs).raise_for_status()
 
         # Retrieving challenge from HTML.
@@ -136,11 +136,11 @@ class Login:
         }
 
         # Logging in.
-        session.post(login_post_url, data=login_data, port=self._port, timeout=self._timeout,
+        session.post(login_post_url, data=login_data, timeout=self._timeout,
                      verify=self._reject_invalid_certs).raise_for_status()
 
         # Checking if login was successful.
-        login_response = session.get(login_get_url, port=self._port, timeout=self._timeout,
+        login_response = session.get(login_get_url, timeout=self._timeout,
                                      verify=self._reject_invalid_certs).raise_for_status()
         if login_response.text.find("login_title") != -1:
             print("login failed for host at URL " + self._host)

@@ -22,7 +22,6 @@ class Ftp:
 
         # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
-                                              port=self._login_object.get_port(),
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
@@ -36,7 +35,6 @@ class Ftp:
 
         # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
-                                              port=self._login_object.get_port(),
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
@@ -61,7 +59,6 @@ class Ftp:
 
         # Uploading FTP configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=ftp_data,
-                                              port=self._login_object.get_port(),
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()

@@ -34,7 +34,6 @@ class BatchConfiguration:
         # Submitting download request.
         verify = self._login_object.get_reject_invalid_certs()
         data = self._login_object.get_session().post(self._post_url, data=download_data,
-                                                     port=self._login_object.get_port(),
                                                      timeout=self._login_object.get_timeout(),
                                                      verify=verify).raise_for_status()
         # Returning raw configuration data if no_write was set to True.
@@ -62,7 +61,6 @@ class BatchConfiguration:
         # Submitting download request.
         verify = self._login_object.get_reject_invalid_certs()
         data = self._login_object.get_session().post(self._post_url, data=download_data,
-                                                     port=self._login_object.get_port(),
                                                      timeout=self._login_object.get_timeout(),
                                                      verify=verify).raise_for_status()
         # Returning raw configuration data if no_write was set to True.
@@ -89,7 +87,6 @@ class BatchConfiguration:
 
         # Uploading SNMP configuration and requesting SNMP config renewal.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              port=self._login_object.get_port(),
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
@@ -114,7 +111,6 @@ class BatchConfiguration:
 
         # Uploading system configuration and requesting system config renewal.
         self._login_object.get_session().post(self._post_url, data=upload_data, files=upload_file,
-                                              port=self._login_object.get_port(),
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()

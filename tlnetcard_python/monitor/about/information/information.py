@@ -17,7 +17,6 @@ class Information:
         # GETing Information page.
         verify = self._login_object.get_reject_invalid_certs()
         resp = self._login_object.get_session().get(self._get_url,
-                                                    port=self._login_object.get_port(),
                                                     timeout=self._login_object.get_timeout(),
                                                     verify=verify).raise_for_status()
 
