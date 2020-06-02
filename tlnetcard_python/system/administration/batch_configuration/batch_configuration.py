@@ -78,7 +78,7 @@ class BatchConfiguration:
         # Testing if the file specified in path exists.
         if not isfile(path):
             warn("Specified configuration file does not exist!", FileNotFoundError)
-            return False
+            return
 
         # Creating upload payload.
         upload_data = {
@@ -101,7 +101,7 @@ class BatchConfiguration:
         # Testing if the file specified in path exists.
         if not isfile(path):
             warn("Specified configuration file does not exist!", FileNotFoundError)
-            return False
+            return
 
         # Creating upload payload.
         upload_data = {
