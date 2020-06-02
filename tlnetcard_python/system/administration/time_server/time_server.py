@@ -77,9 +77,8 @@ class TimeServer:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for primary SNTP server.
-        for line in system_config:
-            if line.find("Server1") != -1:
-                return line.split("=")[1]
+        if "Server1" in system_config:
+            return system_config["Server1"]
         return ""
     def get_secondary_server(self) -> str:
         """ GETs the secondary time server for SNTP and returns it. """
@@ -87,9 +86,8 @@ class TimeServer:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for secondary SNTP server.
-        for line in system_config:
-            if line.find("Server2") != -1:
-                return line.split("=")[1]
+        if "Server2" in system_config:
+            return system_config["Server2"]
         return ""
     def set_manual_time(self, date: str = "01/01/2000", time: str = "00:00:00") -> None:
         """ Sets the time manually. """
@@ -143,21 +141,16 @@ class TimeServer:
                    "GMT-01", "GMT", "GMT+01", "GMT+02", "GMT+03", "GMT+03:30",
                    "GMT+04", "GMT+05", "GMT+05:30", "GMT+06", "GMT+07", "GMT+08",
                    "GMT+09", "GMT+10", "GMT+11", "GMT+12"]
-        zone = -1
-        for i in range(0, len(offsets)):
-            if offset == offsets[i]:
-                zone = i
-                break
 
-        # Checking if zone value was set (otherwise an improper offset value was provided).
-        if zone == -1:
+        # Checking if zone value is valid (otherwise an improper offset value was provided).
+        if offset not in offsets:
             warn("Invalid time zone specified!", ValueError)
             return False
 
         # Generating payload.
         time_server_data = {
             "NTP_MANU": "0",
-            "NTP_ZONE": str(zone)
+            "NTP_ZONE": str(offset)
         }
 
         # Uploading time server configuration and requesting system config renewal.

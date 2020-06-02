@@ -99,6 +99,7 @@ class InOutParameters:
                 'Voltage (V)': float(volts),
             }
         return out
+    # pylint: disable=too-many-locals
     def get_output_measurements(self, snmp: bool = True, snmp_user: str = "",
                                 snmp_auth_key: str = "", snmp_priv_key: str = ""
                                 ) -> Dict[str, Any]:

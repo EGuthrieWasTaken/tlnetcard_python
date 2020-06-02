@@ -9,11 +9,11 @@ from pathlib import Path
 from platform import system
 from warnings import warn
 # Required internal classes/functions.
-from tlnetcard_python.login import Login
+import tlnetcard_python.login
 
 class BatchConfiguration:
     """ Class for the BatchConfiguration object. """
-    def __init__(self, login_object: Login) -> None:
+    def __init__(self, login_object: tlnetcard_python.login.Login) -> None:
         """ Initializes the BatchConfiguration object. """
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_batch"

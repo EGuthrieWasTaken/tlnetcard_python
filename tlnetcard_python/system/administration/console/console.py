@@ -74,9 +74,8 @@ class Console:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for SSH port.
-        for line in system_config:
-            if line.find("SSH Port") != -1:
-                return int(line.split("=")[1])
+        if "SSH Port" in system_config:
+            return int(system_config["SSH Port"])
         return -1
     def get_telnet_port(self) -> int:
         """ GETs the port in use for Telnet. """
@@ -84,9 +83,8 @@ class Console:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for telnet port.
-        for line in system_config:
-            if line.find("Telnet Port") != -1:
-                return int(line.split("=")[1])
+        if "Telnet Port" in system_config:
+            return int(system_config["Telnet Port"])
         return -1
     def set_ssh_port(self, port=22) -> None:
         """ Sets the port for use by SSH. """

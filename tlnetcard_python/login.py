@@ -6,16 +6,19 @@
 # Standard library.
 from getpass import getpass
 from hashlib import md5
-from typing import List
+from typing import Dict
 from warnings import filterwarnings, warn
 # Related third-party library.
 from requests import Session
 from urllib3.exceptions import InsecureRequestWarning
-# NOTE: See below class Login for import statement of BatchConfiguration class.
-#       The import statement is placed below class Login to prevent a circular import error.
+# Importing BatchConfiguration module to access configuration files.
+# pylint: disable=line-too-long
+import tlnetcard_python.system.administration.batch_configuration.batch_configuration as batch_configuration
+# pylint: enable=line-too-long
 
 class Login:
     """ Class for the login object. A login object is required by all classes in this repository."""
+    # pylint: disable=too-many-arguments,too-many-instance-attributes
     def __init__(self, user: str = "admin", passwd: str = "password", host: str = "",
                  save_passwd: bool = False, ssl: bool = True,
                  reject_invalid_certs: bool = True, timeout: float = 10.0, port: int = None
@@ -44,8 +47,8 @@ class Login:
         if self._host != "":
             self._perform_login(passwd)
         # Initializing system/snmp config list variables.
-        self._snmp_config = []
-        self._system_config = []
+        self._snmp_config = {}
+        self._system_config = {}
         self._renew_snmp = True
         self._renew_system = True
     def get_base_url(self) -> str:
@@ -69,27 +72,39 @@ class Login:
     def get_session(self) -> Session:
         """ Returns the session. """
         return self._session
-    def get_snmp_config(self, force: bool = False) -> List[str]:
+    def get_snmp_config(self, force: bool = False) -> Dict[str, str]:
         """ Triggers the API to pull a new version of SNMP config file if required and returns the
-        configuration as a list. """
+        configuration as a dictionary. """
         # Checking if a snmp config is required or forced and returning if neither.
         if not self._renew_snmp and not force:
             return self._snmp_config
         # Otherwise initializing BatchConfiguration object pulling new SNMP config.
-        batch_object = BatchConfiguration(self)
-        self._snmp_config = batch_object.download_snmp_configuration(no_write=True).split('\n')
+        batch_object = batch_configuration.BatchConfiguration(self)
+        snmp_config = batch_object.download_snmp_configuration(no_write=True).split('\n')
+        # Clearing existing SNMP config and writing new config.
+        self._snmp_config.clear()
+        for i in snmp_config:
+            if "=" in i:
+                info = i.split("+")
+                self._snmp_config[info[0]] = info[1]
         # Resetting _renew_snmp variable to False.
         self._renew_snmp = False
         return self._snmp_config
-    def get_system_config(self, force: bool = False) -> List[str]:
+    def get_system_config(self, force: bool = False) -> Dict[str, str]:
         """ Triggers the API to pull a new version of system config file if required and returns the
-        configuration as a list. """
+        configuration as a dictionary. """
         # Checking if a system config is required or forced and returning if neither.
         if not self._renew_system and not force:
             return self._system_config
         # Otherwise initializing BatchConfiguration object pulling new system config.
-        batch_object = BatchConfiguration(self)
-        self._system_config = batch_object.download_system_configuration(no_write=True).split('\n')
+        batch_object = batch_configuration.BatchConfiguration(self)
+        system_config = batch_object.download_system_configuration(no_write=True).split('\n')
+        # Clearing existing system config and writing new config.
+        self._system_config.clear()
+        for i in system_config:
+            if "=" in i:
+                info = i.split("+")
+                self._system_config[info[0]] = info[1]
         # Resetting _renew_system variable to False.
         self._renew_system = False
         return self._system_config
@@ -178,6 +193,3 @@ class Login:
             if self._save_passwd:
                 self._passwd = passwd
             self._perform_login(passwd)
-
-# Importing BatchConfiguration module to access configuration files.
-from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration

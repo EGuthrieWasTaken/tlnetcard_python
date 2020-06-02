@@ -70,10 +70,10 @@ class UserManager:
         system_config = self._login_object.get_system_config()
 
         # Parsing list for permissions code.
-        for line in system_config:
-            if line.find(pretty[user]) != -1:
-                permission_code = int(line.split("=")[1])
-                break
+        if user in system_config:
+            permission_code = system_config[user]
+        else:
+            return {}
 
         # Converting permissions code to binary string.
         permission_code_bin = format(permission_code, '011b')
@@ -82,6 +82,7 @@ class UserManager:
 
         # Parsing binary to create dictionary.
         out = {}
+        # pylint: disable=consider-using-enumerate
         for i in range(0, len(permission_types)):
             out[permission_types[i]] = bool(int(permission_code_bin[i]))
         return out
@@ -98,45 +99,37 @@ class UserManager:
         # GETing system config.
         system_config = self._login_object.get_system_config()
 
-        # Parsing list for required values.
-        for line in system_config:
-            format_line = line.split("=")
-            if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1])
+        for i in pretty:
+            if i in system_config:
+                out[pretty[i]] = system_config[i]
         out['Port'] = int(out['Port'])
         return out
     def get_user(self, user: str = "Administrator") -> Dict[str, Any]:
         """ GETs information about the provided user. """
-        # Generating dictionary of user translations.
+        # Generating dictionary of search translations.
         pretty = {
-            "Administrator": "Admin",
-            "Device Manager": "Device",
-            "Read Only User": "User"
-        }
-
-        # Exiting if user is not a valid value.
-        if user not in pretty:
-            return {}
-        out = {
-            'Type': user
-        }
-
-        # Generating search strings to key dictionary.
-        search = {
             user + ' Account': 'Name',
             user + ' Password': 'Password',
             user + ' Limit': 'WAN Access'
+        }
+
+        # Exiting if user is not a valid value.
+        if user not in ["Administrator", "Device Manager", "Read Only"]:
+            return {}
+        out = {
+            'Type': user
         }
 
         # GETing system config.
         system_config = self._login_object.get_system_config()
 
         # Parsing list for required values.
-        for line in system_config:
-            if line.split("=")[1] in search:
-                out[search[line.split("=")[0]]] = line.split("=")[1]
+        for i in pretty:
+            if i in system_config:
+                out[pretty[i]] = system_config[i]
         out[user + ' Limit'] = bool(out[user + ' Limit'])
         return out
+    # pylint: disable=too-many-arguments,too-many-locals
     def set_permissions(self, user: str = "Administrator", login_user: bool = False,
                         framed_user: bool = False, callback_login: bool = False,
                         callback_framed: bool = False, outbound: bool = False,

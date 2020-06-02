@@ -8,4 +8,4 @@ install:
   - pip3 install -r build_requirements.txt
   - pip3 install -r requirements.txt
 script:
-  - pylint tlnetcard_python --disable=too-many-arguments,consider-using-enumerate,too-few-public-methods,too-many-locals,no-else-return,too-many-instance-attributes,cyclic-import,duplicate-code,wrong-import-position
+  - pylint tlnetcard_python --disable=too-few-public-methods,cyclic-import,duplicate-code

@@ -45,9 +45,8 @@ class Ftp:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for FTP port.
-        for line in system_config:
-            if line.find("FTP Port") != -1:
-                return int(line.split("=")[1])
+        if "FTP Port" in system_config:
+            return int(system_config["FTP Port"])
         return -1
     def set_ftp_port(self, port: int = 21) -> None:
         """ Sets the port for use by FTP. """

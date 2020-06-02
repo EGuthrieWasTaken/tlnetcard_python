@@ -15,6 +15,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Initialize class methods.
+# pylint: disable=too-many-arguments
 def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth_key: str = "",
                   snmp_priv_key: str = "", timeout: float = 10.0) -> List[str]:
     """ Gets the provided SNMP values from their SNMP IDs. """
@@ -38,7 +39,7 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth
                    ContextData(),
                    ObjectType(ObjectIdentity(i)))
         )
-
+        # pylint: disable=no-else-return
         if error_indication:
             warn(error_indication, RuntimeError)
             # Creating an output list of the proper size.
@@ -75,6 +76,7 @@ def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: S
     out = {}
     counter = 0.0
     while timeout > counter:
+        # pylint: disable=consider-using-enumerate
         for i in range(0, len(element_ids)):
             out[i] = browser.find_element_by_id(element_ids[i]).text
         if '' not in [out[j] for j in out]:

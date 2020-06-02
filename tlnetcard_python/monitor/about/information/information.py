@@ -6,6 +6,7 @@
 # Required internal classes/functions.
 from tlnetcard_python.login import Login
 
+# pylint: disable=too-few-public-methods
 class Information:
     """ Class for the Information object. """
     def __init__(self, login_object: Login) -> None:

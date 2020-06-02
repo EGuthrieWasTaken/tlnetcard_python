@@ -74,19 +74,17 @@ class Web:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for HTTP port.
-        for line in system_config:
-            if line.find("HTTP Port") != -1:
-                return int(line.split("=")[1])
+        if "HTTP Port" in system_config:
+            return int(system_config["HTTP Port"])
         return -1
     def get_https_port(self) -> int:
         """ GETs the port in use for HTTPS. """
         # GETing system config.
         system_config = self._login_object.get_system_config()
 
-        # Parsing config for HTTP port.
-        for line in system_config:
-            if line.find("HTTPS Port") != -1:
-                return int(line.split("=")[1])
+        # Parsing config for HTTPS port.
+        if "HTTPS Port" in system_config:
+            return int(system_config["HTTPS Port"])
         return -1
     def get_web_refresh(self) -> int:
         """ GETs the web refresh time in seconds. """
@@ -94,9 +92,8 @@ class Web:
         system_config = self._login_object.get_system_config()
 
         # Parsing config for web refresh time.
-        for line in system_config:
-            if line.find("Web Refresh") != -1:
-                return int(line.split("=")[1])
+        if "Web Refresh" in system_config:
+            return int(system_config["Web Refresh"])
         return -1
     def set_http_port(self, port: int = 80) -> None:
         """ Sets the port for use by HTTP. """

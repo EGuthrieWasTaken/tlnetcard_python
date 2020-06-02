@@ -29,6 +29,7 @@ class Syslog:
         # Adding current servers to payload.
         syslog_data = {}
         i = 0   # Setting i to 0 here prevents error if curr_servers is empty.
+        # pylint: disable=consider-using-enumerate
         for i in range(0, len(curr_servers)):
             syslog_data["SLG_SERVER" + str(i + 1)] = curr_servers[i]
 
@@ -89,12 +90,12 @@ class Syslog:
         """ GETs syslog servers and returns them in a list. """
         # GETing system config.
         system_config = self._login_object.get_system_config()
+        items = ["SysLog Server", "SysLog Server2", "SysLog Server3", "SysLog Server4"]
 
         servers = []
-        # Parsing config for syslog servers.
-        for line in system_config:
-            if line.find("SysLog Server") != -1 and line.split("=")[1] != "":
-                servers.append(line.split("=")[1])
+        for i in items:
+            if i in system_config:
+                servers.append(system_config[i])
         return servers
     def remove_server(self, server: str) -> bool:
         """ Removes a syslog server. """
@@ -108,6 +109,7 @@ class Syslog:
 
         # Adding remaining servers to payload.
         syslog_data = {}
+        # pylint: disable=consider-using-enumerate
         for i in range(0, len(curr_servers)):
             syslog_data["SLG_SERVER" + str(i + 1)] = curr_servers[i]
 

@@ -10,8 +10,8 @@
 |                                                                                                            [```get_port()```](#get_port---int)                                                                                                             |                                               Returns the port number for the TLNET Supervisor.                                               |
 |                                                                                            [```get_reject_invalid_certs()```](#get_reject_invalid_certs---bool)                                                                                            |                                               Returns the ```reject_invalid_certs``` attribute.                                               |
 |                                                                                                       [```get_session()```](#get_session---session)                                                                                                        |                                                             Returns the session.                                                              |
-|                                                                                     [```get_snmp_config(force=False)```](#get_snmp_configforce-bool--false---liststr)                                                                                      |                Triggers the API to pull a new version of SNMP config file if required and returns the configuration as a list.                |
-|                                                                                   [```get_system_config(force=False)```](#get_system_configforce-bool--false---liststr)                                                                                    |               Triggers the API to pull a new version of system config file if required and returns the configuration as a list.               |
+|                                                                                   [```get_snmp_config(force=False)```](#get_snmp_configforce-bool--false---dictstr-str)                                                                                    |                Triggers the API to pull a new version of SNMP config file if required and returns the configuration as a list.                |
+|                                                                                 [```get_system_config(force=False)```](#get_system_configforce-bool--false---dictstr-str)                                                                                  |               Triggers the API to pull a new version of system config file if required and returns the configuration as a list.               |
 |                                                                                                        [```get_timeout()```](#get_timeout---float)                                                                                                         |                                                    Returns the timeout value for requests.                                                    |
 |                                                                                                              [```logout()```](#logout---none)                                                                                                              |                                                              Closes the session.                                                              |
 |                                                                                              [```_perform_login(passwd)```](#_perform_loginpasswd-str---bool)                                                                                              |                                                           Logs into a new session.                                                            |
@@ -162,9 +162,9 @@ r = card.get_session().get("https://duckduckgo.com")
 card.logout()
 ```
 
-## get_snmp_config(force: bool = False) -> List[str]
+## get_snmp_config(force: bool = False) -> Dict[str, str]
 
-Triggers the API to pull a new version of SNMP config file if required and returns the configuration as a list. Many of the GET-style functions in this API use this function to pull configuration information, and this is the primary function of this function. The list returned should be the contents of the up-to-date configuration file, but for extra certainty that the file has been pulled recently the ```force``` parameter can be set to ```True```.  
+Triggers the API to pull a new version of SNMP config file if required and returns the configuration as a dictionary. Many of the GET-style functions in this API use this function to pull configuration information, and this is the primary function of this function. The list returned should be the contents of the up-to-date configuration file, but for extra certainty that the file has been pulled recently the ```force``` parameter can be set to ```True```.  
 Example:
 
 ```python
@@ -183,9 +183,9 @@ snmp_config, sys_config = card.get_snmp_config(force=True), card.get_system_conf
 card.logout()
 ```
 
-## get_system_config(force: bool = False) -> List[str]
+## get_system_config(force: bool = False) -> Dict[str, str]
 
-Triggers the API to pull a new version of system config file if required and returns the configuration as a list. Many of the GET-style functions in this API use this function to pull configuration information, and this is the primary function of this function. The list returned should be the contents of the up-to-date configuration file, but for extra certainty that the file has been pulled recently the ```force``` parameter can be set to ```True```.  
+Triggers the API to pull a new version of system config file if required and returns the configuration as a dictionary. Many of the GET-style functions in this API use this function to pull configuration information, and this is the primary function of this function. The list returned should be the contents of the up-to-date configuration file, but for extra certainty that the file has been pulled recently the ```force``` parameter can be set to ```True```.  
 
 Example:
 

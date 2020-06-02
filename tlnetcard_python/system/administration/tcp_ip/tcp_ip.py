@@ -109,9 +109,8 @@ class TcpIp:
 
         # Parsing list for required values.
         for line in system_config:
-            format_line = line.split("=")
-            if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1])
+            if line in pretty:
+                out[pretty[line]] = str(system_config[line])
         return out
     def get_ipv6_info(self) -> Dict[str, Any]:
         """ GETs info on how IPv6 is configured. """
@@ -129,9 +128,8 @@ class TcpIp:
 
         # Parsing list for required values.
         for line in system_config:
-            format_line = line.split("=")
-            if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1])
+            if line in pretty:
+                out[pretty[line]] = str(system_config[line])
         out["Prefix Length"] = int(out["IP Address"].split("/")[1])
         out["IP Address"] = out["IP Address"].split("/")[0]
         return out
@@ -150,10 +148,10 @@ class TcpIp:
 
         # Parsing list for required values.
         for line in system_config:
-            format_line = line.split("=")
-            if format_line[0] in pretty:
-                out[pretty[format_line[0]]] = str(format_line[1])
+            if line in pretty:
+                out[pretty[line]] = str(system_config[line])
         return out
+    # pylint: disable=too-many-arguments
     def set_ipv4_info(self, ip_addr: str, mask: str = "255.255.255.0", gateway: str = "",
                       dns_ip: str = "", domain: str = "") -> None:
         """ Sets info on how IPv4 is configured. """
