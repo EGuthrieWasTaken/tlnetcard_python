@@ -73,7 +73,7 @@ class BatchConfiguration:
         with open(path, "w") as out_file:
             out_file.write(data.text)
         return path
-    def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> bool:
+    def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> None:
         """ Uploads the specified SNMP configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
@@ -96,8 +96,7 @@ class BatchConfiguration:
         warn("NOTE: The card at " + self._login_object.get_base_url()
              + " will be offline for approximately 10 seconds.", RuntimeWarning)
         self._login_object.request_snmp_config_renewal()
-        return True
-    def upload_system_configuration(self, path: str = "system_config.ini") -> bool:
+    def upload_system_configuration(self, path: str = "system_config.ini") -> None:
         """ Uploads the specified system configuration file. """
         # Testing if the file specified in path exists.
         if not isfile(path):
@@ -120,4 +119,3 @@ class BatchConfiguration:
         warn("NOTE: The card at " + self._login_object.get_base_url()
              + " will be offline for approximately 10 seconds.", RuntimeWarning)
         self._login_object.request_system_config_renewal()
-        return True
