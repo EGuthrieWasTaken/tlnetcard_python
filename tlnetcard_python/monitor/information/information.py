@@ -1,4 +1,10 @@
-""" Provides the get_with_snmp() and scrape_with_selenium() methods. """
+"""
+tlnetcard_python.monitor.information.information
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Provides the get_with_snmp() and scrape_with_selenium() methods which can be used independently of
+the rest of this class.
+"""
 
 # Standard library.
 from time import sleep
@@ -15,7 +21,17 @@ from selenium.webdriver.chrome.options import Options
 # pylint: disable=too-many-arguments
 def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth_key: str = "",
                   snmp_priv_key: str = "", timeout: float = 10.0) -> List[str]:
-    """ Gets the provided SNMP values from their SNMP IDs. """
+    """
+    Gets the provided SNMP values from their SNMP IDs. Returns ``List[str]``.
+
+    :param host: The IP address/DNS name of the SNMP device.
+    :param snmp_ids: A list of SNMP IDs to retrieve from the host.
+    :param snmp_user: (optional) The username for the SNMP user to connect as.
+    :param snmp_auth_key: (optional) The Auth key for the SNMP user to connect as.
+    :param snmp_priv_key: (optional) The Priv key for the SNMP user to connect as.
+    :param timeout: (optional) The number of seconds to wait for responses before quitting.
+    :rtype: ``List[str]``
+    """
     out = []
 
     if snmp_auth_key != "" and snmp_priv_key != "":
@@ -52,7 +68,16 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth
     return out
 def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: Session = None,
                          timeout: float = 10.0) -> List[str]:
-    """ Scrapes the provided web elements by their ID from the provided webpage. """
+    """
+    Scrapes the provided web elements by their ID from the provided webpage. Returns ``List[str]``.
+    
+    :param host: The IP address/DNS name of the web server.
+    :param element_ids: A list of HTML element IDs to retrieve from the host.
+    :param url: The specific URL from which element ID values will be scraped.
+    :param session: (optional) A ``requests.Session`` object from which cookies will be transferred.
+    :param timeout: (optional) The number of seconds to wait for responses before quitting.
+    :rtype: ``List[str]``
+    """
     # Configuring Selenium to run headless (i.e. without a GUI).
     browser_options = Options()
     browser_options.add_argument("--headless")
