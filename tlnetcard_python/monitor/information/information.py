@@ -70,7 +70,7 @@ def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: S
                          timeout: float = 10.0) -> List[str]:
     """
     Scrapes the provided web elements by their ID from the provided webpage. Returns ``List[str]``.
-    
+
     :param host: The IP address/DNS name of the web server.
     :param element_ids: A list of HTML element IDs to retrieve from the host.
     :param url: The specific URL from which element ID values will be scraped.
