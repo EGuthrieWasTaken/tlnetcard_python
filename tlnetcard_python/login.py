@@ -32,6 +32,7 @@ class Login:
     >>> # Now any method from the initialized class can be used. For example, saving the system
     >>> # configuration to a file in the current directory:
     >>> batch_config.download_system_configuration(path="system_config.ini")
+    'system-config.ini'
     """
     # pylint: disable=too-many-arguments,too-many-instance-attributes
     def __init__(self, user: str = "admin", passwd: str = "password", host: str = "",
