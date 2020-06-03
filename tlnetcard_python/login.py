@@ -17,9 +17,9 @@ from urllib3.exceptions import InsecureRequestWarning
 
 class Login:
     """
-    A TLNET Supervisor object.
+    A TLNET Supervisor ``Login`` object.
 
-    A Login object is required by all classes in this repository. Provides login persistence and
+    A ``Login`` object is required by all classes in this repository. Provides login persistence and
     saves pertinent session information.
 
     Basic Usage:
@@ -39,7 +39,7 @@ class Login:
                  reject_invalid_certs: bool = True, timeout: float = 10.0, port: int = None
                  ) -> None:
         """
-        Initializes the Login object. If the ``passwd`` argument is not ``None``, then this
+        Initializes the ``Login`` object. If the ``passwd`` argument is not ``None``, then this
         function will call ``self._perform_login()`` to execute the login. Returns ``None``.
 
         :param user: (optional) The TLNET Supervisor username.
