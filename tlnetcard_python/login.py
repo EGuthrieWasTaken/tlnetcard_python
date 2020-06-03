@@ -102,14 +102,14 @@ class Login:
     def get_host(self) -> str:
         """
         Returns the host.
-        
+
         :rtype: ``str``
         """
         return self._host
     def get_port(self) -> int:
         """
         Returns the port number.
-        
+
         :rtype: ``int``
         """
         return self._port
@@ -117,7 +117,7 @@ class Login:
         """
         Returns whether to accept invalid SSL certificates
         (i.e. self-signed SSL certificates).
-        
+
         :rtype: ``bool``
         """
         return self._reject_invalid_certs
@@ -126,18 +126,22 @@ class Login:
         Returns the requests ``Session`` object that was created by the ``self._perform_login()``
         function. If the ``self._perform_login()`` function has not run yet (i.e. no host was
         specified), this function will return ``None``.
-        
+
         :rtype: ``requests.Session``
         """
         return self._session
     def get_snmp_config(self, force: bool = False) -> Dict[str, str]:
         """
-        Checks to see if a refresh of the SNMP configuration has been requested (or forced). If so,
+        Checks if a refresh of the SNMP configuration has been requested (or forced). If so,
         initializes a ``tlnetcard_python.system.administration.BatchConfiguration`` object to pull
         the current SNMP configuration and stores it locally as a dictionary. This information is
         then returned. If a refresh was neither forced nor requested, it will return the
         saved dictionary without pulling a new one.
-        
+
+        :param force: Whether a new config file should be pulled from the TLNET Supervisor,
+        regardless as to whether one has been requested by another function in this API. Setting
+        this parameter to ``True`` guarantees the returned dictionary was just pulled, but
+        frequent use will increase program runtimes while providing little or no benefit.
         :rtype: ``Dict[str, str]``
         """
         # Checking if a snmp config is required or forced and returning if neither.
@@ -156,8 +160,19 @@ class Login:
         self._renew_snmp = False
         return self._snmp_config
     def get_system_config(self, force: bool = False) -> Dict[str, str]:
-        """ Triggers the API to pull a new version of system config file if required and returns the
-        configuration as a dictionary. """
+        """
+        Checks if a refresh of the system configuration has been requested (or forced). If so,
+        initializes a ``tlnetcard_python.system.administration.BatchConfiguration`` object to pull
+        the current system configuration and stores it locally as a dictionary. This information is
+        then returned. If a refresh was neither forced nor requested, it will return the
+        saved dictionary without pulling a new one.
+
+        :param force: Whether a new config file should be pulled from the TLNET Supervisor,
+        regardless as to whether one has been requested by another function in this API. Setting
+        this parameter to ``True`` guarantees the returned dictionary was just pulled, but
+        frequent use will increase program runtimes while providing little or no benefit.
+        :rtype: ``Dict[str, str]``
+        """
         # Checking if a system config is required or forced and returning if neither.
         if not self._renew_system and not force:
             return self._system_config
@@ -174,7 +189,11 @@ class Login:
         self._renew_system = False
         return self._system_config
     def get_timeout(self) -> float:
-        """ Returns the timeout value. """
+        """
+        Returns the timeout value.
+
+        :rtype: ``float``
+        """
         return self._timeout
     def logout(self) -> None:
         """ Closes the session. """
@@ -182,7 +201,20 @@ class Login:
         filterwarnings("default", category=InsecureRequestWarning)
         self._session.close()
     def _perform_login(self, passwd: str) -> bool:
-        """ Logs into a new session. """
+        """
+        Logs in to the TLNET Supervisor using the provided password, ``passwd``. Generates a POST
+        request to the TLNET Supervisor login page at ``self._host`` and executes this request
+        within a new requests ``Session``. If the login fails, the ``Session`` object is closed, a
+        ``RuntimeWarning`` is thrown, and ``False`` is returned. If the login succeeds, the
+        ``Session`` object is saved into ``self._session`` and ``True`` is returned.
+
+        This function was not meant to be called directly by the user of this API, but is instead
+        intended to be called indirectly via either the function initializer or by the
+        ``self.set_host()`` function.
+
+        :param passwd: The password to be used with the TLNET Supervisor.
+        :rtype: ``bool``
+        """
         # Ignoring self-signed SSL certificate warning when reject_invalid_certs is False.
         if not self._reject_invalid_certs:
             filterwarnings("ignore", category=InsecureRequestWarning)
@@ -233,15 +265,47 @@ class Login:
         self._session = session
         return True
     def request_snmp_config_renewal(self) -> None:
-        """ Sets the _renew_snmp attribute to True so that the next call to get_snmp_config() will
-        trigger a re-pull of the SNMP config file. """
+        """
+        Sets the ``self._renew_snmp`` attribute to ``True`` so that the next call to
+        ``get_snmp_config()`` will trigger a re-pull of the SNMP config file.
+
+        This method was not intended to be called directly by the user of this API, but is instead
+        intended to be called by functions in this API which make POST requests which may alter
+        values in the SNMP configuration file. If the user wishes to pull a fresh dictionary of SNMP
+        values this should be accomplished using the ``self.get_snmp_config()`` function (see the
+        ``force`` parameter in particular).
+
+        :rtype: ``None``
+        """
         self._renew_snmp = True
     def request_system_config_renewal(self) -> None:
-        """ Sets the _renew_system attribute to True so that the next call to get_system_config()
-        will trigger a re-pull of the system config file. """
+        """
+        Sets the ``self._renew_system`` attribute to ``True`` so that the next call to
+        ``get_system_config()`` will trigger a re-pull of the SNMP config file.
+
+        This method was not intended to be called directly by the user of this API, but is instead
+        intended to be called by functions in this API which make POST requests which may alter
+        values in the SNMP configuration file. If the user wishes to pull a fresh dictionary of SNMP
+        values this should be accomplished using the ``self.get_system_config()`` function (see the
+        ``force`` parameter in particular).
+
+        :rtype: ``None``
+        """
         self._renew_system = True
     def set_host(self, host: str, passwd: str = "") -> None:
-        """ Sets host and then calls _perform_login(). """
+        """
+        Sets host and then calls ``self._perform_login()``. Returns ``None``.
+
+        :param host: The host of the TLNET Supervisor.
+        :param passwd: (optional) The password to use to log in to the TLNET Supervisor. If the
+        ``self._save_passwd`` value (set in the function initializer from the ``save_passwd``
+        parameter) is ``True`` and a password was provided in the function initializer (see the
+        ``passwd`` parameter), this password will be used if nothing is provided. If there is no
+        value saved in ``self.passwd`` and none was provided in this parameter, one will be promted.
+        If ``self._save_passwd`` is ``True``, then the provided password will be saved for
+        subsequent calls to this function.
+        :rtype: ``None``
+        """
         # Closing previous session (if there was one).
         if self._host != "":
             self.logout()
@@ -260,5 +324,5 @@ class Login:
             self._perform_login(passwd)
 
 # Importing BatchConfiguration module to access configuration files.
-# pylint: disable=line-too-long
+# pylint: disable=line-too-long,wrong-import-position
 from tlnetcard_python.system.administration.batch_configuration.batch_configuration import BatchConfiguration
