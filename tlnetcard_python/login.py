@@ -87,7 +87,7 @@ class Login:
         self._renew_system = True
     def get_base_url(self) -> str:
         """
-        Returns the base URL for TLNET Supervisor.
+        Returns the base URL for TLNET Supervisor as a string.
 
         :rtype: ``str``
         """
@@ -99,22 +99,22 @@ class Login:
         return base_url
     def get_host(self) -> str:
         """
-        Returns the host.
+        Returns the host as a string.
 
         :rtype: ``str``
         """
         return self._host
     def get_port(self) -> int:
         """
-        Returns the port number.
+        Returns the port number as an integer.
 
         :rtype: ``int``
         """
         return self._port
     def get_reject_invalid_certs(self) -> bool:
         """
-        Returns whether to accept invalid SSL certificates
-        (i.e. self-signed SSL certificates).
+        Returns whether to reject invalid SSL certificates (i.e. self-signed SSL certificates) as a
+        boolean.
 
         :rtype: ``bool``
         """
