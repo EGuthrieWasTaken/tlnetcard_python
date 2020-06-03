@@ -261,4 +261,4 @@ class Login:
 
 # Importing BatchConfiguration module to access configuration files.
 # pylint: disable=line-too-long
-from tlnetcard_python.system.administration import BatchConfiguation
+from tlnetcard_python.system.administration.batch_configuration import BatchConfiguation
