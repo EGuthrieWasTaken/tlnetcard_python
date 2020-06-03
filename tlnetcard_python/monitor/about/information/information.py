@@ -2,8 +2,8 @@
 tlnetcard_python.monitor.about.information.information
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This module provides an ``Information`` object to allow the TLNET Supervisor firmware version to be
-retreived.
+This module provides an ``Information`` object to provide the functionality of TLNET Supervisor
+-> Monitor -> About -> Information.
 """
 
 # Required internal classes/functions.
