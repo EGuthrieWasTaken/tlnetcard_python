@@ -1,7 +1,13 @@
 # login.py
 # Ethan Guthrie
 # 02/17/2020
-""" Creates a logged-in session to the specified TLNETCARD using the provided credentials. """
+"""
+tlnetcard_python.login
+~~~~~~~~~~~~~~~~~~~~~~
+
+This module provides a ``Login`` object to manage and persist settings across multiple interactions
+with the TLNET Supervisor (requests' Session, hostname, port, SNMP and system configurations, etc.).
+"""
 
 # Standard library.
 from getpass import getpass
@@ -11,19 +17,49 @@ from warnings import filterwarnings, warn
 # Related third-party library.
 from requests import Session
 from urllib3.exceptions import InsecureRequestWarning
-# Importing BatchConfiguration module to access configuration files.
-# pylint: disable=line-too-long
-import tlnetcard_python.system.administration.batch_configuration.batch_configuration as batch_configuration
-# pylint: enable=line-too-long
 
 class Login:
-    """ Class for the login object. A login object is required by all classes in this repository."""
+    """
+    A TLNET Supervisor object.
+
+    A Login object is required by all classes in this repository. Provides login persistence and
+    saves pertinent session information.
+
+    Basic Usage:
+
+    >>> import tlnetcard_python
+    >>> card = tlnetcard_python.Login(user="admin", passwd="password", host="10.0.0.100")
+    >>> # Now this Login object "card" can be provided as the sole argument to any other class
+    >>> # initializer in this API. For example, the BatchConfiguration class:
+    >>> batch_config = tlnetcard_python.system.administration.BatchConfiguration(card)
+    >>> # Now any method from the initialized class can be used. For example, saving the system
+    >>> # configuration to a file in the current directory:
+    >>> batch_config.download_system_configuration(path="system_config.ini")
+    """
     # pylint: disable=too-many-arguments,too-many-instance-attributes
     def __init__(self, user: str = "admin", passwd: str = "password", host: str = "",
                  save_passwd: bool = False, ssl: bool = True,
                  reject_invalid_certs: bool = True, timeout: float = 10.0, port: int = None
                  ) -> None:
-        """ Initializes the login object. """
+        """
+        Initializes the Login object. If the ``passwd`` argument is not ``None``, then this
+        function will call ``self._perform_login()`` to execute the login. Returns ``None``.
+
+        :param user: (optional) The TLNET Supervisor username.
+        :param passwd: (optional) The TLNET Supervisor password.
+        :param host: (optional) The address of the TLNETCARD.
+        :param save_passwd: (optional) Determines whether or not the ``passwd`` value will be saved
+        in the object. When set to ``False``, the ``passwd`` value will not be saved.
+        :param ssl: (optional) Determines whether or not the TLNET Supervisor at the host address
+        has an SSL certificate i.e. does it use HTTPS. When set to ``True``, HTTPS will be used.
+        :param reject_invalid_certs: (optional) Determines whether or not an invalid (i.e. a
+        self-signed) SSL certificate will be rejected. When set to ```True```, invalid certificates
+        will be rejected.
+        :param timeout: (optional) The timeout value which will be used for all web and SNMP
+        requests.
+        :param port: (optional) The port which the TLNET Supervisor is using.
+        :rtype: ``None``
+        """
         # Saving values which will be used independently.
         self._host = host
         self._user = user
@@ -52,7 +88,11 @@ class Login:
         self._renew_snmp = True
         self._renew_system = True
     def get_base_url(self) -> str:
-        """ Returns the base URL for TLNET Supervisor. """
+        """
+        Returns the base URL for TLNET Supervisor.
+
+        :rtype: ``str``
+        """
         # Generating base URL.
         if self._ssl:
             base_url = 'https://' + self._host + ":" + str(self._port)
@@ -60,26 +100,51 @@ class Login:
             base_url = 'http://' + self._host + ":" + str(self._port)
         return base_url
     def get_host(self) -> str:
-        """ Returns the host. """
+        """
+        Returns the host.
+        
+        :rtype: ``str``
+        """
         return self._host
     def get_port(self) -> int:
-        """ Returns the port number. """
+        """
+        Returns the port number.
+        
+        :rtype: ``int``
+        """
         return self._port
     def get_reject_invalid_certs(self) -> bool:
-        """ Returns whether to accept invalid SSL certificates
-        (i.e. self-signed SSL certificates). """
+        """
+        Returns whether to accept invalid SSL certificates
+        (i.e. self-signed SSL certificates).
+        
+        :rtype: ``bool``
+        """
         return self._reject_invalid_certs
     def get_session(self) -> Session:
-        """ Returns the session. """
+        """
+        Returns the requests ``Session`` object that was created by the ``self._perform_login()``
+        function. If the ``self._perform_login()`` function has not run yet (i.e. no host was
+        specified), this function will return ``None``.
+        
+        :rtype: ``requests.Session``
+        """
         return self._session
     def get_snmp_config(self, force: bool = False) -> Dict[str, str]:
-        """ Triggers the API to pull a new version of SNMP config file if required and returns the
-        configuration as a dictionary. """
+        """
+        Checks to see if a refresh of the SNMP configuration has been requested (or forced). If so,
+        initializes a ``tlnetcard_python.system.administration.BatchConfiguration`` object to pull
+        the current SNMP configuration and stores it locally as a dictionary. This information is
+        then returned. If a refresh was neither forced nor requested, it will return the
+        saved dictionary without pulling a new one.
+        
+        :rtype: ``Dict[str, str]``
+        """
         # Checking if a snmp config is required or forced and returning if neither.
         if not self._renew_snmp and not force:
             return self._snmp_config
         # Otherwise initializing BatchConfiguration object pulling new SNMP config.
-        batch_object = batch_configuration.BatchConfiguration(self)
+        batch_object = BatchConfiguration(self)
         snmp_config = batch_object.download_snmp_configuration(no_write=True).split('\n')
         # Clearing existing SNMP config and writing new config.
         self._snmp_config.clear()
@@ -97,7 +162,7 @@ class Login:
         if not self._renew_system and not force:
             return self._system_config
         # Otherwise initializing BatchConfiguration object pulling new system config.
-        batch_object = batch_configuration.BatchConfiguration(self)
+        batch_object = BatchConfiguration(self)
         system_config = batch_object.download_system_configuration(no_write=True).split('\n')
         # Clearing existing system config and writing new config.
         self._system_config.clear()
@@ -193,3 +258,7 @@ class Login:
             if self._save_passwd:
                 self._passwd = passwd
             self._perform_login(passwd)
+
+# Importing BatchConfiguration module to access configuration files.
+# pylint: disable=line-too-long
+from tlnetcard_python.system.administration import BatchConfiguation
