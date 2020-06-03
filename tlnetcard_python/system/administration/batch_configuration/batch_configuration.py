@@ -9,7 +9,7 @@ from pathlib import Path
 from platform import system
 from warnings import warn
 # Required internal classes/functions.
-from tlnetcard_python import Login
+from tlnetcard_python.login import Login
 
 class BatchConfiguration:
     """ Class for the BatchConfiguration object. """
