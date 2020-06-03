@@ -1,6 +1,3 @@
-# upgrade.py
-# Ethan Guthrie
-# 04/16/2020
 """ Allows SNMP Device Firmware to be upgraded. """
 
 # Standard library.

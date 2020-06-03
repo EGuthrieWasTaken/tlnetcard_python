@@ -1,6 +1,3 @@
-# in_out_parameters.py
-# Ethan Guthrie
-# 05/26/2020
 """ Allows UPS input and output power levels to be read. """
 
 # Standard library.

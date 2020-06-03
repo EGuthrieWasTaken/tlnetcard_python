@@ -1,6 +1,3 @@
-# syslog.py
-# Ethan Guthrie
-# 04/16/2020
 """ Allows syslog servers to be added or removed. """
 
 # Standard library.

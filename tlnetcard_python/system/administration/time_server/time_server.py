@@ -1,6 +1,3 @@
-# time_server.py
-# Ethan Guthrie
-# 04/17/2020
 """ Allows TimeServer to be updated or removed (i.e. switch to manual time). """
 
 # Standard library.

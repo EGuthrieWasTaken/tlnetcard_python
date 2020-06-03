@@ -1,6 +1,3 @@
-# ups_properties.py
-# Ethan Guthrie
-# DATE TBD
 """ Allows general UPS properties to be read. """
 
 # Required internal classes/functions.

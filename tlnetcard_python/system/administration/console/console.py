@@ -1,6 +1,3 @@
-# console.py
-# Ethan Guthrie
-# 05/04/2020
 """ Allows for console settings to be configured. """
 
 # Standard library.

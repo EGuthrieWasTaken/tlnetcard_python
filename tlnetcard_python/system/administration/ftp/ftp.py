@@ -1,6 +1,3 @@
-# ftp.py
-# Ethan Guthrie
-# 05/01/2020
 """ Allows FTP settings to be configured. """
 
 # Required internal classes/functions.

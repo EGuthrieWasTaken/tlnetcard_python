@@ -1,6 +1,3 @@
-# battery_parameters.py
-# Ethan Guthrie
-# 05/14/2020
 """ Allows battery parameters to be read. """
 
 # Standard library.

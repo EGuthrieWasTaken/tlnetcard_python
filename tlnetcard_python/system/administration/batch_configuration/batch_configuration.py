@@ -1,6 +1,3 @@
-# batch_configuration.py
-# Ethan Guthrie
-# 04/14/2020
 """ Allows batch configurations for SNMP or system settings to be uploaded or downloaded. """
 
 # Standard library.

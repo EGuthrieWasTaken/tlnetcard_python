@@ -1,6 +1,3 @@
-# login.py
-# Ethan Guthrie
-# 02/17/2020
 """
 tlnetcard_python.login
 ~~~~~~~~~~~~~~~~~~~~~~

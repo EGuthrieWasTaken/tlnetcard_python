@@ -1,6 +1,3 @@
-# status_indication.py
-# Ethan Guthrie
-# DATE TBD
 """ Allows UPS status to be viewed. """
 
 # Required internal classes/functions.

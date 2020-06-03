@@ -1,6 +1,3 @@
-# user_manager.py
-# Ethan Guthrie
-# 04/06/2020
 """ Allows user and permission settings to be configured. """
 
 # Standard library.

@@ -1,6 +1,3 @@
-# identification.py
-# Ethan Guthrie
-# DATE TBD
 """ Allows UPS identifying information to be read. """
 
 # Required internal classes/functions.

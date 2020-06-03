@@ -1,6 +1,3 @@
-# web.py
-# Ethan Guthrie
-# 05/04/2020
 """ Allows web host settings to be configured. """
 
 # Standard library.

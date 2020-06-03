@@ -1,6 +1,3 @@
-# information.py
-# Ethan Guthrie
-# 05/18/2020
 """ Provides the get_with_snmp() and scrape_with_selenium() methods. """
 
 # Standard library.

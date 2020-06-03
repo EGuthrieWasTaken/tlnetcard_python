@@ -1,6 +1,3 @@
-# shutdown_agent.py
-# Ethan Guthrie
-# DATE TBD
 """ Allows shutdown agent information to be read. """
 
 # Required internal classes/functions.

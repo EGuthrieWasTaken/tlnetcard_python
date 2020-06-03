@@ -1,6 +1,3 @@
-# tcp_ip.py
-# Ethan Guthrie
-# 05/04/2020
 """ Allows TCP/IP settings for IPv4/IPv6 to be configured. """
 
 # Standard library.
