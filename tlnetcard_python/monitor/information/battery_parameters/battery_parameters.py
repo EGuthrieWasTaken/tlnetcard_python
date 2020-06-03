@@ -33,7 +33,7 @@ class BatteryParameters:
     >>> # can be passed to the tlnetcard_python.monitor.information.BatteryParameters object.
     >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
     >>> card_batt_parameters = BatteryParameters(card)
-    
+
     At this point, functions can either be run using SNMP:
 
     >>> card_batt_parameters.get_battery_status(snmp_user="admin", snmp_auth_key="imadethisup",
