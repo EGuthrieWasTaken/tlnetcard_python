@@ -1,4 +1,10 @@
-""" Allows TCP/IP settings for IPv4/IPv6 to be configured. """
+"""
+tlnetcard_python.system.administration.tcp_ip.tcp_ip
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This module provides a ``TcpIp`` object to provide the functionality of TLNET Supervisor -> System
+-> Administration -> TCP/IP.
+"""
 
 # Standard library.
 from typing import Any, Dict
@@ -6,14 +12,38 @@ from typing import Any, Dict
 from tlnetcard_python.login import Login
 
 class TcpIp:
-    """ Class for the TcpIp object. """
+    """
+    A TLNET Supervisor ``TcpIp`` object. Provides the functionality of the equivalent webpage
+    TLNET Supervisor -> System -> Administration -> TCP/IP.
+
+    Basic Usage:
+
+    >>> from tlnetcard_python import Login
+    >>> from tlnetcard_python.system.administration import TcpIp
+    >>> # As always, a tlnetcard_python.Login object must first be created. Then the Login object
+    >>> # can be passed to the tlnetcard_python.system.administration.TcpIp object.
+    >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
+    >>> card_ip = TcpIp(card)
+    >>> # Now that the TcpIp object has been created, functions belonging to the TcpIp class can
+    >>> # be used. For example, enabling DHCP for IPv4 on the card:
+    >>> card_ip.enable_ipv4_dhcp()
+    """
     def __init__(self, login_object: Login) -> None:
-        """ Initializes the TcpIp object. """
+        """
+        Initializes the ``TcpIp`` object. Returns ``None``.
+
+        :param login_object: A valid ``tlnetcard_python.Login`` object.
+        :rtype: ``None``
+        """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_ipconfig.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_ipconfig"
     def disable_autonegotiation(self) -> None:
-        """ Disables link speed autonegotiation. """
+        """
+        Disables link autonegotiation. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_AUTONEG": "0"
@@ -26,7 +56,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def disable_ipv4_dhcp(self) -> None:
-        """ Disables DHCP for IPv4. """
+        """
+        Disables DHCP for IPv4. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_DHCP": "0"
@@ -39,7 +73,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def disable_ipv6_dhcp(self) -> None:
-        """ Disables DHCP for IPv6. """
+        """
+        Disables DHCP for IPv6. Returns ``None``.
+
+        :rtype: ``None``
+        """
         ip_data = {
             "SYS_V6DHCP": "0"
         }
@@ -51,7 +89,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_autonetogiation(self) -> None:
-        """ Enables link speed negotiation. """
+        """
+        Enables link speed negotiation. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_AUTONEG": "1"
@@ -64,7 +106,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_ipv4_dhcp(self) -> None:
-        """ Enables DHCP for IPv4. """
+        """
+        Enables DHCP for IPv4. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_DHCP": "1"
@@ -77,7 +123,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_ipv6_dhcp(self) -> None:
-        """ Enables DHCP for IPv6. """
+        """
+        Enables DHCP for IPv6. Returns ``None``.
+
+        :rtype: ``None``
+        """
         ip_data = {
             "SYS_V6DHCP": "1"
         }
@@ -89,7 +139,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def get_ipv4_info(self) -> Dict[str, str]:
-        """ GETs info on how IPv4 is configured. """
+        """
+        Returns info on how IPv4 is configured as a dictionary.
+
+        :rtype: ``Dict[str, str]``
+        """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
             "Bootp": "DHCP Status",
@@ -110,7 +164,11 @@ class TcpIp:
                 out[pretty[line]] = str(system_config[line])
         return out
     def get_ipv6_info(self) -> Dict[str, Any]:
-        """ GETs info on how IPv6 is configured. """
+        """
+        Returns info on how IPv6 is configured as a dictionary.
+
+        :rtype: ``Dict[str, str]``
+        """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
             "V6 DHCP": "DHCP Status",
@@ -131,7 +189,11 @@ class TcpIp:
         out["IP Address"] = out["IP Address"].split("/")[0]
         return out
     def get_system_info(self) -> Dict[str, str]:
-        """ GETs info on the system and its location. """
+        """
+        Returns info on the system and its location as a dictionary.
+
+        :rtype: ``Dict[str, str]``
+        """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
             "Name": "Host Name",
@@ -151,7 +213,16 @@ class TcpIp:
     # pylint: disable=too-many-arguments
     def set_ipv4_info(self, ip_addr: str, mask: str = "255.255.255.0", gateway: str = "",
                       dns_ip: str = "", domain: str = "") -> None:
-        """ Sets info on how IPv4 is configured. """
+        """
+        Sets info on how IPv4 is configured. Returns ``None``.
+
+        :param ip_addr: The IPv4 address to be used.
+        :param mask: (optional) The IPv4 subnet mask to be used.
+        :param gateway: (optional) The IPv4 gateway to be used.
+        :param dns_ip: (optional) The DNS server to be used.
+        :param domain: (optional) The domain server to be used.
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_DHCP": "0",
@@ -170,7 +241,15 @@ class TcpIp:
         self._login_object.request_system_config_renewal()
     def set_ipv6_info(self, ip_addr: str, prefix_len: int = 64,
                       gateway: str = "::", dns_ip: str = "::") -> None:
-        """ Sets info on how IPv6 is configured. """
+        """
+        Sets info on how IPv6 is configured. Returns ``None``.
+
+        :param ip_addr: The IPv6 address to be used.
+        :param prefix_len: The IPv6 prefix length to be used.
+        :param gateway: The IPv6 gateway  to be used.
+        :param dns_ip: The domain server to be used.
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_V6DHCP": "0",
@@ -187,7 +266,14 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def set_system_info(self, name: str = "TLNET", contact: str = "", location: str = "") -> None:
-        """ Sets info on the system and its location. """
+        """
+        Sets info on the system and its location. Returns ``None``.
+
+        :param name: (optional) The system hostname to be used.
+        :param contact: (optional) The system contact to be used.
+        :param location: (optional) The system location to be used.
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_NAM": name,
@@ -202,7 +288,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_10m_link_speed(self) -> None:
-        """ Sets the link speed to 10M. """
+        """
+        Sets the link speed to 10M. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_SPEED": "0"
@@ -215,7 +305,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_100m_link_speed(self) -> None:
-        """ Sets the link speed to 100M. """
+        """
+        Sets the link speed to 100M. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_SPEED": "1"
@@ -228,7 +322,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_full_duplex(self) -> None:
-        """ Sets the duplex for the link to full. """
+        """
+        Sets the duplex for the link to full. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_DUPLEX": "1"
@@ -241,7 +339,11 @@ class TcpIp:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def use_half_duplex(self) -> None:
-        """ Sets the duplex for the link to half. """
+        """
+        Sets the duplex for the link to half. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         ip_data = {
             "SYS_DUPLEX": "0"
