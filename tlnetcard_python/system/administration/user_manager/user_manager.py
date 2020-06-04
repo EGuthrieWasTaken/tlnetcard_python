@@ -1,4 +1,10 @@
-""" Allows user and permission settings to be configured. """
+"""
+tlnetcard_python.system.administration.user_manager.user_manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This module provides a ``UserManager`` object to provide the functionality of TLNET Supervisor ->
+System -> Administration -> User Manager.
+"""
 
 # Standard library.
 from os import remove
@@ -12,15 +18,42 @@ from tlnetcard_python.login import Login
 from tlnetcard_python.system.administration.batch_configuration import BatchConfiguration
 
 class UserManager:
-    """ Class for the UserManager object. """
+    """
+    A TLNET Supervisor ``UserManager`` object. Provides the functionality of the equivalent webpage
+    TLNET Supervisor -> System -> Administration -> User Manager.
+
+    Basic Usage:
+
+    >>> from tlnetcard_python import Login
+    >>> from tlnetcard_python.system.administration import UserManager
+    >>> # As always, a tlnetcard_python.Login object must first be created. Then the Login object
+    >>> # can be passed to the tlnetcard_python.system.administration.UserManager object.
+    >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
+    >>> card_user_man = UserManager(card)
+    >>> # Now that the UserManager object has been created, functions belonging to the UserManager
+    >>> # class can be used. For example, getting the permissions of a particular user.
+    >>> card_user_man.get_permissions("Administrator")
+    {'Login User': False, 'Framed User': False, 'Callback Login': False, 'Callback Framed': False,
+    'Outbound': False, 'Administrative': True, 'NAS Prompt': False, 'Authenticate Only': False,
+    'Callback NAS Prompt': False, 'Call Check': False, 'Callback Administrative': False}
+    """
     def __init__(self, login_object: Login) -> None:
-        """ Initializes the UserManager object. """
+        """
+        Initializes the ``UserManager`` object. Returns ``None``.
+
+        :param login_object: A valid ``tlnetcard_python.Login`` object.
+        :rtype: ``None``
+        """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/adm_user.asp"
         self._post_url = login_object.get_base_url() + "/delta/adm_user"
         self._batch_object = BatchConfiguration(self._login_object)
     def disable_radius(self) -> None:
-        """ Disables RADIUS authentication. """
+        """
+        Disables RADIUS authentication. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         user_data = {
             "radius": "0"
@@ -33,7 +66,11 @@ class UserManager:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def enable_radius(self) -> None:
-        """ Enables RADIUS authentication. """
+        """
+        Enables RADIUS authentication. Returns ``None``.
+
+        :rtype: ``None``
+        """
         # Generating payload.
         user_data = {
             "radius": "1"
@@ -46,7 +83,12 @@ class UserManager:
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
     def get_permissions(self, user: str = "Administrator") -> Dict[str, bool]:
-        """ GETs the permissions for the provided user. """
+        """
+        Returns the permissions for the provided user as a dictionary.
+
+        :param user: (optional) The user type to get permissions for.
+        :rtype: ``Dict[str, bool]``
+        """
         # Creating permission type list.
         permission_types = ["Login User", "Framed User", "Callback Login", "Callback Framed",
                             "Outbound", "Administrative", "NAS Prompt", "Authenticate Only",
@@ -84,7 +126,11 @@ class UserManager:
             out[permission_types[i]] = bool(int(permission_code_bin[i]))
         return out
     def get_server_info(self) -> Dict[str, Any]:
-        """ GETs information about the RADIUS server. """
+        """
+        Returns information about the RADIUS server as a dictionary.
+
+        :rtype: ``Dict[str, Any]``
+        """
         # Generating dictionary of items to search for and initializing out dictionary.
         pretty = {
             "RADIUS Server": "IP",
@@ -102,7 +148,12 @@ class UserManager:
         out['Port'] = int(out['Port'])
         return out
     def get_user(self, user: str = "Administrator") -> Dict[str, Any]:
-        """ GETs information about the provided user. """
+        """
+        Returns information about the provided user as a dictionary.
+
+        :param user: (optional) The user type to get information about.
+        :rtype: ``Dict[str, Any]``
+        """
         # Generating dictionary of search translations.
         pretty = {
             user + ' Account': 'Name',
@@ -134,7 +185,26 @@ class UserManager:
                         authenticate_only: bool = False, callback_nas_prompt: bool = False,
                         call_check: bool = False, callback_administrative: bool = False,
                         selenium: bool = False) -> bool:
-        """ Sets permissions for the provided user. """
+        """
+        Sets permissions for the provided user. Returns ``False`` if an invalid user type is
+        specified. Otherwise, ``True`` is returned upon successful completion.
+
+        :param user: (optional) The user type to set permissions for.
+        :param login_user: (optional) Whether the user type is to be a login user.
+        :param framed_user: (optional) Whether the user type is to be framed.
+        :param callback_login: (optional) Whether the user type is to be a callback login user.
+        :param callback_framed: (optional) Whether the user type is to be callback framed.
+        :param outbound: (optional) Whether the user is to be outbound.
+        :param administrative: (optional) Whether the user is to be administrative.
+        :param nas_prompt: (optional) Whether the user is to have a NAS prompt.
+        :param authenticate_only: (optional) Whether the user is to be authenticate only.
+        :param callback_nas_prompt: (optional) Whether the user is to have a callback NAS prompt.
+        :param call_check: (optional) Whether the user is to have a call check.
+        :param callback_administrative: (optional) Whether the user is to be callback
+        administrative.
+        :param selenium: (optional) Whether Selenium is to be used to retreive permissions.
+        :rtype: ``bool``
+        """
         # Generating required dictionaries.
         pretty = {
             "Administrator": ['RADIUS Admin User', 0],
@@ -228,7 +298,14 @@ class UserManager:
         self._login_object.request_system_config_renewal()
         return True
     def set_server_info(self, server: str, secret: str, port: int = 1812) -> None:
-        """ Sets information for the RADIUS server. """
+        """
+        Sets information for the RADIUS server. Returns ``None``.
+
+        :param server: The RADIUS server to use.
+        :param secret: The RADIUS server secret to use.
+        :param port: (optional) port to use for RADIUS.
+        :rtype: ``None``
+        """
         # Generating payload.
         user_data = {
             "radius": "1",
@@ -243,9 +320,18 @@ class UserManager:
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
         self._login_object.request_system_config_renewal()
-    def set_user(self, username: str, passwd: str, wan_access: int = False,
+    def set_user(self, username: str, passwd: str, wan_access: bool = False,
                  user: str = "Administrator") -> bool:
-        """ Sets information for the provided user. """
+        """
+        Sets information for the provided user. Returns ``False`` if an invalid user type is
+        specified. Otherwise, ``True`` is returned upon successful completion.
+
+        :param username: The username to use for the specified user type.
+        :param passwd: The password to use for the specified user type.
+        :param wan_access: Whether the user should be accessible from outside of the LAN.
+        :param user: The user type the user belongs to.
+        :rtype: ``bool``
+        """
         # Setting user num string.
         if user == "Administrator":
             num = "1"
