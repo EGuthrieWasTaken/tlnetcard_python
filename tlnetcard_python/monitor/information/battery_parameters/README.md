@@ -42,7 +42,7 @@ Gets battery status information and returns it in a dictionary. The dictionary k
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import BatteryParameters
 
@@ -60,11 +60,11 @@ if batt_status != "Normal":
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 "The battery status for the UPS at 10.0.0.100 is unknown!"
 ``
 
@@ -86,7 +86,7 @@ Gets battery measurements and returns them in a dictionary. The dictionary keys 
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import BatteryParameters
 
@@ -104,11 +104,11 @@ if batt_temp >= 50:
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 "The battery temperature for the UPS at 10.0.0.100 is 53°C!"
 ``
 
@@ -117,7 +117,7 @@ Which may print, for example:
 Gets the date that the battery was last replaced and returns it as a string with the format ``MM/DD/YYYY``.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import BatteryParameters
 
@@ -133,14 +133,14 @@ last_replacement = card_battery.get_last_replacement_date()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_next_replacement_date() -> str
 
 Gets the date that the battery is due to be replaced.  
 Example:
 
-``python
+```python
 from datetime import datetime
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import BatteryParameters
@@ -162,7 +162,7 @@ else:
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

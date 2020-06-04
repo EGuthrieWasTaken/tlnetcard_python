@@ -25,7 +25,7 @@ Initializes the UserManager object. If ``login_object`` is a valid Login object,
 Disables RADIUS authentication.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -41,14 +41,14 @@ card_user_manager.disable_radius()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_radius() -> None
 
 Enables RADIUS authentication. RADIUS will be enabled automatically when server info is set using [set_server_info()](#set_server_infoserver-secret-port), so there is no need to use these two functions together.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -64,7 +64,7 @@ card_user_manager.enable_radius()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_permissions(user: str = "Administrator") -> Dict[str, bool]
 
@@ -75,7 +75,7 @@ card.logout()
 GETs permissions for the provided user. If ``user`` is not a valid value (``"Administrator"``, ``"Device Manager"``, ``"Read Only User"``), then this function will return ``-1``. Otherwise, a dictionary of user permissions will be returned. The dictionary keys are as follows: ``Login User``, ``Framed User``, ``Callback Login``, ``Callback Framed``, ``Outbound``, ``Administrative``, ``NAS Prompt``, ``Authenticate Only``, ``Callback NAS Prompt``, ``Call Check``, and ``Callback Administrative`` where each key contains a boolean for whether or not the permission is granted for that user type.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -92,11 +92,11 @@ print(admin_permissions["Administrative"])
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 True
 ``
 
@@ -110,7 +110,7 @@ GETs information about the RADIUS server and returns it in a dictionary. The dic
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -127,11 +127,11 @@ print(radius_server["IP"])
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 "10.0.0.200"
 ``
 
@@ -150,7 +150,7 @@ GETs information about the provided user. If ``user`` is not a valid value (``"A
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -167,11 +167,11 @@ print(user_info["Name"])
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 "10.0.0.200"
 ``
 
@@ -197,7 +197,7 @@ Sets the permissions for the provided user. If ``user`` is not a valid value (``
 **It is recommended that ``selenium`` be set to ``True`` for speed, but it defaults to ``False`` for compatability. If you elect to use Selenium for this function, you will have to have [Google Chrome](https://www.google.com/chrome/) or [Chromium](https://www.chromium.org/getting-involved/download-chromium) installed on your system, as well as the corresponding version of Chrome/Chromium's [webdriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in your PATH. For more details on configuring Selenium, see [their PyPi page](https://pypi.org/project/selenium/).**  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -213,7 +213,7 @@ card_user_manager.set_permissions(user="Read Only", callback_nas_prompt=True, ou
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_server_info(server: str, secret: str, port: int = 1812) -> None
 
@@ -226,7 +226,7 @@ card.logout()
 Sets information for the RADIUS server.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -242,7 +242,7 @@ card_user_manager.set_server_info("10.0.0.200", "Av43udHEk3uh2278eDss", 3333)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_user(username: str, passwd: str, wan_access: int = False, user: str = "Administrator") -> bool
 
@@ -256,7 +256,7 @@ card.logout()
 Sets information for the provided user. If ``user`` is not a valid value (``"Administrator"``, ``"Device Manager"``, ``"Read Only User"``), then this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import UserManager
 
@@ -272,7 +272,7 @@ card_user_manager.set_server_info("manager", "imthecaptain", user="Device Manage
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

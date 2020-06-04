@@ -33,7 +33,7 @@
 Initializes the Login object. A Login object is required by all classes in this repository.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -44,14 +44,14 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_base_url() -> str
 
 Returns the ``self._base_url`` attribute. This attribute will be the fully-qualified URL of the TLNET Supervisor, usually in the form of ``https://<host>``, but can be in the form ``http://<host>`` if ``ssl`` was set to ``False`` in ``__init__()``. While this function is public, its primary function is to be called by other classes in this module.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -62,7 +62,7 @@ print(card.get_base_url())
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which would print:  
 
@@ -75,7 +75,7 @@ https://10.0.0.100
 Returns the ``self._host`` attribute. This will be whatever was specified when initializing the object, or the most recent ``host`` argument passed to the ``set_host()`` function. Like the ``get_base_url()`` function, this function's primary function is to be called by other classes in this module.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -86,11 +86,11 @@ print(card.get_host())
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which would print:  
 
-``python
+```python
 10.0.0.100
 ``
 
@@ -99,7 +99,7 @@ Which would print:
 Returns the ``self._port`` attribute. This will be whatever was specified when initiailizing the object, or it will be ``80`` or ``443`` depending on whether the ``self._ssl`` attribute is ``False`` or ``True``, respectively. This function's primary function is to be called is to be called by other functions in this module.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -110,11 +110,11 @@ print(card.get_port())
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which would print:
 
-``python
+```python
 443
 ``
 
@@ -123,7 +123,7 @@ Which would print:
 Returns the ``self._reject_invalid_certs`` attribute. This will be whatever was specified when initializing the object. Like most other functions in this class, this function's primary function is to be used by other classes in this module.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -134,11 +134,11 @@ print(card.get_reject_invalid_certs())
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which would print:
 
-``python
+```python
 False
 ``
 
@@ -147,7 +147,7 @@ False
 Returns the ``self._session`` attribute. This will be the logged-in session created after initializing the object, or after the most recent call of the  ``set_host()`` function. This will be a standards python [requests](https://requests-html.kennethreitz.org/) object which may be used to make GET or POST requests. For more information, see the documentation for [requests](https://requests-html.kennethreitz.org/). This function's primary function is to be called by other classes in this module.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -160,14 +160,14 @@ r = card.get_session().get("https://duckduckgo.com")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_snmp_config(force: bool = False) -> Dict[str, str]
 
 Triggers the API to pull a new version of SNMP config file if required and returns the configuration as a dictionary. Many of the GET-style functions in this API use this function to pull configuration information, and this is the primary function of this function. The list returned should be the contents of the up-to-date configuration file, but for extra certainty that the file has been pulled recently the ``force`` parameter can be set to ``True``.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -181,7 +181,7 @@ snmp_config, sys_config = card.get_snmp_config(force=True), card.get_system_conf
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_system_config(force: bool = False) -> Dict[str, str]
 
@@ -189,7 +189,7 @@ Triggers the API to pull a new version of system config file if required and ret
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -203,14 +203,14 @@ snmp_config, sys_config = card.get_snmp_config(force=True), card.get_system_conf
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_timeout() -> float
 
 Returns the self._timeout attribute. This will be whatever was specified when initiailizing the object, or it will be ``10.0`` if nothing was specified.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -221,11 +221,11 @@ print(card.get_timeout())
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which would print:
 
-``python
+```python
 23.7
 ``
 
@@ -234,7 +234,7 @@ Which would print:
 Closes the session saved as ``self._session``. This module should be called before your program terminates.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -245,7 +245,7 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## _perform_login(passwd: str) -> bool
 
@@ -256,7 +256,7 @@ card.logout()
 Creates a self._session object that is logged into TLNET Supervisor. This module was not meant to be called directly, so use it with caution, or simply call it indirectly using the ``set_hosts()`` function.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Initialize the login object.
@@ -269,7 +269,7 @@ card.performLogin("correct_password")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## request_snmp_config_renewal() -> None
 
@@ -289,7 +289,7 @@ Sets the ``self._renew_system`` attribute to ``True`` so that the next call to [
 Sets the ``self._host`` attribute to ``host``, and calls ``logout()`` if a session was already running. Then, the ``performLogin()`` function is called using ``passwd`` if it was specified. If it was not specified, the ``self._passwd`` value will be used if it was specified. Otherwise, the user will be prompted to enter a password (which will then be saved if the ``self._save_passwd`` attribute is set to ``True``). This function is highly useful if you wish to configure multiple cards which share the same credentials.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 
 # Defining a list of TLNETCARD hostnames.
@@ -305,7 +305,7 @@ for i in hosts:
     ...
 # Then logout the last session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

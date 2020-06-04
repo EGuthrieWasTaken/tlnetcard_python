@@ -28,7 +28,7 @@ Initializes the TimeServer object. If ``login_object`` is a valid Login object, 
 Disables daylight savings on the card. With this setting disabled, the only time adjustment the card will make is for the time zone.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -44,14 +44,14 @@ card_time_server.disable_daylight_savings()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## disable_sntp() -> None
 
 Disables SNTP.
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -67,7 +67,7 @@ card_time_server.disable_sntp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_daylight_savings(start_date: str = "04/01", end_date: str = "11/01") -> None
 
@@ -79,7 +79,7 @@ card.logout()
 Enables daylight savings on the card. With this setting enabled, time will be pushed one hour forward starting from ``start_date`` and ending on ``end_date``. **Both of these variables must be provided in MM/DD format.**  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -95,14 +95,14 @@ card_time_server.enable_daylight_savings("03/08", "11/01")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_sntp() -> None
 
 Enables SNTP with all current settings. This function can be omitted when setting other SNTP settings as SNTP will be automatically enabled.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -118,14 +118,14 @@ card_time_server.enable_sntp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_primary_server() -> str
 
 GETs the primary time server and returns it. If no server is specified, this function will return an empty string.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -141,14 +141,14 @@ primary_server = card_time_server.get_primary_server()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_secondary_server() -> str
 
 GETs the primary time server and returns it. If no server is specified, this function will return an empty string.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -164,7 +164,7 @@ secondary_server = card_time_server.get_secondary_server()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_manual_time(date: str = "01/01/2000", time: str = "00:00:00") -> None
 
@@ -176,7 +176,7 @@ card.logout()
 Sets the time on the card manually. ``date`` must be provided in MM/DD/YYYY format, and ``time`` must be provided in HH:MM:SS format. It is recommended that this function is not used, and the [use_local_time()](#uselocaltime) function be used instead for better accuracy.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -192,7 +192,7 @@ card_time_server.set_manual_time("12/25/2020", "00:00:00")  # Who's that coming 
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_primary_server(server: str) -> None
 
@@ -203,7 +203,7 @@ card.logout()
 Sets the provided server as the primary time server. It is recommended that a secondary server is also set.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -219,7 +219,7 @@ card_time_server.set_primary_server("10.0.0.200")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_secondary_server(server: str) -> None
 
@@ -230,7 +230,7 @@ card.logout()
 Sets the provided server as the secondary time server. You should have a primary server also specified.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -246,7 +246,7 @@ card_time_server.set_primary_server("10.0.0.201")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_time_zone(offset: str = "GMT") -> bool
 
@@ -257,7 +257,7 @@ card.logout()
 Sets the SNTP time zone.  ``offset`` must be specified as "GMT" followed by a sign (+/-) followed by an offset in the form of HH (or HH:MM if applicable i.e. 3:30). An example is below. If an invalid specifier is provided, this function will return ``False``. Otherwise, this function will return ``True``.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -273,14 +273,14 @@ card_time_server.set_time_zone("GMT-05")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## use_local_time() -> None
 
 Manually sets card time to this PC's (that is, the PC using this API) time. This is the recommended way of setting system time manually.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -296,7 +296,7 @@ card_time_server.use_local_time()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

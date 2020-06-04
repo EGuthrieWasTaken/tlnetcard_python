@@ -26,7 +26,7 @@ Initializes the BatchConfiguration object. If ``login_object`` is a valid Login 
 Downloads the current SNMP configuration. If nothing is specified for ``path`` and ``no_write`` is ``False``, then the configuration will be saved to a file called ``snmp_config.ini`` in the current user's Downloads directory. If ``no_write`` is ``True``, the contents of the configuration will be returned as a string, and no file will be written.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import BatchConfiguration
 
@@ -42,7 +42,7 @@ card_batch_config.download_snmp_configuration()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## download_system_configuration(path: str = None, no_write: bool = False) -> None
 
@@ -54,7 +54,7 @@ card.logout()
 Downloads the current system configuration. If nothing is specified for ``path`` and ``no_write`` is ``False``, then the configuration will be saved to a file called ``system_config.ini`` in the current user's Downloads directory. If ``no_write`` is ``True``, the contents of the configuration will be returned as a string, and no file will be written.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import BatchConfiguration
 
@@ -70,7 +70,7 @@ card_batch_config.download_system_configuration()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upload_snmp_configuration(path: str) -> bool
 
@@ -81,7 +81,7 @@ card.logout()
 Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function throw an exception. Please note that the cards may not accept configuration files that do not use the ``.ini`` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
-``python
+```python
 from time import sleep
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import BatchConfiguration
@@ -101,7 +101,7 @@ sleep(10)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upload_system_configuration(path: str) -> bool
 
@@ -112,7 +112,7 @@ card.logout()
 Uploads the specified SNMP configuration file. If the specified (or default) configuration file does not exist, this function throw an exception. Please note that the cards may not accept configuration files that do not use the ``.ini`` file extension. Also, after configuration files are uploaded, the card will become unresponsive for ~10 seconds. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
-``python
+```python
 from time import sleep
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import BatchConfiguration
@@ -132,7 +132,7 @@ sleep(10)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

@@ -28,7 +28,7 @@ Initializes the Web object. If ``login_object`` is a valid Login object, then th
 Disables HTTP. Be careful using this function as it may disrupt this API.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -44,14 +44,14 @@ card_web.disable_http()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## disable_https() -> None
 
 Disables HTTPS. Be careful using this function as it may disrupt this API.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -67,14 +67,14 @@ card_web.disable_https()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_http() -> None
 
 Enables HTTP.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -90,14 +90,14 @@ card_web.enable_http()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_https() -> None
 
 Enables HTTPS.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -113,14 +113,14 @@ card_web.enable_https()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_http_port() -> int
 
 GETs the HTTP port.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -136,14 +136,14 @@ http_port = card_web.get_http_port()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_https_port() -> int
 
 GETs the HTTP port.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -159,14 +159,14 @@ https_port = card_web.get_https_port()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_web_refresh() -> int
 
 GETs the web refresh time in seconds.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -182,7 +182,7 @@ refresh_time = card_web.get_web_refresh()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_http_port(port: int = 80) -> None
 
@@ -193,7 +193,7 @@ card.logout()
 Sets the HTTP port. When the HTTP port is set using this function, HTTP is automatically enabled. Be careful using this function as it may disrupt this API.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -209,7 +209,7 @@ card_web.set_http_port(8080)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_https_port(port: int = 443) -> None
 
@@ -220,7 +220,7 @@ card.logout()
 Sets the HTTPS port. When the HTTPS port is set using this function, HTTP is automatically enabled. Be careful using this function as it may disrupt this API.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -236,7 +236,7 @@ card_web.set_https_port(4433)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_web_refresh(seconds: int = 10) -> None
 
@@ -247,7 +247,7 @@ card.logout()
 Sets the web refresh time.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -263,7 +263,7 @@ card_web.set_web_refresh(60)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upload_ssl_cert(path: str) -> bool
 
@@ -274,7 +274,7 @@ card.logout()
 Uploads the provided SSL PEM file. If the specified file does not exist, this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Web
 
@@ -290,7 +290,7 @@ card_web.upload_ssl_cert("/path/to/PEM/file")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

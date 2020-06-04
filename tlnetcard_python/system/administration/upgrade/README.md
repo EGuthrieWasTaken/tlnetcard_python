@@ -19,7 +19,7 @@ Initializes the Upgrade object. If ``login_object`` is a valid Login object, the
 GETs the firmware version for the TLNETCARD. **Please note that this function is simply an alias to the function of the same name in [information.py](/tlnetcard_python/monitor/about/information) from /tlnetcard_python/monitor/about/information.**  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Upgrade
 
@@ -35,7 +35,7 @@ firmware_version = card_upgrade.get_firmware_version()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upgrade_snmp_firmware(path: str = "ups-tl-01_12_05c.bin") -> bool
 
@@ -46,7 +46,7 @@ card.logout()
 Uploads the specified SNMP Device Firmware. If the specified (or default) configuration file does not exist, this function will return ``False``. Otherwise, ``True`` will be returned. Please note that the cards may not accept configuration files that do not use the  ``.bin`` file extension. Also, after upgrade files are uploaded, the card will become unresponsive for ~1 minute. Therefore, if further configuration is needed after uploading a file, you should pause your program before continuing.  
 Example:
 
-``python
+```python
 from time import sleep
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import BatchConfiguration, Upgrade
@@ -71,7 +71,7 @@ sleep(60)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

@@ -18,7 +18,7 @@ Initializes the Information object. If ``login_object`` is a valid Login object,
 GETs the firmware version for the TLNETCARD.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.about import Information
 
@@ -34,7 +34,7 @@ firmware_version = card_info.get_firmware_version()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

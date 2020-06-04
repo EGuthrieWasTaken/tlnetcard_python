@@ -21,7 +21,7 @@ Initializes the Ftp object. If ``login_object`` is a valid Login object, then th
 Disables FTP.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Ftp
 
@@ -37,14 +37,14 @@ card_ftp.disable_ftp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_ftp() -> None
 
 Enables FTP with currently configured port. FTP will be enabled automatically when the FTP port is changed using [set_ftp_port()](#set_ftp_portport), so there is no need to use these two functions together.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Ftp
 
@@ -60,14 +60,14 @@ card_ftp.enable_ftp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_ftp_port() -> int
 
 GETs the FTP port.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Ftp
 
@@ -83,7 +83,7 @@ ftp_port = card_ftp.get_ftp_port()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_ftp_port(port: int = 21) -> None
 
@@ -94,7 +94,7 @@ card.logout()
 Sets the FTP port. When the FTP port is set using this function, FTP is automatically enabled.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Ftp
 
@@ -110,7 +110,7 @@ card_ftp.set_ftp_port(2121)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

@@ -23,7 +23,7 @@ The functions in this file are not part of a class, and can be used independentl
 Gets the values for each of the specified SNMP IDs and returns them in a list.  
 Example:
 
-``python
+```python
 from tlnetcard_python.monitor.information.information import get_with_snmp
 
 battery_status, battery_capacity = get_with_snmp("10.0.0.100", ["iso.3.6.1.2.1.33.1.2.1", "iso.3.6.1.2.1.33.1.2.4"], "sample_snmp_read_user", "sample_auth_key", "sample_priv_key")
@@ -47,7 +47,7 @@ elif int(battery_status)  >= 3:
 Scrapes the values from the provided URL with the provided IDs and returns them in a list.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information.information import scrape_with_selenium
 

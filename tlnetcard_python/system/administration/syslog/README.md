@@ -27,7 +27,7 @@ Initializes the Syslog object. If ``login_object`` is a valid Login object, then
 Adds the provided server to the list of servers to upload syslogs to. If four servers are already active, then the provided server will not be added, and this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Syslog
 
@@ -44,14 +44,14 @@ if card_syslog.add_server("10.0.0.200") == -1:
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## clear_servers() -> None
 
 Removes all servers from the syslog server list. This function returns nothing. It can be useful when servers need to be completely added from scratch and you don't want to get the current servers names.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Syslog
 
@@ -67,14 +67,14 @@ card_syslog.clear_servers()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## disable_syslog() -> None
 
 Disables syslog servers. This does not remove the servers from the list (for that, see [clear_servers()](#clearservers)), it simply disables syslog servers entirely. If the [enable_syslog()](#enablesyslog) function is called after this one, the same servers that used before will be used again.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Syslog
 
@@ -90,14 +90,14 @@ card_syslog.disable_syslog()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_syslog() -> None
 
 Enables syslog servers. Whatever syslog servers are listed when this function is called will be used, unless this function is used in conjunction with the other functions in this class.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Syslog
 
@@ -113,14 +113,14 @@ card_syslog.enable_syslog()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_servers() -> List[str]
 
 GETs the syslog servers that are currently listed. They will be returned in a list (which will be empty if there are no servers).  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Syslog
 
@@ -138,7 +138,7 @@ for i in syslog_servers:
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## remove_server(server: str) -> bool
 
@@ -149,7 +149,7 @@ card.logout()
 Removes the provided server from the list of servers to upload syslogs to. If the provided server is not listed, then the provided server does not need to be removed, and this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Syslog
 
@@ -166,7 +166,7 @@ if card_syslog.remove_server("10.0.0.200") == -1:
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

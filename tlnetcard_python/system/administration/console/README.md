@@ -28,7 +28,7 @@ Initializes the Console object. If ``login_object`` is a valid Login object, the
 Disables SSH.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -44,14 +44,14 @@ card_console.disable_ssh()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## disable_telnet() -> None
 
 Disables Telnet.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -67,14 +67,14 @@ card_console.disable_telnet()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_ssh() -> None
 
 Enables SSH.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -90,14 +90,14 @@ card_console.enable_ssh()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_telnet() -> None
 
 Enables Telnet.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -113,14 +113,14 @@ card_console.enable_telnet()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_ssh_port() -> int
 
 GETs the SSH port.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -136,14 +136,14 @@ ssh_port = card_console.get_ssh_port()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_telnet_port() -> int
 
 GETs the Telnet port.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -159,7 +159,7 @@ telnet_port = card_console.get_telnet_port()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_ssh_port(port: int = 22) -> None
 
@@ -170,7 +170,7 @@ card.logout()
 Sets the SSH port. When the SSH port is set using this function, SSH is automatically enabled.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -186,7 +186,7 @@ card_console.set_ssh_port(2222)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_telnet_port(port: int = 23) -> None
 
@@ -197,7 +197,7 @@ card.logout()
 Sets the Telnet port. When the Telnet port is set using this function, Telnet is automatically enabled.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -213,7 +213,7 @@ card_console.set_telnet_port(2323)
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upload_auth_public_key(key: str) -> bool
 
@@ -224,7 +224,7 @@ card.logout()
 Uploads the provided public authentication key. If the specified file does not exist, this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -240,7 +240,7 @@ card_console.upload_auth_public_key("/path/to/key/file")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upload_dsa_host_key(key: str) -> bool
 
@@ -251,7 +251,7 @@ card.logout()
 Uploads the provided DSA host key. If the specified file does not exist, this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -267,7 +267,7 @@ card_console.upload_dsa_host_key("/path/to/key/file")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## upload_rsa_host_key(key: str) -> int
 
@@ -278,7 +278,7 @@ card.logout()
 Uploads the provided RSA host key. If the specified file does not exist, this function will return ``False``. Otherwise, ``True`` will be returned.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import Console
 
@@ -294,7 +294,7 @@ card_console.upload_rsa_host_key("/path/to/key/file")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

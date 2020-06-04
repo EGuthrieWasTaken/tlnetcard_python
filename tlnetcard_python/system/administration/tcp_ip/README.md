@@ -33,7 +33,7 @@ Initializes the TcpIp object. If ``login_object`` is a valid Login object, then 
 Disables link speed autonegotiation. It is generally recommended that this feature remain enabled.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -49,14 +49,14 @@ card_ip.disable_autonegotiation()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## disable_ipv4_dhcp() -> None
 
 Disables DHCP for IPv4.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -72,14 +72,14 @@ card_ip.disable_ipv4_dhcp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## disable_ipv6_dhcp() -> None
 
 Disables DHCP for IPv6.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -95,14 +95,14 @@ card_ip.disable_ipv6_dhcp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_autonegotiation() -> None
 
 Enables link speed autonegotiation. It is generally recommended that this feature remain enabled.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -118,14 +118,14 @@ card_ip.enable_autonegotiation()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_ipv4_dhcp() -> None
 
 Enables DHCP for IPv4.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -141,14 +141,14 @@ card_ip.enable_ipv4_dhcp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## enable_ipv6_dhcp() -> None
 
 Enables DHCP for IPv6.  
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -164,7 +164,7 @@ card_ip.enable_ipv6_dhcp()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_ipv4_info() -> Dict[str, str]
 
@@ -179,7 +179,7 @@ GETs information on how IPv4 is configured and returns it in a dictionary. The d
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -196,11 +196,11 @@ print(card_ipv4_info["IP Address"])
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 "10.0.0.100"
 ``
 
@@ -216,7 +216,7 @@ GETs information on how IPv6 is configured and returns it in a dictionary. The d
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -233,11 +233,11 @@ print(card_ipv6_info["Prefix Length"])
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 64
 ``
 
@@ -251,7 +251,7 @@ GETs info on the system and its location and returns it in a dictionary. The dic
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -268,11 +268,11 @@ print(card_net_info["Host Name"])
 
 # Then logout the session.
 card.logout()
-``
+```
 
 Which may print, for example:
 
-``python
+```python
 "TLNET"
 ``
 
@@ -290,7 +290,7 @@ Sets info on how IPv4 is configured. Using this function will automatically disa
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -306,7 +306,7 @@ card_ip.set_ipv4_info("10.0.0.100", gateway="10.0.0.1", dns_ip="10.0.0.200", dom
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_ipv6_info(ip_addr: str, prefix_len: int = 64, gateway: str = "::", dns_ip: str = "::") -> None
 
@@ -321,7 +321,7 @@ Sets info on how IPv6 is configured. Using this function will automatically disa
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -337,7 +337,7 @@ card_ip.set_ipv6_info("fe80::3022:abdc:ef01")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## set_system_info(name: str = "TLNET", contact: str = "", location: str = "") -> None
 
@@ -351,7 +351,7 @@ Sets info on the system and its location.
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -367,7 +367,7 @@ card_ip.set_system_info(name="MY-UPS-01", location="LEVEL-1")
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## use_10m_link_speed() -> None
 
@@ -375,7 +375,7 @@ Sets the link speed to 10M.
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -391,7 +391,7 @@ card_ip.use_10m_link_speed()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## use_100m_link_speed() -> None
 
@@ -399,7 +399,7 @@ Sets the link speed to 100M.
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -415,7 +415,7 @@ card_ip.use_100m_link_speed()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## use_full_duplex() -> None
 
@@ -423,7 +423,7 @@ Sets the link duplex to full.
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -439,7 +439,7 @@ card_ip.use_full_duplex()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## use_half_duplex() -> None
 
@@ -447,7 +447,7 @@ Sets the link duplex to half.
 
 Example:
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -463,7 +463,7 @@ card_ip.use_half_duplex()
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 

@@ -34,7 +34,7 @@ Gets battery bypass measurements and returns them in a dictionary. The dictionar
 * ``Current (A)``: The bypass current in Amperes.
 * ``Power (Watt)``: The bypass power in Watts.
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import InOutParameters
 
@@ -50,7 +50,7 @@ batt_bypass_volt = card_io.get_bypass_measurements(snmp=False)["Voltage (V)"]
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_input_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
@@ -59,7 +59,7 @@ Gets battery input measurements and returns them in a dictionary. The dictionary
 * ``Frequency (Hz)``: The input frequency in Hertz.
 * ``Voltage (V)``: The input voltage in Volts.
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import InOutParameters
 
@@ -75,7 +75,7 @@ batt_input_volt = card_io.get_input_measurements(snmp=False)["Voltage (V)"]
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## get_output_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
@@ -88,7 +88,7 @@ Gets battery output measurements and returns them in a dictionary. The dictionar
 * ``Power (Watt)``: The output power in Watts.
 * ``Loading (%)``: The load of the battery expressed as a percentage.
 
-``python
+```python
 from tlnetcard_python import Login
 from tlnetcard_python.monitor.information import InOutParameters
 
@@ -106,7 +106,7 @@ if batt_load > 90:
 
 # Then logout the session.
 card.logout()
-``
+```
 
 ## Documentation Tree
 
