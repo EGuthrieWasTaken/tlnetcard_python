@@ -2,8 +2,8 @@
 tlnetcard_python.system.administration.time_server.time_server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This module provides a ``TimeServer`` object to provide the functionality of TLNET Supervisor -> System
--> Administration -> Time Server.
+This module provides a ``TimeServer`` object to provide the functionality of TLNET Supervisor ->
+System -> Administration -> Time Server.
 """
 
 # Standard library.
@@ -24,8 +24,8 @@ class TimeServer:
     >>> # can be passed to the tlnetcard_python.system.administration.TimeServer object.
     >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
     >>> card_time_server = TimeServer(card)
-    >>> # Now that the TimeServer object has been created, functions belonging to the TimeServer class can
-    >>> # be used. For example, setting the primary SNTP time server:
+    >>> # Now that the TimeServer object has been created, functions belonging to the TimeServer
+    >>> # class can be used. For example, setting the primary SNTP time server:
     >>> card_time_server.set_primary_server('129.6.15.28')
     """
     def __init__(self, login_object: Login) -> None:
