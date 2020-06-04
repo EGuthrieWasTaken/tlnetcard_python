@@ -66,9 +66,9 @@ card.logout()
 
 Which would print:  
 
-``text
+```text
 https://10.0.0.100
-``
+```
 
 ## get_host() -> str
 
