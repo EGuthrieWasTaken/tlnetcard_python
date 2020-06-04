@@ -2,33 +2,33 @@
 
 |                                                  Function Header                                                   |                           Quick Description                            |
 |:------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------:|
-|                               [```__init__(login_object)```](#__init__login_object-login---none)                                |                   Initializes the TimeServer object.                   |
-|                           [```disable_daylight_savings()```](#disable_daylight_savings---none)                            |                  Disables daylight savings for SNTP.                   |
-|                                       [```disable_sntp()```](#disable_sntp---none)                                        |                             Disables SNTP.                             |
-| [```enable_daylight_savings(start_date="04/01", end_date="11/01")```](#enable_daylight_savingsstart_date-str--0401-end_date-str--1101---none) | Enables daylight savings from the start date to the end date for SNTP. |
-|                                        [```enable_sntp()```](#enable_sntp---none)                                         |                             Enables SNTP.                              |
-|                                 [```get_primary_server()```](#get_primary_server---str)                                  |         GETs the primary time server for SNTP and returns it.          |
-|                               [```get_secondary_server()```](#get_secondary_server---str)                                |        GETs the secondary time server for SNTP and returns it.         |
-|               [```set_manual_time(date="01/01/2000", time="00:00:00")```](#set_manual_timedate-str--01012000-time-str--000000---none)               |                        Sets the time manually.                         |
-|                           [```set_primary_server(server)```](#set_primary_serverserver-str---none)                            |                 Sets the primary time server for SNTP.                 |
-|                         [```set_secondary_server(server)```](#set_secondary_serverserver-str---none)                          |                Sets the secondary time server for SNTP.                |
-|                             [```set_time_zone(offset="GMT")```](#set_time_zoneoffset-str--gmt---bool)                              |                      Sets the time zone for SNTP.                      |
-|                                     [```use_local_time()```](#use_local_time---none)                                      |                Sets the manual time to this PC's time.                 |
+|                               [``__init__(login_object)``](#__init__login_object-login---none)                                |                   Initializes the TimeServer object.                   |
+|                           [``disable_daylight_savings()``](#disable_daylight_savings---none)                            |                  Disables daylight savings for SNTP.                   |
+|                                       [``disable_sntp()``](#disable_sntp---none)                                        |                             Disables SNTP.                             |
+| [``enable_daylight_savings(start_date="04/01", end_date="11/01")``](#enable_daylight_savingsstart_date-str--0401-end_date-str--1101---none) | Enables daylight savings from the start date to the end date for SNTP. |
+|                                        [``enable_sntp()``](#enable_sntp---none)                                         |                             Enables SNTP.                              |
+|                                 [``get_primary_server()``](#get_primary_server---str)                                  |         GETs the primary time server for SNTP and returns it.          |
+|                               [``get_secondary_server()``](#get_secondary_server---str)                                |        GETs the secondary time server for SNTP and returns it.         |
+|               [``set_manual_time(date="01/01/2000", time="00:00:00")``](#set_manual_timedate-str--01012000-time-str--000000---none)               |                        Sets the time manually.                         |
+|                           [``set_primary_server(server)``](#set_primary_serverserver-str---none)                            |                 Sets the primary time server for SNTP.                 |
+|                         [``set_secondary_server(server)``](#set_secondary_serverserver-str---none)                          |                Sets the secondary time server for SNTP.                |
+|                             [``set_time_zone(offset="GMT")``](#set_time_zoneoffset-str--gmt---bool)                              |                      Sets the time zone for SNTP.                      |
+|                                     [``use_local_time()``](#use_local_time---none)                                      |                Sets the manual time to this PC's time.                 |
 
 ## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
-| ```login_object``` | Login from [login.py](/tlnetcard_python/login.py) | Yes      | N/A           | A valid login object generated by [login.py](/tlnetcard_python/login.py). |
+| ``login_object`` | Login from [login.py](/tlnetcard_python/login.py) | Yes      | N/A           | A valid login object generated by [login.py](/tlnetcard_python/login.py). |
 
-Initializes the TimeServer object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
+Initializes the TimeServer object. If ``login_object`` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
 ## disable_daylight_savings() -> None
 
 Disables daylight savings on the card. With this setting disabled, the only time adjustment the card will make is for the time zone.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -44,14 +44,14 @@ card_time_server.disable_daylight_savings()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## disable_sntp() -> None
 
 Disables SNTP.
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -67,19 +67,19 @@ card_time_server.disable_sntp()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## enable_daylight_savings(start_date: str = "04/01", end_date: str = "11/01") -> None
 
 |       Name       |  Type  | Required | Default Value |             Description             |
 |:----------------:|:------:|:--------:|:-------------:|:-----------------------------------:|
-| ```start_date``` | String |    No    | ```"04/01"``` | The time to start daylight savings. |
-|  ```end_date```  | String |    No    | ```"11/01"``` |  The time to end daylight savings.  |
+| ``start_date`` | String |    No    | ``"04/01"`` | The time to start daylight savings. |
+|  ``end_date``  | String |    No    | ``"11/01"`` |  The time to end daylight savings.  |
 
-Enables daylight savings on the card. With this setting enabled, time will be pushed one hour forward starting from ```start_date``` and ending on ```end_date```. **Both of these variables must be provided in MM/DD format.**  
+Enables daylight savings on the card. With this setting enabled, time will be pushed one hour forward starting from ``start_date`` and ending on ``end_date``. **Both of these variables must be provided in MM/DD format.**  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -95,14 +95,14 @@ card_time_server.enable_daylight_savings("03/08", "11/01")
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## enable_sntp() -> None
 
 Enables SNTP with all current settings. This function can be omitted when setting other SNTP settings as SNTP will be automatically enabled.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -118,14 +118,14 @@ card_time_server.enable_sntp()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## get_primary_server() -> str
 
 GETs the primary time server and returns it. If no server is specified, this function will return an empty string.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -141,14 +141,14 @@ primary_server = card_time_server.get_primary_server()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## get_secondary_server() -> str
 
 GETs the primary time server and returns it. If no server is specified, this function will return an empty string.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -164,19 +164,19 @@ secondary_server = card_time_server.get_secondary_server()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## set_manual_time(date: str = "01/01/2000", time: str = "00:00:00") -> None
 
 |    Name    |  Type  | Required |    Default Value   |    Description    |
 |:----------:|:------:|:--------:|:------------------:|:-----------------:|
-| ```date``` | String |    No    | ```"01/01/2000"``` | The current date. |
-| ```time``` | String |    No    |  ```"00:00:00"```  | The current time. |
+| ``date`` | String |    No    | ``"01/01/2000"`` | The current date. |
+| ``time`` | String |    No    |  ``"00:00:00"``  | The current time. |
 
-Sets the time on the card manually. ```date``` must be provided in MM/DD/YYYY format, and ```time``` must be provided in HH:MM:SS format. It is recommended that this function is not used, and the [use_local_time()](#uselocaltime) function be used instead for better accuracy.  
+Sets the time on the card manually. ``date`` must be provided in MM/DD/YYYY format, and ``time`` must be provided in HH:MM:SS format. It is recommended that this function is not used, and the [use_local_time()](#uselocaltime) function be used instead for better accuracy.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -192,18 +192,18 @@ card_time_server.set_manual_time("12/25/2020", "00:00:00")  # Who's that coming 
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## set_primary_server(server: str) -> None
 
 |     Name     |  Type  | Required | Default Value |       Description       |
 |:------------:|:------:|:--------:|:-------------:|:-----------------------:|
-| ```server``` | String |    Yes   |      N/A      | The server to be added. |
+| ``server`` | String |    Yes   |      N/A      | The server to be added. |
 
 Sets the provided server as the primary time server. It is recommended that a secondary server is also set.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -219,18 +219,18 @@ card_time_server.set_primary_server("10.0.0.200")
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## set_secondary_server(server: str) -> None
 
 |     Name     |  Type  | Required | Default Value |       Description       |
 |:------------:|:------:|:--------:|:-------------:|:-----------------------:|
-| ```server``` | String |    Yes   |      N/A      | The server to be added. |
+| ``server`` | String |    Yes   |      N/A      | The server to be added. |
 
 Sets the provided server as the secondary time server. You should have a primary server also specified.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -246,18 +246,18 @@ card_time_server.set_primary_server("10.0.0.201")
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## set_time_zone(offset: str = "GMT") -> bool
 
 |     Name     |  Type  | Required | Default Value |                 Description                 |
 |:------------:|:------:|:--------:|:-------------:|:-------------------------------------------:|
-| ```offset``` | String |    No    |  ```"GMT"```  | The offset time to be used for time zoning. |
+| ``offset`` | String |    No    |  ``"GMT"``  | The offset time to be used for time zoning. |
 
-Sets the SNTP time zone.  ```offset``` must be specified as "GMT" followed by a sign (+/-) followed by an offset in the form of HH (or HH:MM if applicable i.e. 3:30). An example is below. If an invalid specifier is provided, this function will return ```False```. Otherwise, this function will return ```True```.  
+Sets the SNTP time zone.  ``offset`` must be specified as "GMT" followed by a sign (+/-) followed by an offset in the form of HH (or HH:MM if applicable i.e. 3:30). An example is below. If an invalid specifier is provided, this function will return ``False``. Otherwise, this function will return ``True``.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -273,14 +273,14 @@ card_time_server.set_time_zone("GMT-05")
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## use_local_time() -> None
 
 Manually sets card time to this PC's (that is, the PC using this API) time. This is the recommended way of setting system time manually.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TimeServer
 
@@ -296,7 +296,7 @@ card_time_server.use_local_time()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## Documentation Tree
 

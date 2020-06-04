@@ -51,7 +51,7 @@ class Login:
         :param ssl: (optional) Determines whether or not the TLNET Supervisor at the host address
         has an SSL certificate i.e. does it use HTTPS. When set to ``True``, HTTPS will be used.
         :param reject_invalid_certs: (optional) Determines whether or not an invalid (i.e. a
-        self-signed) SSL certificate will be rejected. When set to ```True```, invalid certificates
+        self-signed) SSL certificate will be rejected. When set to ``True``, invalid certificates
         will be rejected.
         :param timeout: (optional) The timeout value which will be used for all web and SNMP
         requests.

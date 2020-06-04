@@ -2,38 +2,38 @@
 
 |                                                                                   Function Header                                                                                    |             Quick Description             |
 |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------:|
-|                                                          [```__init__(login_object)```](#__init__login_object-login---none)                                                          |       Initializes the TcpIp object.       |
-|                                                          [```disable_autonegotiation()```](#disable_autonegotiation---none)                                                          |   Disables link speed autonegotiation.    |
-|                                                                [```disable_ipv4_dhcp()```](#disable_ipv4_dhcp---none)                                                                |          Disables DHCP for IPv4.          |
-|                                                                [```disable_ipv6_dhcp()```](#disable_ipv6_dhcp---none)                                                                |          Disables DHCP for IPv6.          |
-|                                                           [```enable_autonegotiation()```](#enable_autonegotiation---none)                                                           |    Enables link speed autonegotiation.    |
-|                                                                 [```enable_ipv4_dhcp()```](#enable_ipv4_dhcp---none)                                                                 |          Enables DHCP for IPv4.           |
-|                                                                 [```enable_ipv6_dhcp()```](#enable_ipv6_dhcp---none)                                                                 |          Enables DHCP for IPv6.           |
-|                                                                [```get_ipv4_info()```](#get_ipv4_info---dictstr-str)                                                                 |   GETs info on how IPv4 is configured.    |
-|                                                                [```get_ipv6_info()```](#get_ipv6_info---dictstr-any)                                                                 |   GETs info on how IPv6 is configured.    |
-|                                                              [```get_system_info()```](#get_system_info---dictstr-str)                                                               | GETs info on the system and its location. |
-| [```set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")```](set_ipv4_infoip_addr-str-mask-str--2552552550-gateway-str---dns_ip-str---domain-str-----none) |   Sets info on how IPv4 is configured.    |
-|               [```set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")```](#set_ipv6_infoip_addr-str-prefix_len-int--64-gateway-str---dns_ip-str-----none)               |   Sets info on how IPv4 is configured.    |
-|                         [```set_system_info(name="TLNET", contact="", location="")```](#set_system_infoname-str--tlnet-contact-str---location-str-----none)                          | Sets info on the system and its location. |
-|                                                               [```use_10m_link_speed()```](#use_10m_link_speed---none)                                                               |        Sets the link speed to 10M.        |
-|                                                              [```use_100m_link_speed()```](#use_100m_link_speed---none)                                                              |       Sets the link speed to 100M.        |
-|                                                                  [```use_full_duplex()```](#use_full_duplex---none)                                                                  |   Sets the duplex for the link to full.   |
-|                                                                  [```use_half_duplex()```](#use_half_duplex---none)                                                                  |   Sets the duplex for the link to half.   |
+|                                                          [``__init__(login_object)``](#__init__login_object-login---none)                                                          |       Initializes the TcpIp object.       |
+|                                                          [``disable_autonegotiation()``](#disable_autonegotiation---none)                                                          |   Disables link speed autonegotiation.    |
+|                                                                [``disable_ipv4_dhcp()``](#disable_ipv4_dhcp---none)                                                                |          Disables DHCP for IPv4.          |
+|                                                                [``disable_ipv6_dhcp()``](#disable_ipv6_dhcp---none)                                                                |          Disables DHCP for IPv6.          |
+|                                                           [``enable_autonegotiation()``](#enable_autonegotiation---none)                                                           |    Enables link speed autonegotiation.    |
+|                                                                 [``enable_ipv4_dhcp()``](#enable_ipv4_dhcp---none)                                                                 |          Enables DHCP for IPv4.           |
+|                                                                 [``enable_ipv6_dhcp()``](#enable_ipv6_dhcp---none)                                                                 |          Enables DHCP for IPv6.           |
+|                                                                [``get_ipv4_info()``](#get_ipv4_info---dictstr-str)                                                                 |   GETs info on how IPv4 is configured.    |
+|                                                                [``get_ipv6_info()``](#get_ipv6_info---dictstr-any)                                                                 |   GETs info on how IPv6 is configured.    |
+|                                                              [``get_system_info()``](#get_system_info---dictstr-str)                                                               | GETs info on the system and its location. |
+| [``set_ipv4_info(ip_addr, mask="255.255.255.0", gateway="", dns_ip="", domain="")``](set_ipv4_infoip_addr-str-mask-str--2552552550-gateway-str---dns_ip-str---domain-str-----none) |   Sets info on how IPv4 is configured.    |
+|               [``set_ipv6_info(ip_addr, prefix_len=64, gateway="::", dns_ip="::")``](#set_ipv6_infoip_addr-str-prefix_len-int--64-gateway-str---dns_ip-str-----none)               |   Sets info on how IPv4 is configured.    |
+|                         [``set_system_info(name="TLNET", contact="", location="")``](#set_system_infoname-str--tlnet-contact-str---location-str-----none)                          | Sets info on the system and its location. |
+|                                                               [``use_10m_link_speed()``](#use_10m_link_speed---none)                                                               |        Sets the link speed to 10M.        |
+|                                                              [``use_100m_link_speed()``](#use_100m_link_speed---none)                                                              |       Sets the link speed to 100M.        |
+|                                                                  [``use_full_duplex()``](#use_full_duplex---none)                                                                  |   Sets the duplex for the link to full.   |
+|                                                                  [``use_half_duplex()``](#use_half_duplex---none)                                                                  |   Sets the duplex for the link to half.   |
 
 ## \_\_init__(login_object: Login) -> None
 
 |        Name        |                        Type                       | Required | Default Value | Description                                                               |
 |:------------------:|:-------------------------------------------------:|----------|---------------|---------------------------------------------------------------------------|
-| ```login_object``` | Login from [login.py](/tlnetcard_python/login.py) | Yes      | N/A           | A valid login object generated by [login.py](/tlnetcard_python/login.py). |
+| ``login_object`` | Login from [login.py](/tlnetcard_python/login.py) | Yes      | N/A           | A valid login object generated by [login.py](/tlnetcard_python/login.py). |
 
-Initializes the TcpIp object. If ```login_object``` is a valid Login object, then this object will be capable of performing all other functions built into the object.
+Initializes the TcpIp object. If ``login_object`` is a valid Login object, then this object will be capable of performing all other functions built into the object.
 
 ## disable_autonegotiation() -> None
 
 Disables link speed autonegotiation. It is generally recommended that this feature remain enabled.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -49,14 +49,14 @@ card_ip.disable_autonegotiation()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## disable_ipv4_dhcp() -> None
 
 Disables DHCP for IPv4.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -72,14 +72,14 @@ card_ip.disable_ipv4_dhcp()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## disable_ipv6_dhcp() -> None
 
 Disables DHCP for IPv6.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -95,14 +95,14 @@ card_ip.disable_ipv6_dhcp()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## enable_autonegotiation() -> None
 
 Enables link speed autonegotiation. It is generally recommended that this feature remain enabled.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -118,14 +118,14 @@ card_ip.enable_autonegotiation()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## enable_ipv4_dhcp() -> None
 
 Enables DHCP for IPv4.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -141,14 +141,14 @@ card_ip.enable_ipv4_dhcp()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## enable_ipv6_dhcp() -> None
 
 Enables DHCP for IPv6.  
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -164,22 +164,22 @@ card_ip.enable_ipv6_dhcp()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## get_ipv4_info() -> Dict[str, str]
 
 GETs information on how IPv4 is configured and returns it in a dictionary. The dictionary keys are as follows:  
 
-* ```DHCP Status```: Displays 'Enable' if DHCP for IPv4 is enabled, and 'Disable' if not.
-* ```IP Address```: The IPv4 address of the card.
-* ```Subnet Mask```: The subnet mask for the network of the card.
-* ```Gateway IP```: The IPv4 address for the upstream router of the card.
-* ```DNS IP```: The IPv4 address for the primary DNS server of the card.
-* ```Search Domain```: The search domain of the card.
+* ``DHCP Status``: Displays 'Enable' if DHCP for IPv4 is enabled, and 'Disable' if not.
+* ``IP Address``: The IPv4 address of the card.
+* ``Subnet Mask``: The subnet mask for the network of the card.
+* ``Gateway IP``: The IPv4 address for the upstream router of the card.
+* ``DNS IP``: The IPv4 address for the primary DNS server of the card.
+* ``Search Domain``: The search domain of the card.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -196,27 +196,27 @@ print(card_ipv4_info["IP Address"])
 
 # Then logout the session.
 card.logout()
-```
+``
 
 Which may print, for example:
 
-```python
+``python
 "10.0.0.100"
-```
+``
 
 ## get_ipv6_info() -> Dict[str, Any]
 
 GETs information on how IPv6 is configured and returns it in a dictionary. The dictionary keys are as follows:  
 
-* ```DHCP Status```: Displays 'Enable' if DHCP for IPv46 is enabled, and 'Disable' if not.
-* ```IP Address```: The IPv6 address of the card.
-* ```Gateway IP```: The IPv6 address for the upstream router of the card.
-* ```DNS IP```: The IPv6 address for the primary DNS server of the card.
-* ```Prefix Length```: The prefix length for the IPv6 address of the card.
+* ``DHCP Status``: Displays 'Enable' if DHCP for IPv46 is enabled, and 'Disable' if not.
+* ``IP Address``: The IPv6 address of the card.
+* ``Gateway IP``: The IPv6 address for the upstream router of the card.
+* ``DNS IP``: The IPv6 address for the primary DNS server of the card.
+* ``Prefix Length``: The prefix length for the IPv6 address of the card.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -233,25 +233,25 @@ print(card_ipv6_info["Prefix Length"])
 
 # Then logout the session.
 card.logout()
-```
+``
 
 Which may print, for example:
 
-```python
+``python
 64
-```
+``
 
 ## get_system_info() -> Dict[str, str]
 
 GETs info on the system and its location and returns it in a dictionary. The dictionary keys are as follows:  
 
-* ```Host Name```: The host name of the system.
-* ```System Contact```: The system contact name.
-* ```System Location```: The location of the system.
+* ``Host Name``: The host name of the system.
+* ``System Contact``: The system contact name.
+* ``System Location``: The location of the system.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -268,29 +268,29 @@ print(card_net_info["Host Name"])
 
 # Then logout the session.
 card.logout()
-```
+``
 
 Which may print, for example:
 
-```python
+``python
 "TLNET"
-```
+``
 
 ## set_ipv4_info(ip_addr: str, mask: str = "255.255.255.0", gateway: str = "", dns_ip: str = "", domain: str = "") -> None
 
 |     Name      |  Type  | Required |     Default Value     |          Description          |
 |:-------------:|:------:|:--------:|:---------------------:|:-----------------------------:|
-| ```ip_addr``` | String |   Yes    |          N/A          |       The IPv4 address.       |
-|  ```mask```   | String |    No    | ```"255.255.255.0"``` |     The IPv4 subnet mask.     |
-| ```gateway``` | String |    No    |       ```""```        |   The IPv4 gateway router.    |
-| ```dns_ip```  | String |    No    |       ```""```        | The primary DNS IPv4 address. |
-| ```domain```  | String |    No    |       ```""```        |      The search domain.       |
+| ``ip_addr`` | String |   Yes    |          N/A          |       The IPv4 address.       |
+|  ``mask``   | String |    No    | ``"255.255.255.0"`` |     The IPv4 subnet mask.     |
+| ``gateway`` | String |    No    |       ``""``        |   The IPv4 gateway router.    |
+| ``dns_ip``  | String |    No    |       ``""``        | The primary DNS IPv4 address. |
+| ``domain``  | String |    No    |       ``""``        |      The search domain.       |
 
 Sets info on how IPv4 is configured. Using this function will automatically disable DHCP for IPv4. **Using this function will cause the card to disconnect if you change its IP (and are connected via IPv4), and you will have to re-login.**  
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -306,22 +306,22 @@ card_ip.set_ipv4_info("10.0.0.100", gateway="10.0.0.1", dns_ip="10.0.0.200", dom
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## set_ipv6_info(ip_addr: str, prefix_len: int = 64, gateway: str = "::", dns_ip: str = "::") -> None
 
 |       Name       |  Type   | Required | Default Value |          Description          |
 |:----------------:|:-------:|:--------:|:-------------:|:-----------------------------:|
-|  ```ip_addr```   | String  |   Yes    |      N/A      |       The IPv6 address.       |
-| ```prefix_len``` | Integer |    No    |   ```64```    |    The IPv6 prefix length.    |
-|  ```gateway```   | String  |    No    |  ```"::"```   |   The IPv6 gateway router.    |
-|   ```dns_ip```   | String  |    No    |  ```"::"```   | The primary DNS IPv6 address. |
+|  ``ip_addr``   | String  |   Yes    |      N/A      |       The IPv6 address.       |
+| ``prefix_len`` | Integer |    No    |   ``64``    |    The IPv6 prefix length.    |
+|  ``gateway``   | String  |    No    |  ``"::"``   |   The IPv6 gateway router.    |
+|   ``dns_ip``   | String  |    No    |  ``"::"``   | The primary DNS IPv6 address. |
 
 Sets info on how IPv6 is configured. Using this function will automatically disable DHCP for IPv6. **Using this function will cause the card to disconnect if you change its IP (and are connected via IPv6), and you will have to re-login.**  
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -337,21 +337,21 @@ card_ip.set_ipv6_info("fe80::3022:abdc:ef01")
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## set_system_info(name: str = "TLNET", contact: str = "", location: str = "") -> None
 
 |      Name      |  Type  | Required | Default Value |      Description      |
 |:--------------:|:------:|:--------:|:-------------:|:---------------------:|
-|   ```name```   | String |    No    | ```"TLNET"``` | The system host name. |
-|  ```contact``` | String |    No    |    ```""```   |  The system contact.  |
-| ```location``` | String |    No    |    ```""```   |  The system location. |
+|   ``name``   | String |    No    | ``"TLNET"`` | The system host name. |
+|  ``contact`` | String |    No    |    ``""``   |  The system contact.  |
+| ``location`` | String |    No    |    ``""``   |  The system location. |
 
 Sets info on the system and its location.  
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -367,7 +367,7 @@ card_ip.set_system_info(name="MY-UPS-01", location="LEVEL-1")
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## use_10m_link_speed() -> None
 
@@ -375,7 +375,7 @@ Sets the link speed to 10M.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -391,7 +391,7 @@ card_ip.use_10m_link_speed()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## use_100m_link_speed() -> None
 
@@ -399,7 +399,7 @@ Sets the link speed to 100M.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -415,7 +415,7 @@ card_ip.use_100m_link_speed()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## use_full_duplex() -> None
 
@@ -423,7 +423,7 @@ Sets the link duplex to full.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -439,7 +439,7 @@ card_ip.use_full_duplex()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## use_half_duplex() -> None
 
@@ -447,7 +447,7 @@ Sets the link duplex to half.
 
 Example:
 
-```python
+``python
 from tlnetcard_python import Login
 from tlnetcard_python.system.administration import TcpIp
 
@@ -463,7 +463,7 @@ card_ip.use_half_duplex()
 
 # Then logout the session.
 card.logout()
-```
+``
 
 ## Documentation Tree
 
