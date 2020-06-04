@@ -1,4 +1,10 @@
-""" Allows UPS input and output power levels to be read. """
+"""
+tlnetcard_python.monitor.information.in_out_parameters.in_out_parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This module provides a ``InOutParameters`` object to provide the functionality of TLNET Supervisor
+-> Monitor -> Information -> In/Out Parameters
+"""
 
 # Standard library.
 from typing import Any, Dict
@@ -7,15 +13,62 @@ from tlnetcard_python.login import Login
 from tlnetcard_python.monitor.information.information import get_with_snmp, scrape_with_selenium
 
 class InOutParameters:
-    """ Class for the InOutParameters object. """
+    """
+    A TLNET Supervisor ``InOutParameters`` object. Provides the functionality of the equivalent
+    webpage TLNET Supervisor -> Monitor -> Information -> In/Out Parameters. This functionality is
+    provided through either SNMP or Selenium per the user's choice. While Selenium requires no
+    additional arguments at runtime, it does require Google Chrome to be installed as well as the
+    associated WebDriver (see the README.md for more details), as well as suffering from
+    greatly-reduced speeds. As such, it is only recommended that Selenium be used on smaller
+    workloads (if you must use it at all). Alternatively, SNMP can be used to retrieve values at a
+    much greater speed, although this will require more arguments (SNMP user, auth key, and priv key
+    as applicable), all of which can be retrieved using the
+    ``tlnetcard_python.system.notification.Snmpv3Usm`` object.
+
+    Basic Usage:
+
+    >>> from tlnetcard_python import Login
+    >>> from tlnetcard_python.monitor.information import InOutParameters
+    >>> # As always, a tlnetcard_python.Login object must first be created. Then the Login object
+    >>> # can be passed to the tlnetcard_python.monitor.information.InOutParameters object.
+    >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
+    >>> card_io_parameters = InOutParameters(card)
+
+    At this point, functions can either be run using SNMP:
+
+    >>> card_io_parameters.get_output_measurements(snmp_user="admin", snmp_auth_key="imadethisup",
+    >>>                                            snmp_priv_key="imadethisuptoo")
+    {'Output Source': 'Normal', 'Frequency (Hz)': 59.9, 'Voltage (V)': 120.0, 'Current (A)': 3.6,
+    'Power (Watt)': 409, 'Loading (%)': 30}
+
+    Or they can be run using Selenium:
+
+    >>> card_io_parameters.get_output_measurements(snmp=False)
+    {'Output Source': 'Normal', 'Frequency (Hz)': 59.9, 'Voltage (V)': 120.0, 'Current (A)': 3.6,
+    'Power (Watt)': 409, 'Loading (%)': 30}
+    """
     def __init__(self, login_object: Login) -> None:
-        """ Initializes the InOutParameters object. """
+        """
+        Initializes the ``InOutParameters`` object. Returns ``None``.
+
+        :param login_object: A valid ``tlnetcard_python.Login`` object.
+        :rtype: ``None``
+        """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_io.asp"
     def get_bypass_measurements(self, snmp: bool = True, snmp_user: str = "",
                                 snmp_auth_key: str = "", snmp_priv_key: str = ""
                                 ) -> Dict[str, Any]:
-        """ Gets battery bypass measurements. """
+        """
+        Returns battery bypass measurements as a dictionary.
+
+        :param snmp: (optional) Whether SNMP should be used or not. Setting this value to ``False``
+        will result in Selenium being used.
+        :param snmp_user: (optional) The SNMP user to connect with.
+        :param snmp_auth_key: (optional) The SNMP auth key to connect with.
+        :param snmp_priv_key: (optional) The SNMP priv key to connect with.
+        :rtype: ``Dict[str, Any]``
+        """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
             # Generating SNMP ID dictionary.
@@ -62,7 +115,16 @@ class InOutParameters:
     def get_input_measurements(self, snmp: bool = True, snmp_user: str = "",
                                snmp_auth_key: str = "", snmp_priv_key: str = ""
                                ) -> Dict[str, Any]:
-        """ Gets battery input measurements. """
+        """
+        Returns battery input measurements as a dictionary.
+
+        :param snmp: (optional) Whether SNMP should be used or not. Setting this value to ``False``
+        will result in Selenium being used.
+        :param snmp_user: (optional) The SNMP user to connect with.
+        :param snmp_auth_key: (optional) The SNMP auth key to connect with.
+        :param snmp_priv_key: (optional) The SNMP priv key to connect with.
+        :rtype: ``Dict[str, Any]``
+        """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
             # Generating SNMP ID dictionary.
@@ -100,7 +162,16 @@ class InOutParameters:
     def get_output_measurements(self, snmp: bool = True, snmp_user: str = "",
                                 snmp_auth_key: str = "", snmp_priv_key: str = ""
                                 ) -> Dict[str, Any]:
-        """ Gets battery output measurements. """
+        """
+        Returns battery output measurements as a dictionary.
+
+        :param snmp: (optional) Whether SNMP should be used or not. Setting this value to ``False``
+        will result in Selenium being used.
+        :param snmp_user: (optional) The SNMP user to connect with.
+        :param snmp_auth_key: (optional) The SNMP auth key to connect with.
+        :param snmp_priv_key: (optional) The SNMP priv key to connect with.
+        :rtype: ``Dict[str, Any]``
+        """
         if snmp:
             # SNMP will be used to get values. This is the preferred method.
             # Generating SNMP ID dictionary.
