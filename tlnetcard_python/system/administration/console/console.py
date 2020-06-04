@@ -110,7 +110,7 @@ class Console:
     def get_ssh_port(self) -> int:
         """
         Returns the port in use for SSH as an integer.
-        
+
         :rtype: ``int``
         """
         # GETing system config.
@@ -123,7 +123,7 @@ class Console:
     def get_telnet_port(self) -> int:
         """
         Returns the port in use for Telnet as an integer.
-        
+
         :rtype: ``int``
         """
         # GETing system config.
