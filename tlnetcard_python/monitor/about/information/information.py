@@ -31,7 +31,7 @@ class Information:
     """
     def __init__(self, login_object: Login) -> None:
         """
-        Initializes the ``BatchConfiguration`` object. Returns ``None``.
+        Initializes the ``Information`` object. Returns ``None``.
 
         :param login_object: A valid ``tlnetcard_python.Login`` object.
         :rtype: ``None``
