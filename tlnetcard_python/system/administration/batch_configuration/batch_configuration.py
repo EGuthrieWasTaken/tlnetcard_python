@@ -1,4 +1,10 @@
-""" Allows batch configurations for SNMP or system settings to be uploaded or downloaded. """
+"""
+tlnetcard_python.system.administration.batch_configuration.batch_configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This module provides a ``BatchConfiguration`` object to provide the functionality of TLNET
+Supervisor -> System -> Administration -> Batch Configuration.
+"""
 
 # Standard library.
 from os.path import isfile
@@ -9,13 +15,46 @@ from warnings import warn
 from tlnetcard_python.login import Login
 
 class BatchConfiguration:
-    """ Class for the BatchConfiguration object. """
+    """
+    A TLNET Supervisor ``BatchConfiguration`` object. Provides the functionality of the equivalent
+    webpage TLNET Supervisor -> System -> Administration -> Batch Configuration.
+
+    Basic Usage:
+
+    >>> from tlnetcard_python import Login
+    >>> from tlnetcard_python.system.administration import BatchConfiguration
+    >>> # As always, a tlnetcard_python.Login object must first be created. Then the Login object
+    >>> # can be passed to the tlnetcard_python.system.administration.BatchConfiguration object.
+    >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
+    >>> card_batch_config = BatchConfiguration(card)
+    >>> # Now that the BatchConfiguration object has been created, functions belonging to the
+    >>> # BatchConfiguration class can be sued. For example, uploading a new system configuration
+    >>> # file:
+    >>> card_batch_config.upload_system_configuration("path/to/config/file.ini")
+    RuntimeWarning: The card at https://10.0.0.100:443 will be offline for approximately 10 seconds.
+    """
     def __init__(self, login_object: Login) -> None:
-        """ Initializes the BatchConfiguration object. """
+        """
+        Initializes the ``BatchConfiguration`` object. Returns ``None``.
+
+        :param login_object: A valid ``tlnetcard_python.Login`` object.
+        :rtype: ``None``
+        """
         self._login_object = login_object
         self._post_url = login_object.get_base_url() + "/delta/adm_batch"
     def download_snmp_configuration(self, path: str = "", no_write: bool = False) -> str:
-        """ Downloads the SNMP configuration and saves it to the specified file. """
+        """
+        Downloads the SNMP configuration. If ``no_write`` is ``False``, then the configuration will
+        be written to a file, and the file path will be returned as a string. If ``no_write`` is
+        ``True``, the configuration file will be returned as a string.
+
+        :param path: (optional) The qualified path to which the configuration will be written. If no
+        value is specified (and ``no_write`` is ``False``), then the configuration will be written
+        to a file named ``snmp_config.ini`` in the current user's ``Downloads`` directory.
+        :param no_write: (optional) Whether the configuration should be returned as a string rather
+        than saved to a file.
+        :rtype: ``str``
+        """
         # Setting path to downloads directory for operating system if no path was specified.
         if path == "" and not no_write:
             path = str(Path.home())
@@ -43,7 +82,18 @@ class BatchConfiguration:
             out_file.write(data.text)
         return path
     def download_system_configuration(self, path: str = "", no_write: bool = False) -> None:
-        """ Downloads the system configuration and saves it to the specified file. """
+        """
+        Downloads the system configuration. If ``no_write`` is ``False``, then the configuration
+        will be written to a file, and the file path will be returned as a string. If ``no_write``
+        is ``True``, the configuration file will be returned as a string.
+
+        :param path: (optional) The qualified path to which the configuration will be written. If no
+        value is specified (and ``no_write`` is ``False``), then the configuration will be written
+        to a file named ``system_config.ini`` in the current user's ``Downloads`` directory.
+        :param no_write: (optional) Whether the configuration should be returned as a string rather
+        than saved to a file.
+        :rtype: ``str``
+        """
         # Setting path to downloads directory for operating system if no path was specified.
         if path == "" and not no_write:
             path = str(Path.home())
@@ -71,7 +121,14 @@ class BatchConfiguration:
             out_file.write(data.text)
         return path
     def upload_snmp_configuration(self, path: str = "snmp_config.ini") -> None:
-        """ Uploads the specified SNMP configuration file. """
+        """
+        Uploads the specified SNMP configuration file. Returns ``None``.
+
+        :param path: (optional) The qualified path of the file to upload. If no path is specified,
+        a file named ``snmp_config.ini`` will be uploaded from the current directory. If the file
+        to be uploaded cannot be found, a ``FileNotFoundError`` will be thrown.
+        :rtype: ``None``
+        """
         # Testing if the file specified in path exists.
         if not isfile(path):
             warn("Specified configuration file does not exist!", FileNotFoundError)
@@ -90,11 +147,18 @@ class BatchConfiguration:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        warn("NOTE: The card at " + self._login_object.get_base_url()
+        warn("The card at " + self._login_object.get_base_url()
              + " will be offline for approximately 10 seconds.", RuntimeWarning)
         self._login_object.request_snmp_config_renewal()
     def upload_system_configuration(self, path: str = "system_config.ini") -> None:
-        """ Uploads the specified system configuration file. """
+        """
+        Uploads the specified system configuration file. Returns ``None``.
+
+        :param path: (optional) The qualified path of the file to upload. If no path is specified,
+        a file named ``system_config.ini`` will be uploaded from the current directory. If the file
+        to be uploaded cannot be found, a ``FileNotFoundError`` will be thrown.
+        :rtype: ``None``
+        """
         # Testing if the file specified in path exists.
         if not isfile(path):
             warn("Specified configuration file does not exist!", FileNotFoundError)
@@ -113,6 +177,6 @@ class BatchConfiguration:
                                               timeout=self._login_object.get_timeout(),
                                               verify=self._login_object.get_reject_invalid_certs()
                                               ).raise_for_status()
-        warn("NOTE: The card at " + self._login_object.get_base_url()
+        warn("The card at " + self._login_object.get_base_url()
              + " will be offline for approximately 10 seconds.", RuntimeWarning)
         self._login_object.request_system_config_renewal()
