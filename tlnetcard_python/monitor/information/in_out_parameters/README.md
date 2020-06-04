@@ -97,7 +97,7 @@ card = Login("sample_username", "sample_password", "10.0.0.100", reject_invalid_
 
 # Get battery IO measurements.
 card_io = InOutParameters(card)
-batt_load = card_io.get_input_measurements(snmp=False)["Voltage (V)"]
+batt_load = card_io.get_output_measurements(snmp=False)["Voltage (V)"]
 if batt_load > 90:
     print("The card at " + card.get_host() " is under " + str(batt_load) + "% load!")
 
