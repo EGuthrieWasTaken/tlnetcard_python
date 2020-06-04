@@ -28,7 +28,7 @@ class BatchConfiguration:
     >>> card = Login(user="admin", passwd="password", host="10.0.0.100")
     >>> card_batch_config = BatchConfiguration(card)
     >>> # Now that the BatchConfiguration object has been created, functions belonging to the
-    >>> # BatchConfiguration class can be sued. For example, uploading a new system configuration
+    >>> # BatchConfiguration class can be used. For example, uploading a new system configuration
     >>> # file:
     >>> card_batch_config.upload_system_configuration("path/to/config/file.ini")
     RuntimeWarning: The card at https://10.0.0.100:443 will be offline for approximately 10 seconds.
