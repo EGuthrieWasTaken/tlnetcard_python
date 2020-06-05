@@ -55,6 +55,7 @@ class Identification:
         """
         self._login_object = login_object
         self._get_url = login_object.get_base_url() + "/en/ups/info_ident.asp"
+    # pylint: disable=too-many-locals
     def get_identification_info(self, snmp: bool = True, snmp_user: str = "",
                                 snmp_auth_key: str = "", snmp_priv_key: str = "") -> Dict[str, str]:
         """
@@ -82,9 +83,9 @@ class Identification:
             # Getting values.
             host = self._login_object.get_host()
             timeout = self._login_object.get_timeout()
+            snmp_ids = [snmp_dict[i] for i in snmp_dict]
             model, ups_firm, int_firm, ups_ser, int_ser, mac = get_with_snmp(host,
-                                                                             [snmp_dict[i] for i in
-                                                                             snmp_dict], snmp_user,
+                                                                             snmp_ids, snmp_user,
                                                                              snmp_auth_key,
                                                                              snmp_priv_key, timeout)
 
