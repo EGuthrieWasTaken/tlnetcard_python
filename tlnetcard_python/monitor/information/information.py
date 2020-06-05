@@ -67,15 +67,17 @@ def get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = "", snmp_auth
             out.append(str(var_binds[0]).split("=")[-1])
     return out
 def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: Session = None,
-                         timeout: float = 10.0) -> List[str]:
+                         timeout: float = 10.0, xpath: bool = False) -> List[str]:
     """
     Scrapes the provided web elements by their ID from the provided webpage. Returns ``List[str]``.
 
     :param host: The IP address/DNS name of the web server.
-    :param element_ids: A list of HTML element IDs to retrieve from the host.
+    :param element_ids: A list of HTML element IDs to retrieve from the host. These will instead be
+    Xpaths if ``xpath`` is set to ``True``.
     :param url: The specific URL from which element ID values will be scraped.
     :param session: (optional) A ``requests.Session`` object from which cookies will be transferred.
     :param timeout: (optional) The number of seconds to wait for responses before quitting.
+    :param xpath: (optional) Whether Xpath should be used to find element values instead of IDs.
     :rtype: ``List[str]``
     """
     # Configuring Selenium to run headless (i.e. without a GUI).
@@ -100,7 +102,10 @@ def scrape_with_selenium(host: str, element_ids: List[str], url: str, session: S
     while timeout > counter:
         # pylint: disable=consider-using-enumerate
         for i in range(0, len(element_ids)):
-            out[i] = browser.find_element_by_id(element_ids[i]).text
+            if not xpath:
+                out[i] = browser.find_element_by_id(element_ids[i]).text
+            else:
+                out[i] = browser.find_element_by_xpath(element_ids[i]).text
         if '' not in [out[j] for j in out]:
             break
         sleep(0.5)

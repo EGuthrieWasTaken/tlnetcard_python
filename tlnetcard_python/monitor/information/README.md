@@ -11,14 +11,15 @@ The functions in this file are not part of a class, and can be used independentl
 
 ## get_with_snmp(host: str, snmp_ids: List[str], snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None, timeout: float = 10.0) -> List[str]
 
-|        Name         |  Type  | Required | Default Value |                                   Description                                   |
-|:-------------------:|:------:|:--------:|:-------------:|:-------------------------------------------------------------------------------:|
-|     ``host``      | String |   Yes    |      N/A      |                   The host which will sending out SNMP data.                    |
-|   ``snmp_ids``    |  List  |   Yes    |      N/A      |         A list of SNMP IDs for which the function will retrieve values.         |
-|   ``snmp_user``   | String |    No    |  ``None``   |                       A SNMP user with read permissions.                        |
-| ``snmp_auth_key`` | String |    No    |  ``None``   |                      The auth key for the ``snmp_user``.                      |
-| ``snmp_priv_key`` | String |    No    |  ``None``   |                      The priv key for the ``snmp_user``.                      |
-|    ``timeout``    | Float  |    No    |   ``10``    | The maximum time the function may wait for a response from the SNMP ``host``. |
+|       Name        |  Type   | Required | Default Value |                                                             Description                                                             |
+|:-----------------:|:-------:|:--------:|:-------------:|:-----------------------------------------------------------------------------------------------------------------------------------:|
+|     ``host``      | String  |   Yes    |      N/A      |                                             The host which will sending out SNMP data.                                              |
+|   ``snmp_ids``    |  List   |   Yes    |      N/A      | A list of SNMP IDs for which the function will retrieve values. If ``xpath`` is ``True``, then these will be Xpaths instead of IDs. |
+|   ``snmp_user``   | String  |    No    |   ``None``    |                                                 A SNMP user with read permissions.                                                  |
+| ``snmp_auth_key`` | String  |    No    |   ``None``    |                                                 The auth key for the ``snmp_user``.                                                 |
+| ``snmp_priv_key`` | String  |    No    |   ``None``    |                                                 The priv key for the ``snmp_user``.                                                 |
+|    ``timeout``    |  Float  |    No    |    ``10``     |                            The maximum time the function may wait for a response from the SNMP ``host``.                            |
+|     ``xpath``     | Boolean |    No    |   ``False``   |                                 Whether Xpaths should be used to identify elements instead of IDs.                                  |
 
 Gets the values for each of the specified SNMP IDs and returns them in a list.  
 Example:
