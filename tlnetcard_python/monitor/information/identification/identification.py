@@ -1,6 +1,3 @@
-# Steps to configure this template:
-# 8) Trim trailing whitespace from all lines, ensure no line exceedes 100 characters, and delete
-#    these instructions. You're on your own, kid.
 """
 tlnetcard_python.monitor.information.identification.identification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,11 +115,17 @@ class Identification:
                                                                                     xpaths,
                                                                                     self._get_url,
                                                                                     session,
-                                                                                    timeout)
+                                                                                    timeout,
+                                                                                    xpath=True)
 
             # Generating out dictionary.
             out = {
-
-                'Type': 'On line'
+                'Model': model,
+                'Type': 'On line',
+                'UPS Firmware': ups_firm,
+                'Interface Firmware': int_firm,
+                'UPS Serial Number': ups_ser,
+                'Interface Serial Number': int_ser,
+                'MAC Address': mac
             }
         return out
