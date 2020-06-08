@@ -165,13 +165,13 @@ class Identification:
         volt_amp, power, in_volt, out_volt, freq, batt_volt, hi_volt, low_volt = rating_info
         # Generating out dictionary.
         out = {
-            'VA (kVA)': volt_amp,
-            'Power (kW)': power,
-            'Input Voltage (V)': in_volt,
-            'Output Voltage (V)': out_volt,
-            'Frequency (Hz)': freq,
-            'Vattery Voltage (V)': batt_volt,
-            'High Transfer Voltage (V)': hi_volt,
-            'Low Transfer Voltage (V)': low_volt
+            'VA (kVA)': float(volt_amp.split(" ")[0]),
+            'Power (kW)': float(power.split(" ")[0]),
+            'Input Voltage (V)': int(in_volt.split(" ")[0]),
+            'Output Voltage (V)': int(out_volt.split(" ")[0]),
+            'Frequency (Hz)': float(freq.split(" ")[0]),
+            'Vattery Voltage (V)': int(batt_volt.split(" ")[0]),
+            'High Transfer Voltage (V)': int(hi_volt.split(" ")[0]),
+            'Low Transfer Voltage (V)': int(low_volt.split(" ")[0])
         }
         return out
