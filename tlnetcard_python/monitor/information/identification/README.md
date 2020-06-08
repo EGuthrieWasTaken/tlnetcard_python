@@ -1,5 +1,11 @@
 # [identification.py](identification.py)
 
+|                                                                                              Function Header                                                                                              |             Quick Description             |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------:|
+|                                                                     [``__init__(login_object)``](#__init__login_object-login---none)                                                                      | Initializes the BatteryParameters object. |
+| [``get_identification_info(snmp=True, snmp_user="", snmp_auth_key="", snmp_priv_key="")``](#get_identification_infosnmp-bool--true-snmp_user-str---snmp_auth_key-str---snmp_priv_key-str-----dictstr-str) |   Gets UPS identification information.    |
+|                                                                           [``get_ups_rating()``](#get_ups_rating---dictstr-any)                                                                           |       Gets UPS rating information.        |
+
 ## Important Notes
 
 ### Selenium
