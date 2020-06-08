@@ -151,6 +151,7 @@ class Identification:
         # For some reason the values on this page don't have IDs so Xpaths will be used instead.
         # pylint: disable=line-too-long
         xpaths = ["/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[1]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]",
                   "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td[2]",
                   "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[4]/td[2]",
                   "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[5]/td[2]",
@@ -161,10 +162,10 @@ class Identification:
 
         rating_info = scrape_with_selenium(host, xpaths, self._get_url, session, timeout,
                                            xpath=True)
-        va, power, in_volt, out_volt, freq, batt_volt, hi_volt, low_volt = rating_info
+        volt_amp, power, in_volt, out_volt, freq, batt_volt, hi_volt, low_volt = rating_info
         # Generating out dictionary.
         out = {
-            'VA (kVA)': va,
+            'VA (kVA)': volt_amp,
             'Power (kW)': power,
             'Input Voltage (V)': in_volt,
             'Output Voltage (V)': out_volt,
