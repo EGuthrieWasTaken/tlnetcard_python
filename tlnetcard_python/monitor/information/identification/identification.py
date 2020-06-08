@@ -37,11 +37,16 @@ class Identification:
 
     >>> card_identification.get_identification_info(snmp_user="admin", snmp_auth_key="imadethisup",
     >>>                                             snmp_priv_key="imadethisuptoo")
+    {'Model': 'SU1500RTXLCD2U', 'Type': 'On line', 'UPS Firmware': 'FW2567R16',
+    'Interface Firmware': '01.12.05c', 'UPS Serial Number': '2628ELCPS795100166',
+    'Interface Serial Number': '2634BLCAC897C00163', 'MAC Address': '00-06-67-06-08-c0'}
 
     Or they can be run using Selenium:
 
     >>> card_identification.get_identification_info(snmp=False)
-
+    {'Model': 'SU1500RTXLCD2U', 'Type': 'On line', 'UPS Firmware': 'FW2567R16',
+    'Interface Firmware': '01.12.05c', 'UPS Serial Number': '2628ELCPS795100166',
+    'Interface Serial Number': '2634BLCAC897C00163', 'MAC Address': '00-06-67-06-08-c0'}
     """
     def __init__(self, login_object: Login) -> None:
         """
@@ -128,4 +133,44 @@ class Identification:
                 'Interface Serial Number': int_ser,
                 'MAC Address': mac
             }
+        return out
+        # pylint: disable=too-many-locals
+    def get_ups_rating(self) -> Dict[str, str]:
+        """
+        Returns UPS rating information as a dictionary. This function uses Selenium only, as UPS
+        rating values and not output with SNMP. These values should all be the same between UPS
+        with identical hardware.
+
+        :rtype: ``Dict[str, str]``
+        """
+        # Selenium will be used to scrape values. This method is slower than using SNMP.
+        # Getting values.
+        host = self._login_object.get_host()
+        session = self._login_object.get_session()
+        timeout = self._login_object.get_timeout()
+        # For some reason the values on this page don't have IDs so Xpaths will be used instead.
+        # pylint: disable=line-too-long
+        xpaths = ["/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[1]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[4]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[5]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[6]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[7]/td[2]",
+                  "/html/body/table/tbody/tr[5]/td[3]/table/tbody/tr[3]/td[3]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[8]/td[2]"]
+        # pylint: enable=line-too-long
+
+        rating_info = scrape_with_selenium(host, xpaths, self._get_url, session, timeout,
+                                           xpath=True)
+        va, power, in_volt, out_volt, freq, batt_volt, hi_volt, low_volt = rating_info
+        # Generating out dictionary.
+        out = {
+            'VA (kVA)': va,
+            'Power (kW)': power,
+            'Input Voltage (V)': in_volt,
+            'Output Voltage (V)': out_volt,
+            'Frequency (Hz)': freq,
+            'Vattery Voltage (V)': batt_volt,
+            'High Transfer Voltage (V)': hi_volt,
+            'Low Transfer Voltage (V)': low_volt
+        }
         return out
