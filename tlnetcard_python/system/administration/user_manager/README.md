@@ -98,7 +98,7 @@ Which may print, for example:
 
 ```python
 True
-``
+```
 
 ## get_server_info() -> Dict[str, Any]
 
@@ -133,7 +133,7 @@ Which may print, for example:
 
 ```python
 "10.0.0.200"
-``
+```
 
 ## get_user(user: str = "Administrator") -> Dict[str, Any]
 
@@ -173,7 +173,7 @@ Which may print, for example:
 
 ```python
 "10.0.0.200"
-``
+```
 
 ## set_permissions(user: str = "Administrator", login_user: bool = False, framed_user: bool = False, callback_login: bool = False, callback_framed: bool = False, outbound: bool = False, administrative: bool = False, nas_prompt: bool = False, authenticate_only: bool = False, callback_nas_prompt: bool = False, call_check: bool = False, callback_administrative: bool = False, selenium: bool = False) -> bool
 

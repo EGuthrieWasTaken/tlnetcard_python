@@ -202,7 +202,7 @@ Which may print, for example:
 
 ```python
 "10.0.0.100"
-``
+```
 
 ## get_ipv6_info() -> Dict[str, Any]
 
@@ -239,7 +239,7 @@ Which may print, for example:
 
 ```python
 64
-``
+```
 
 ## get_system_info() -> Dict[str, str]
 
@@ -274,7 +274,7 @@ Which may print, for example:
 
 ```python
 "TLNET"
-``
+```
 
 ## set_ipv4_info(ip_addr: str, mask: str = "255.255.255.0", gateway: str = "", dns_ip: str = "", domain: str = "") -> None
 

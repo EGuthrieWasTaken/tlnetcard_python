@@ -68,8 +68,8 @@ card.logout()
 
 Which would print:  
 
-```text
-https://10.0.0.100
+```python
+"https://10.0.0.100"
 ```
 
 ## get_host() -> str
@@ -93,8 +93,8 @@ card.logout()
 Which would print:  
 
 ```python
-10.0.0.100
-``
+"10.0.0.100"
+```
 
 ## get_port() -> int
 
@@ -118,7 +118,7 @@ Which would print:
 
 ```python
 443
-``
+```
 
 ## get_reject_invalid_certs() -> bool
 
@@ -142,7 +142,7 @@ Which would print:
 
 ```python
 False
-``
+```
 
 ## get_session() -> Session
 
@@ -229,7 +229,7 @@ Which would print:
 
 ```python
 23.7
-``
+```
 
 ## logout() -> None
 

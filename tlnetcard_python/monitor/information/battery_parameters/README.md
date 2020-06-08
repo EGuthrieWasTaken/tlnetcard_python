@@ -66,7 +66,7 @@ Which may print, for example:
 
 ```python
 "The battery status for the UPS at 10.0.0.100 is unknown!"
-``
+```
 
 ## get_battery_measurements(snmp: bool = True, snmp_user: str = None, snmp_auth_key: str = None, snmp_priv_key: str = None) -> Dict[str, Any]
 
@@ -110,7 +110,7 @@ Which may print, for example:
 
 ```python
 "The battery temperature for the UPS at 10.0.0.100 is 53°C!"
-``
+```
 
 ## get_last_replacement_date() -> str
 
