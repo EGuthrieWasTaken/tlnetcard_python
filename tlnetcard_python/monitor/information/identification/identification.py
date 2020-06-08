@@ -135,7 +135,7 @@ class Identification:
             }
         return out
         # pylint: disable=too-many-locals
-    def get_ups_rating(self) -> Dict[str, str]:
+    def get_ups_rating(self) -> Dict[str, Any]:
         """
         Returns UPS rating information as a dictionary. This function uses Selenium only, as UPS
         rating values and not output with SNMP. These values should all be the same between UPS
@@ -170,7 +170,7 @@ class Identification:
             'Input Voltage (V)': int(in_volt.split(" ")[0]),
             'Output Voltage (V)': int(out_volt.split(" ")[0]),
             'Frequency (Hz)': float(freq.split(" ")[0]),
-            'Vattery Voltage (V)': int(batt_volt.split(" ")[0]),
+            'Battery Voltage (V)': int(batt_volt.split(" ")[0]),
             'High Transfer Voltage (V)': int(hi_volt.split(" ")[0]),
             'Low Transfer Voltage (V)': int(low_volt.split(" ")[0])
         }
