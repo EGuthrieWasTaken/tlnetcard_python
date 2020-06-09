@@ -113,7 +113,6 @@ card.logout()
 * [tlnetcard_python](/tlnetcard_python)
   * [Monitor](/tlnetcard_python/monitor)
     * [Information](/tlnetcard_python/monitor/information)
-      * [UPS Properties](/tlnetcard_python/monitor/information/ups_properties)
       * [Battery Parameters](/tlnetcard_python/monitor/information/battery_parameters)
       * In/Out Parameters
       * [Identification](/tlnetcard_python/monitor/information/identification)
