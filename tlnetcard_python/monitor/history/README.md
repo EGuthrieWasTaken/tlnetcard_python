@@ -7,8 +7,6 @@
       * [Battery Parameters](/tlnetcard_python/monitor/information/battery_parameters)
       * [In/Out Parameters](/tlnetcard_python/monitor/information/in_out_parameters)
       * [Identification](/tlnetcard_python/monitor/information/identification)
-      * [Status Indication](/tlnetcard_python/monitor/information/status_indication)
-      * [Shutdown Agent](/tlnetcard_python/monitor/information/shutdown_agent)
     * History
       * [Event Log](/tlnetcard_python/monitor/history/event_log)
       * [Data Log](/tlnetcard_python/monitor/history/data_log)

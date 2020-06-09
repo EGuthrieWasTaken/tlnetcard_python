@@ -33,7 +33,7 @@ if int(battery_status) == 1:
     print("Battery status unknown!")
 elif int(battery_status)  >= 3:
     print("Battery low: " + battery_capacity + "%")
-``
+```
 
 ## scrape_with_selenium(host: str, element_ids: List[str], url: str, session: Session = None, timeout: float = 10.0) -> List[str]
 
@@ -58,7 +58,7 @@ if int(battery_status) == 1:
     print("Battery status unknown!")
 elif int(battery_status)  >= 3:
     print("Battery low: " + battery_capacity + "%")
-``
+```
 
 ## Documentation Tree
 
@@ -69,8 +69,6 @@ elif int(battery_status)  >= 3:
       * [Battery Parameters](/tlnetcard_python/monitor/information/battery_parameters)
       * [In/Out Parameters](/tlnetcard_python/monitor/information/in_out_parameters)
       * [Identification](/tlnetcard_python/monitor/information/identification)
-      * [Status Indication](/tlnetcard_python/monitor/information/status_indication)
-      * [Shutdown Agent](/tlnetcard_python/monitor/information/shutdown_agent)
     * [History](/tlnetcard_python/monitor/history)
       * [Event Log](/tlnetcard_python/monitor/history/event_log)
       * [Data Log](/tlnetcard_python/monitor/history/data_log)
