@@ -116,7 +116,7 @@ class BatchConfiguration:
         # Returning raw configuration data if no_write was set to True.
         if no_write:
             return data.text
-        # Otherwise writing configuration data to file an returning the file path.
+        # Otherwise writing configuration data to file and returning the file path.
         with open(path, "w") as out_file:
             out_file.write(data.text)
         return path
