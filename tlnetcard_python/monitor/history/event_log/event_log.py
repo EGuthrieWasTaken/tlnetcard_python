@@ -52,9 +52,9 @@ class EventLog:
         if path == "":
             path = str(Path.home())
             if system() == "Windows":
-                path += "\\Downloads\\snmp_config.ini"
+                path += "\\Downloads\\event_log.csv"
             else:
-                path += "/Downloads/snmp_config.ini"
+                path += "/Downloads/event_log.csv"
         
         # Creating download payload.
         download_data = {
