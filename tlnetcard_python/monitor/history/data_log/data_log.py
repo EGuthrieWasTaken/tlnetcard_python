@@ -55,7 +55,7 @@ class DataLog:
                 path += "\\Downloads\\data_log.csv"
             else:
                 path += "/Downloads/data_log.csv"
-        
+
         # Creating download payload.
         download_data = {
             'DATA_BUT': 'Download'
