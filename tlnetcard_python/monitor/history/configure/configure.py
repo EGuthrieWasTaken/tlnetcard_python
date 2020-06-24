@@ -34,3 +34,59 @@ class Configure:
         :rtype: ``None``
         """
         self._login_object = login_object
+        self._post_url = self._login_object.get_base_url + "/delta/hist_config"
+    def clear_data_log(self) -> None:
+        """
+        Clears the data log. Returns ``None``.
+
+        :rtype: ``None``
+        """
+        # Generating payload.
+        config_data = {
+            "CLEAR_DATA": "Clear Data Log"
+        }
+
+        # Uploading FTP configuration and requesting system config renewal.
+        self._login_object.get_session().post(self._post_url, data=config_data,
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
+    def clear_event_log(self) -> None:
+        """
+        Clears the data log. Returns ``None``.
+
+        :rtype: ``None``
+        """
+        # Generating payload.
+        config_data = {
+            "CLEAR_LOG": "Clear Event Log"
+        }
+
+        # Uploading FTP configuration and requesting system config renewal.
+        self._login_object.get_session().post(self._post_url, data=config_data,
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
+    def set_data_interval(self, interval: int = 10) -> None:
+        """
+        Sets the interval in minutes at which information is saved to the data log. Returns
+        ``None``.
+        
+        :param interval: The number of minutes between saves of the data log. This number must be
+        between ``0`` and ``10``. A value of ``0`` will result in the data log never being saved.
+        :rtype: ``None``
+        """
+        # Generating payload.
+        config_data = {
+            "HCG_INTERVAL": str(interval),
+            "HCG_APPLY": "Apply"
+        }
+
+        # Uploading FTP configuration and requesting system config renewal.
+        self._login_object.get_session().post(self._post_url, data=config_data,
+                                              timeout=self._login_object.get_timeout(),
+                                              verify=self._login_object.get_reject_invalid_certs()
+                                              ).raise_for_status()
+        self._login_object.request_system_config_renewal()
