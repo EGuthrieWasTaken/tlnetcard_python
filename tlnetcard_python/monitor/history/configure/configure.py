@@ -73,7 +73,7 @@ class Configure:
         """
         Sets the interval in minutes at which information is saved to the data log. Returns
         ``None``.
-        
+
         :param interval: The number of minutes between saves of the data log. This number must be
         between ``0`` and ``10``. A value of ``0`` will result in the data log never being saved.
         :rtype: ``None``

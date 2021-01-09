@@ -37,7 +37,7 @@ class DataLog:
         :rtype: ``None``
         """
         self._login_object = login_object
-        self._post_url = self._login_object.get_base_url + "/delta/hist_data"
+        self._post_url = self._login_object.get_base_url() + "/delta/hist_data"
     def download_data_log(self, path: str = "") -> str:
         """
         Downloads the system data log and saves it as a CSV file. Returns a ``str`` which contains
